@@ -1,0 +1,80 @@
+<!-- Updated Market wall (#markets) and Problem ('Risk runs through banks') sections, copied from the latest Dexetera Landing v2.dc.html. Replaces the same two blocks in the original source. -->
+<div id="markets" data-reveal data-screen-label="Market wall" style="max-width:1344px;margin:0 auto;padding:clamp(28px,3.5vw,44px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Dexetera / Market wall</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">Live markets on real-world numbers.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Every market tracks a public number, trades in USDC on an order book, and settles from the source. Eggs is live today. The rest show the kinds of markets anyone can list.</p>
+  </div>
+  <div style="display:flex;gap:4px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px">
+    <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="7">
+      <button onClick="{{ fl.on }}" style="flex:none;height:32px;padding:0 14px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:{{ fl.bg }};border:1px solid {{ fl.border }};color:{{ fl.color }}">{{ fl.label }}</button>
+    </sc-for>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ wallCols }};grid-template-rows:{{ wallRows }};gap:12px;min-width:0">
+    <a href="{{ feat.href }}" style="opacity:{{ feat.op }};background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;color:var(--t1);min-width:0;transition:opacity .25s,border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px);color:var(--t1)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+        <div style="display:flex;gap:6px;align-items:center"><span style="font-size:10px;font-weight:500;color:var(--t3);background:var(--glass);border:1px solid var(--glass-line2);border-radius:4px;padding:3px 7px">{{ feat.cat }}</span><span style="font-size:10px;font-weight:600;letter-spacing:0.08em;color:var(--violet-soft);background:color-mix(in srgb,var(--violet) 15%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);border-radius:100px;padding:3px 9px">FEATURED</span></div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:{{ feat.tagColor }}">{{ feat.tag }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:{{ featWrap }};justify-content:space-between;align-items:flex-end;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:18px;font-weight:600;letter-spacing:-0.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ feat.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4)">{{ feat.id }}/USDC · {{ feat.unit }}</span></div>
+        <div style="display:flex;align-items:baseline;gap:10px;flex:none"><span style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600">{{ feat.price }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ feat.chgColor }}">{{ feat.chg }}</span></div>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;display:flex">{{ feat.chart }}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--hair);padding-top:10px;gap:8px">
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">VOLUME 24H</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.vol }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">OPEN INT.</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.oi }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">TRADERS</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.traders }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">SETTLES</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--amber-text)">{{ feat.settleShort }}</span></div>
+      </div>
+    </a>
+    <div style="display:{{ smDisplay }};grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px;min-width:0;overflow-x:{{ smOverflow }};scroll-snap-type:x mandatory;padding-bottom:{{ smPadB }}">
+    <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:{{ smFlex }};scroll-snap-align:start;opacity:{{ c.op }};background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;color:var(--t1);min-width:0;transition:opacity .25s,border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px);color:var(--t1)">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <span style="font-size:10px;font-weight:500;color:var(--t3);background:var(--glass);border:1px solid var(--glass-line2);border-radius:4px;padding:3px 7px">{{ c.cat }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:{{ c.tagColor }}">{{ c.tag }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.id }} · {{ c.unit }}</span></div>
+        <div style="display:flex;align-items:center;gap:10px;min-width:0"><div style="display:flex;flex-direction:column;gap:2px;flex:none"><span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600">{{ c.price }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:{{ c.chgColor }}">{{ c.chg }}</span></div><div style="flex:1;min-width:0;height:36px">{{ c.spark }}</div></div>
+        <span style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--amber-text);background:color-mix(in srgb,var(--amber) 8%,transparent);border:1px solid color-mix(in srgb,var(--amber) 20%,transparent);border-radius:4px;padding:2px 6px">{{ c.settle }}</span>
+      </a>
+    </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM / SOLUTION -->
+<div data-reveal data-screen-label="Problem" style="max-width:1344px;margin:0 auto;padding:clamp(28px,3.5vw,44px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">How risk moves today</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance"><span style="display:block;color:var(--t5)">Risk runs through banks.</span><span style="display:block;color:var(--t1)">Most of it never gets a market.</span></h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Deep markets exist for a handful of big things. For almost everything else, a hedge is a private deal on the bank's terms, or not possible at all. Dexetera replaces the bank's role with open software and public data.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ probCols }};gap:12px;min-width:0">
+  <div ref="{{ netRef }}" style="position:relative;min-width:0;height:{{ netH }};border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)">
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(color-mix(in srgb,var(--t1) 3.5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--t1) 3.5%,transparent) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 100%)"></div>
+    <div style="position:absolute;left:50%;top:20px;transform:translateX(-50%);z-index:2;display:flex;padding:3px;gap:2px;background:var(--card2);border:1px solid var(--line2);border-radius:100px">
+      <button onClick="{{ netToday }}" style="height:30px;padding:0 16px;border:0;border-radius:100px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;background:{{ netTodayBg }};color:{{ netTodayC }};transition:background .2s,color .2s">Today</button>
+      <button onClick="{{ netDex }}" style="height:30px;padding:0 16px;border:0;border-radius:100px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;display:flex;align-items:center;gap:6px;background:{{ netDexBg }};color:{{ netDexC }};transition:background .2s,color .2s"><span style="width:6px;height:6px;border-radius:50%;background:var(--green)"></span>On Dexetera</button>
+    </div>
+    <div style="position:absolute;left:0;right:0;top:64px;bottom:12px">{{ netSvg }}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ probStatCols }};grid-template-rows:{{ probRows }};gap:12px;min-width:0">
+    <sc-for list="{{ probStats }}" as="ps" hint-placeholder-count="4">
+      <div style="position:relative;overflow:hidden;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-line);border-radius:16px;box-shadow:inset 0 1px 0 var(--glass-line2);padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0;transition:border-color .2s,transform .2s" style-hover="border-color:var(--glass-line3);transform:translateY(-2px)">
+        <span style="position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:{{ ps.tint }};filter:blur(24px);pointer-events:none"></span>
+        <span style="position:relative;font-family:'JetBrains Mono',monospace;font-size:clamp(18px,1.6vw,22px);font-weight:500;letter-spacing:-0.02em;color:var(--t1);overflow-wrap:anywhere">{{ ps.v }}</span>
+        <span style="position:relative;font-size:13px;line-height:1.5;color:var(--t3);flex:1">{{ ps.d }}</span>
+        <span style="position:relative;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--green);border-top:1px solid var(--glass-line2);padding-top:10px">DEXETERA: {{ ps.x }}<span>→</span></span>
+      </div>
+    </sc-for>
+  </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->

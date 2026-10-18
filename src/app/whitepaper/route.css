@@ -1,0 +1,12 @@
+/* next/font family names, and the route scroll behavior from the page spec. */
+.dx-whitepaper {
+  --sans: var(--font-manrope), "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+:root:has(.dx-whitepaper) {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.dx-whitepaper) { scroll-behavior: auto; }
+}

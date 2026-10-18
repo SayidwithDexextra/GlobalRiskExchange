@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script>
+(function(){
+  try{var t=localStorage.getItem('dx-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}
+  window.dxToggleTheme=function(){
+    var h=document.documentElement,n=h.getAttribute('data-theme')==='light'?'dark':'light';
+    h.classList.add('theme-anim');h.setAttribute('data-theme',n);
+    try{localStorage.setItem('dx-theme',n)}catch(e){}
+    setTimeout(function(){h.classList.remove('theme-anim')},350);
+    document.querySelectorAll('.theme-toggle').forEach(function(b){b.setAttribute('aria-label',n==='light'?'Switch to dark mode':'Switch to light mode')});
+  };
+})();
+</script>
+<style>
+:root{
+  --bg:#0A0A0B; --bg-deep:#000; --card:#0F0F0F; --card2:#141414; --card3:#1A1A1A;
+  --line:#222; --line2:#2A2A2A; --line3:#333; --line4:#404040; --hair:#1A1A1A; --row:#161616;
+  --t1:#FFFFFF; --t2:#A1A1A1; --t3:#808080; --t4:#606060; --t5:#5C5C5C;
+  --green:#4ADE80; --red:#F87171; --amber:#FACC15; --violet:#8B5CF6; --blue:#3B82F6;
+  --hero-a:#232323; --hero-b:#121212;
+  --hdr-glass:rgba(10,10,11,.78);
+  --btn-p-bg:#FFFFFF; --btn-p-fg:#000; --btn-p-hover:#E5E5E5;
+  --btn-s-bg:#141414; --btn-s-fg:#FFFFFF; --btn-s-line:#2A2A2A; --btn-s-hover:#404040;
+  --progress:rgba(255,255,255,.8);
+  --shadow:0 40px 120px rgba(0,0,0,.8); --highlight:inset 0 1px 0 rgba(255,255,255,.06);
+  --grain:.07; --rock-filter:none; --sel-bg:#fff; --sel-fg:#000;
+  --t-soft:#D1D5DB; --t-gray:#9CA3AF; --grain-lp:.06; --pill:rgba(20,20,20,0.8);
+  --glass:rgba(255,255,255,0.04); --glass-line:rgba(255,255,255,0.08); --glass-line2:rgba(255,255,255,0.06); --glass-line3:rgba(255,255,255,0.14);
+  --btn-p-ic:#0F0F0F; --btn-p-ic-f:invert(1); --hero-ts:none; --step-line:rgba(255,255,255,0.5);
+  --ln:#1F1F1F; --t-hi:#E5E5E5; --emerald:#10B981; --blue-soft:#93C5FD; --violet-soft:#A78BFA; --violet-soft2:#C4B5FD; --amber-text:#D4A017; --dash-sh:0 40px 120px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+[data-theme="light"]{
+  --bg:#FAFAFA; --bg-deep:#FFFFFF; --card:#FFFFFF; --card2:#F4F4F5; --card3:#EDEDED;
+  --line:#E5E5E5; --line2:#DADADA; --line3:#D4D4D4; --line4:#A3A3A3; --hair:#EBEBEB; --row:#EFEFEF;
+  --t1:#0A0A0B; --t2:#404040; --t3:#595959; --t4:#737373; --t5:#A3A3A3;
+  --green:#16A34A; --red:#DC2626; --amber:#CA8A04; --violet:#7C3AED; --blue:#2563EB;
+  --hero-a:#FFFFFF; --hero-b:#F2F2F2;
+  --hdr-glass:rgba(250,250,250,.82);
+  --btn-p-bg:#0A0A0B; --btn-p-fg:#FFFFFF; --btn-p-hover:#262626;
+  --btn-s-bg:#FFFFFF; --btn-s-fg:#0A0A0B; --btn-s-line:#DADADA; --btn-s-hover:#A3A3A3;
+  --progress:rgba(10,10,11,.8);
+  --shadow:0 30px 80px rgba(0,0,0,.08); --highlight:inset 0 1px 0 rgba(255,255,255,.9);
+  --grain:.035; --rock-filter:saturate(.9) brightness(1.08); --sel-bg:#0A0A0B; --sel-fg:#fff;
+  --t-soft:#262626; --t-gray:#6B7280; --grain-lp:.035; --pill:rgba(255,255,255,0.85);
+  --glass:rgba(255,255,255,0.7); --glass-line:rgba(0,0,0,0.08); --glass-line2:rgba(0,0,0,0.06); --glass-line3:rgba(0,0,0,0.16);
+  --btn-p-ic:#FFFFFF; --btn-p-ic-f:none; --hero-ts:0 0 24px #FAFAFA,0 0 48px #FAFAFA; --step-line:rgba(10,10,11,0.5);
+  --ln:#E8E8E8; --t-hi:#171717; --emerald:#059669; --blue-soft:#1D4ED8; --violet-soft:#6D28D9; --violet-soft2:#6D28D9; --amber-text:#A16207; --dash-sh:0 30px 80px rgba(0,0,0,.08);
+  color-scheme:light;
+}
+html.theme-anim *{transition:background-color .3s,border-color .3s,color .3s,fill .3s,stroke .3s!important}
+.theme-toggle{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--btn-s-bg);border:1px solid var(--btn-s-line);color:var(--t2);cursor:pointer;transition:border-color .2s,color .2s;padding:0;flex:none}
+.theme-toggle:hover{border-color:var(--btn-s-hover);color:var(--t1)}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:var(--bg);color:var(--t1);font-family:"Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+*{box-sizing:border-box}
+a{color:var(--t2);text-decoration:none}
+a:hover{color:var(--t1)}
+@keyframes dx-ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes dx-ticker-r{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes dx-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes dx-roll-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes dx-roll-out{from{transform:translateY(0)}to{transform:translateY(-100%)}}
+@keyframes dx-travel{from{transform:translate(var(--x0),var(--y0));opacity:1}to{transform:translate(var(--x1),var(--y1));opacity:0.2}}
+@keyframes dx-barpulse{from{opacity:1}to{opacity:0.55}}
+@keyframes dx-pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 5px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+input[type=range]{accent-color:var(--t1)}
+input:focus{outline:none}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;scroll-behavior:auto !important}}
+</style>
+<script src="assets/dx-storm-minimal.js"></script>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);color:var(--t1);font-family:Manrope,system-ui,sans-serif">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:40;height:72px;background:{{ hdrBg }};border-bottom:1px solid {{ hdrLine }};backdrop-filter:{{ hdrBlur }};-webkit-backdrop-filter:{{ hdrBlur }};transition:background 200ms,border-color 200ms,backdrop-filter 200ms,-webkit-backdrop-filter 200ms">
+  <div style="position:relative;max-width:1344px;height:100%;margin:0 auto;padding:0 {{ hdrPad }};display:flex;align-items:center;justify-content:space-between">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;color:var(--t1)">
+      <img src="assets/dexetera-logo.png" alt="Dexetera" style="width:32px;height:32px;border-radius:6px;display:block;flex:none">
+      <span style="font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--t1)">Dexetera</span>
+    </a>
+    <sc-if value="{{ hdrNav }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;gap:28px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap">
+        <a href="#markets">Markets</a><a href="#how">How it works</a><a href="#product">Product</a><a href="Whitepaper.dc.html">Whitepaper</a><a href="Team.dc.html">Team</a><a href="Contact.dc.html">Contact</a>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:10px">
+      <sc-if value="{{ showLang }}" hint-placeholder-val="{{ true }}">
+        <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);padding:0 8px;cursor:pointer"><img src="https://unpkg.com/lucide-static@0.460.0/icons/globe.svg" alt="" style="width:14px;height:14px;filter:invert(0.65)">English</span>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="theme-toggle" type="button" onClick="{{ toggleTheme }}" aria-label="Switch to light mode">
+          <svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+          <svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        </button>
+        <sc-if value="{{ showCreate }}" hint-placeholder-val="{{ true }}">
+          <a href="https://dexetera.xyz/new-market" style="height:34px;padding:0 16px;display:flex;align-items:center;background:var(--card2);border:1px solid var(--line2);border-radius:100px;color:var(--t1);font-size:12px;font-weight:600;transition:border-color .15s" style-hover="border-color:var(--line4);color:var(--t1)">Create a market</a>
+        </sc-if>
+        <a href="https://dexetera.xyz" style="height:34px;padding:0 16px 0 6px;display:flex;align-items:center;gap:8px;background:var(--btn-p-bg);border-radius:100px;color:var(--btn-p-fg);font-size:12px;font-weight:600" style-hover="background:var(--btn-p-hover);color:var(--btn-p-fg)"><span style="width:22px;height:22px;border-radius:50%;background:var(--btn-p-ic);display:flex;align-items:center;justify-content:center;flex:none"><img src="https://unpkg.com/lucide-static@0.460.0/icons/arrow-up-right.svg" alt="" style="width:12px;height:12px;filter:var(--btn-p-ic-f)"></span>Launch app</a>
+        <sc-if value="{{ hdrBurger }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ toggleMenu }}" aria-label="Menu" style="width:34px;height:34px;border-radius:100px;border:1px solid var(--line2);background:var(--card2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
+            <span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span>
+          </button>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ toggleMenu }}" style="position:absolute;top:72px;left:0;right:0;background:var(--card2);border-bottom:1px solid var(--line);padding:8px clamp(16px,3vw,32px) 16px;display:flex;flex-direction:column;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">
+      <a href="#markets" style="padding:14px 0;border-bottom:1px solid var(--hair)">Markets</a><a href="#how" style="padding:14px 0;border-bottom:1px solid var(--hair)">How it works</a><a href="#product" style="padding:14px 0;border-bottom:1px solid var(--hair)">Product</a><a href="Whitepaper.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Whitepaper</a><a href="Team.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Team</a><a href="Contact.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Contact</a><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><a href="https://dexetera.xyz/new-market" style="padding:14px 0;color:var(--t1)">Create a market</a><button class="theme-toggle" type="button" onClick="{{ toggleThemeMenu }}" aria-label="Switch to light mode">
+          <svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+          <svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        </button></div>
+    </div>
+  </sc-if>
+</header>
+
+<!-- HERO -->
+<div id="top" ref="{{ heroRef }}" data-screen-label="Hero" style="position:relative;height:{{ heroH }};background:var(--bg)">
+<div style="position:{{ stagePos }};top:0;height:{{ stageH }};overflow:hidden;padding-bottom:{{ stagePb }};background:radial-gradient(ellipse at 50% 0%,var(--hero-a) 0%,var(--hero-b) 35%,var(--bg) 70%)">
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:var(--grain-lp);background-image:url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22160%22%20height=%22160%22%3E%3Cfilter%20id=%22n%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.85%22%20numOctaves=%222%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url(%23n)%22/%3E%3C/svg%3E')"></div>
+  <canvas class="dx-storm" aria-hidden="true" style="position:absolute;inset:0;z-index:0;pointer-events:none"></canvas>
+  <div ref="{{ copyRef }}" style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:{{ heroPadT }} 16px 0;will-change:transform,opacity">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--t4);opacity:{{ inO }};transform:{{ inT }};transition:opacity 600ms ease,transform 600ms cubic-bezier(.2,.7,.2,1)">The marketplace for risk</div>
+    <h1 style="text-shadow:var(--hero-ts);margin:20px 0 0;font-size:{{ h1Size }};font-weight:600;line-height:1.02;letter-spacing:-0.04em">
+      <span style="display:block;color:var(--t5);opacity:{{ inO }};transform:{{ inT }};transition:opacity 600ms ease 80ms,transform 600ms cubic-bezier(.2,.7,.2,1) 80ms">Hedge the</span>
+      <span style="display:block;color:var(--t1);opacity:{{ inO }};transform:{{ inT }};transition:opacity 600ms ease 160ms,transform 600ms cubic-bezier(.2,.7,.2,1) 160ms">unhedgeable.</span>
+    </h1>
+    <p style="text-shadow:var(--hero-ts);margin:20px 0 0;max-width:500px;font-size:15px;line-height:1.6;color:var(--t3);text-wrap:pretty;opacity:{{ inO }};transform:{{ inT }};transition:opacity 600ms ease 240ms,transform 600ms cubic-bezier(.2,.7,.2,1) 240ms">Create a futures market on any number you can measure, trade it long or short in USDC, and let public data settle it.</p>
+    <div style="margin-top:28px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;opacity:{{ inO }};transform:{{ inT }};transition:opacity 600ms ease 320ms,transform 600ms cubic-bezier(.2,.7,.2,1) 320ms">
+      <a href="#markets" style="height:40px;padding:0 20px;display:flex;align-items:center;gap:8px;background:var(--btn-p-bg);border-radius:100px;color:var(--btn-p-fg);font-size:13px;font-weight:600" style-hover="background:var(--btn-p-hover);color:var(--btn-p-fg)">Explore markets <span>→</span></a>
+      <a href="https://dexetera.xyz/new-market" style="height:40px;padding:0 20px;display:flex;align-items:center;background:var(--card2);border:1px solid var(--line2);border-radius:100px;color:var(--t1);font-size:13px;font-weight:600;transition:border-color .15s" style-hover="border-color:var(--line4);color:var(--t1)">Create a market</a>
+    </div>
+  </div>
+
+  <div ref="{{ dashRef }}" style="position:relative;z-index:2;display:flex;justify-content:center;margin-top:{{ dashMt }};will-change:transform">
+    <div style="width:{{ dashW }};flex:none;display:flex;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--t1) 6%,transparent),var(--dash-sh);opacity:{{ dashO }};transform:{{ dashT }};transition:opacity 700ms ease 200ms,transform 700ms cubic-bezier(.2,.7,.2,1) 200ms">
+      <sc-if value="{{ showSide }}" hint-placeholder-val="{{ true }}">
+        <div style="width:200px;flex:none;background:var(--card2);border-right:1px solid var(--ln);padding:16px 12px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px">
+            <span style="display:flex;align-items:center;gap:8px"><img src="assets/dexetera-logo.png" alt="" style="width:24px;height:24px;border-radius:5px;display:block;flex:none"><span style="font-size:13px;font-weight:600">Dexetera</span></span>
+            <img src="https://unpkg.com/lucide-static@0.460.0/icons/panel-left.svg" alt="" style="width:14px;height:14px;filter:invert(0.4)">
+          </div>
+          <div style="height:32px;padding:0 10px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:8px">
+            <img src="https://unpkg.com/lucide-static@0.460.0/icons/search.svg" alt="" style="width:12px;height:12px;filter:invert(0.4)"><span style="flex:1;font-size:12px;color:var(--t4)">Search</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--line4)">⌘K</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;font-size:12px;font-weight:500">
+            <span style="height:32px;padding:0 10px;display:flex;align-items:center;gap:10px;border-radius:8px;background:var(--ln);color:var(--t1)"><img src="https://unpkg.com/lucide-static@0.460.0/icons/layout-dashboard.svg" alt="" style="width:14px;height:14px;filter:invert(1)">Overview</span>
+            <span style="height:32px;padding:0 10px;display:flex;align-items:center;gap:10px;border-radius:8px;color:var(--t2)"><img src="https://unpkg.com/lucide-static@0.460.0/icons/compass.svg" alt="" style="width:14px;height:14px;filter:invert(0.6)">Explore</span>
+            <span style="height:32px;padding:0 10px;display:flex;align-items:center;gap:10px;border-radius:8px;color:var(--t2)"><img src="https://unpkg.com/lucide-static@0.460.0/icons/star.svg" alt="" style="width:14px;height:14px;filter:invert(0.6)">Watchlist</span>
+            <span style="height:32px;padding:0 10px;display:flex;align-items:center;gap:10px;border-radius:8px;color:var(--t2)"><img src="https://unpkg.com/lucide-static@0.460.0/icons/activity.svg" alt="" style="width:14px;height:14px;filter:invert(0.6)">Analytics</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--ln);padding-top:12px">
+            <button onClick="{{ toggleMy }}" style="height:28px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;background:none;border:0;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">MY MARKETS<img src="https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg" alt="" style="width:12px;height:12px;filter:invert(0.4);transform:{{ myChev }};transition:transform .2s"></button>
+            <sc-if value="{{ myOpen }}" hint-placeholder-val="{{ true }}">
+              <sc-for list="{{ myMarkets }}" as="mm" hint-placeholder-count="3">
+                <span style="height:30px;padding:0 10px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px"><span style="width:6px;height:6px;border-radius:50%;background:{{ mm.dot }}"></span><span style="flex:1;color:var(--t-soft)">{{ mm.sym }}</span><span style="color:var(--t4)">{{ mm.p }}</span></span>
+              </sc-for>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <div style="flex:1;min-width:0;padding:16px 20px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px">
+          <span style="height:32px;padding:0 12px 0 4px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:100px;background:var(--card2)"><span style="width:24px;height:24px;border-radius:50%;background:var(--line2);border:1px solid var(--line3)"></span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t1)">0xdda4…12b4</span></span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2)"><span style="width:26px;height:14px;border-radius:100px;background:var(--t1);position:relative"><span style="position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--card)"></span></span>Live</span>
+            <sc-if value="{{ showSide }}" hint-placeholder-val="{{ true }}">
+              <span style="height:28px;padding:0 10px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2)">Oct 1 to Oct 16<img src="https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg" alt="" style="width:10px;height:10px;filter:invert(0.5)"></span>
+            </sc-if>
+            <span style="width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center"><img src="https://unpkg.com/lucide-static@0.460.0/icons/bell.svg" alt="" style="width:12px;height:12px;filter:invert(0.6)"></span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--t4)">PORTFOLIO VALUE</span>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:{{ pvSize }};font-weight:500;letter-spacing:-0.03em;color:var(--t1);line-height:1">{{ pv }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 7px;border-radius:100px;color:var(--green);background:color-mix(in srgb,var(--emerald) 12%,transparent)">{{ pvPct }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 7px;border-radius:100px;color:var(--t2);background:var(--ln)">{{ pvGain }}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ heroAssets }}" as="ha" hint-placeholder-count="3">
+            <span style="height:30px;padding:0 12px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:100px;background:var(--card2);font-family:'JetBrains Mono',monospace;font-size:11px"><span style="width:7px;height:7px;border-radius:50%;background:{{ ha.dot }}"></span><span style="color:var(--t1)">{{ ha.sym }}</span><span style="color:var(--t2)">{{ ha.p }}</span><span style="color:{{ ha.col }}">{{ ha.c }}</span></span>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="height:140px;display:flex;align-items:flex-end;gap:2px">
+            <sc-for list="{{ dBars }}" as="db" hint-placeholder-count="60">
+              <span style="flex:1;min-width:0;height:{{ db.h }};background:{{ db.c }};border-radius:1px"></span>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4)"><span>OCT 1</span><span>OCT 4</span><span>OCT 7</span><span>OCT 10</span><span>OCT 13</span><span>OCT 16</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,2fr) repeat(4,minmax(0,1fr));gap:8px;padding-top:12px;border-top:1px solid var(--ln);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--t4)"><span>Market</span><span>Side</span><span>Entry</span><span>Mark</span><span style="text-align:right">P&amp;L</span></div>
+        <div style="display:flex;flex-direction:column;margin-top:-12px">
+          <sc-for list="{{ posRows }}" as="pr" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:minmax(0,2fr) repeat(4,minmax(0,1fr));gap:8px;align-items:center;height:38px;border-top:1px solid var(--hair);font-family:'JetBrains Mono',monospace;font-size:11px"><span style="color:var(--t1)">{{ pr.m }}</span><span style="color:{{ pr.sc }}">{{ pr.side }}</span><span style="color:var(--t2)">{{ pr.e }}</span><span style="color:var(--t2)">{{ pr.k }}</span><span style="text-align:right;color:{{ pr.pc }}">{{ pr.pnl }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div aria-hidden="true" style="position:absolute;inset:0;z-index:{{ rocksZ }};pointer-events:none">
+    <div ref="{{ rockLRef }}" style="position:absolute;left:0;bottom:0;width:{{ rk.lw }};height:{{ rk.h }};transform-origin:left bottom;will-change:transform">
+      <div style="width:100%;height:100%;background-image:url(assets/hero_rocks.webp);filter:var(--rock-filter);background-repeat:no-repeat;background-size:{{ rk.bs }};background-position:0px 0px;transform:{{ rockS }};transform-origin:left bottom;transition:transform 1200ms cubic-bezier(.2,.7,.2,1)"></div>
+    </div>
+    <div ref="{{ rockRRef }}" style="position:absolute;right:0;bottom:0;width:{{ rk.rw }};height:{{ rk.h }};transform-origin:right bottom;will-change:transform">
+      <div style="width:100%;height:100%;background-image:url(assets/hero_rocks.webp);filter:var(--rock-filter);background-repeat:no-repeat;background-size:{{ rk.bs }};background-position:{{ rk.rp }};transform:{{ rockS }};transform-origin:right bottom;transition:transform 1200ms cubic-bezier(.2,.7,.2,1)"></div>
+    </div>
+  </div>
+
+  <sc-if value="{{ seq }}" hint-placeholder-val="{{ true }}">
+  <a ref="{{ pillRef }}" href="#markets" style="position:absolute;z-index:4;left:50%;bottom:24px;transform:translateX(-50%);height:32px;padding:0 14px;display:flex;align-items:center;gap:8px;background:var(--pill);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line2);border-radius:100px;font-size:11px;color:var(--t2);white-space:nowrap" style-hover="color:var(--t1);border-color:var(--line4)"><img src="https://unpkg.com/lucide-static@0.460.0/icons/mouse.svg" alt="" style="width:12px;height:12px;filter:invert(0.65)">Scroll to explore</a>
+  </sc-if>
+</div>
+</div>
+
+<!-- TICKER / STATS / TRUST -->
+<div style="background:var(--bg);border-bottom:1px solid var(--hair);height:46px;overflow:hidden">{{ ticker }}</div>
+<div style="border-bottom:1px solid var(--hair);background:var(--bg)">
+  <div style="max-width:1344px;margin:0 auto;padding:0 clamp(16px,3vw,32px);overflow-x:auto">
+    <div style="display:grid;grid-template-columns:{{ statCols }};">
+      <sc-for list="{{ stats }}" as="st" hint-placeholder-count="5">
+        <div style="grid-column:{{ st.span }};padding:16px 20px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--hair);border-bottom:{{ st.bb }}">
+          <span style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--t-gray)"><span style="width:5px;height:5px;border-radius:50%;background:var(--green)"></span>{{ st.label }}</span>
+          <span style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--t1)">{{ st.value }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4)">{{ st.sub }}</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+<div style="max-width:1344px;margin:0 auto;padding:28px clamp(16px,3vw,32px);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 40px;color:var(--t4)">
+  <span style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--line4)">SETTLED BY</span><span style="font-size:15px;font-weight:700;letter-spacing:0.06em">UMA</span><span style="font-size:12px;font-weight:500">Optimistic Oracle</span></span>
+  <span style="width:1px;height:16px;background:var(--line)"></span>
+  <span style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--line4)">COLLATERAL</span><span style="font-size:15px;font-weight:600;letter-spacing:0.02em">USDC</span></span>
+  <span style="width:1px;height:16px;background:var(--line)"></span>
+  <span style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--line4)">DATA FROM</span><span style="font-family:Georgia,serif;font-size:15px;font-weight:700;letter-spacing:0.04em">FRED</span><span style="font-size:15px;font-weight:700;letter-spacing:0.12em">BLS</span><span style="font-size:15px;font-weight:600;letter-spacing:0.02em;font-style:italic">ERCOT</span><span style="font-size:15px;font-weight:600;letter-spacing:-0.01em">Freightos</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600">TrendForce</span></span>
+</div>
+
+<!-- MARKET WALL -->
+<div id="markets" data-reveal data-screen-label="Market wall" style="max-width:1344px;margin:0 auto;padding:clamp(28px,3.5vw,44px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Dexetera / Market wall</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">Live markets on real-world numbers.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Every market tracks a public number, trades in USDC on an order book, and settles from the source. Eggs is live today. The rest show the kinds of markets anyone can list.</p>
+  </div>
+  <div style="display:flex;gap:4px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px">
+    <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="7">
+      <button onClick="{{ fl.on }}" style="flex:none;height:32px;padding:0 14px;border-radius:8px;font-family:Manrope,sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:{{ fl.bg }};border:1px solid {{ fl.border }};color:{{ fl.color }}">{{ fl.label }}</button>
+    </sc-for>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ wallCols }};grid-template-rows:{{ wallRows }};gap:12px;min-width:0">
+    <a href="{{ feat.href }}" style="opacity:{{ feat.op }};background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;color:var(--t1);min-width:0;transition:opacity .25s,border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px);color:var(--t1)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+        <div style="display:flex;gap:6px;align-items:center"><span style="font-size:10px;font-weight:500;color:var(--t3);background:var(--glass);border:1px solid var(--glass-line2);border-radius:4px;padding:3px 7px">{{ feat.cat }}</span><span style="font-size:10px;font-weight:600;letter-spacing:0.08em;color:var(--violet-soft);background:color-mix(in srgb,var(--violet) 15%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);border-radius:100px;padding:3px 9px">FEATURED</span></div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:{{ feat.tagColor }}">{{ feat.tag }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:{{ featWrap }};justify-content:space-between;align-items:flex-end;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:18px;font-weight:600;letter-spacing:-0.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ feat.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4)">{{ feat.id }}/USDC · {{ feat.unit }}</span></div>
+        <div style="display:flex;align-items:baseline;gap:10px;flex:none"><span style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600">{{ feat.price }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ feat.chgColor }}">{{ feat.chg }}</span></div>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;display:flex">{{ feat.chart }}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--hair);padding-top:10px;gap:8px">
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">VOLUME 24H</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.vol }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">OPEN INT.</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.oi }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">TRADERS</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">{{ feat.traders }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">SETTLES</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--amber-text)">{{ feat.settleShort }}</span></div>
+      </div>
+    </a>
+    <div style="display:{{ smDisplay }};grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px;min-width:0;overflow-x:{{ smOverflow }};scroll-snap-type:x mandatory;padding-bottom:{{ smPadB }}">
+    <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+      <a href="{{ c.href }}" style="flex:{{ smFlex }};scroll-snap-align:start;opacity:{{ c.op }};background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;color:var(--t1);min-width:0;transition:opacity .25s,border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px);color:var(--t1)">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <span style="font-size:10px;font-weight:500;color:var(--t3);background:var(--glass);border:1px solid var(--glass-line2);border-radius:4px;padding:3px 7px">{{ c.cat }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:{{ c.tagColor }}">{{ c.tag }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.id }} · {{ c.unit }}</span></div>
+        <div style="display:flex;align-items:center;gap:10px;min-width:0"><div style="display:flex;flex-direction:column;gap:2px;flex:none"><span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600">{{ c.price }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:{{ c.chgColor }}">{{ c.chg }}</span></div><div style="flex:1;min-width:0;height:36px">{{ c.spark }}</div></div>
+        <span style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--amber-text);background:color-mix(in srgb,var(--amber) 8%,transparent);border:1px solid color-mix(in srgb,var(--amber) 20%,transparent);border-radius:4px;padding:2px 6px">{{ c.settle }}</span>
+      </a>
+    </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM / SOLUTION -->
+<div data-reveal data-screen-label="Problem" style="max-width:1344px;margin:0 auto;padding:clamp(28px,3.5vw,44px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">How risk moves today</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance"><span style="display:block;color:var(--t5)">Risk runs through banks.</span><span style="display:block;color:var(--t1)">Most of it never gets a market.</span></h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Deep markets exist for a handful of big things. For almost everything else, a hedge is a private deal on the bank's terms, or not possible at all. Dexetera replaces the bank's role with open software and public data.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ probCols }};gap:12px;min-width:0">
+  <div ref="{{ netRef }}" style="position:relative;min-width:0;height:{{ netH }};border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)">
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(color-mix(in srgb,var(--t1) 3.5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--t1) 3.5%,transparent) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 100%)"></div>
+    <div style="position:absolute;left:50%;top:20px;transform:translateX(-50%);z-index:2;display:flex;padding:3px;gap:2px;background:var(--card2);border:1px solid var(--line2);border-radius:100px">
+      <button onClick="{{ netToday }}" style="height:30px;padding:0 16px;border:0;border-radius:100px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;background:{{ netTodayBg }};color:{{ netTodayC }};transition:background .2s,color .2s">Today</button>
+      <button onClick="{{ netDex }}" style="height:30px;padding:0 16px;border:0;border-radius:100px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;display:flex;align-items:center;gap:6px;background:{{ netDexBg }};color:{{ netDexC }};transition:background .2s,color .2s"><span style="width:6px;height:6px;border-radius:50%;background:var(--green)"></span>On Dexetera</button>
+    </div>
+    <div style="position:absolute;left:0;right:0;top:64px;bottom:12px">{{ netSvg }}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ probStatCols }};grid-template-rows:{{ probRows }};gap:12px;min-width:0">
+    <sc-for list="{{ probStats }}" as="ps" hint-placeholder-count="4">
+      <div style="position:relative;overflow:hidden;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-line);border-radius:16px;box-shadow:inset 0 1px 0 var(--glass-line2);padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0;transition:border-color .2s,transform .2s" style-hover="border-color:var(--glass-line3);transform:translateY(-2px)">
+        <span style="position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:{{ ps.tint }};filter:blur(24px);pointer-events:none"></span>
+        <span style="position:relative;font-family:'JetBrains Mono',monospace;font-size:clamp(18px,1.6vw,22px);font-weight:500;letter-spacing:-0.02em;color:var(--t1);overflow-wrap:anywhere">{{ ps.v }}</span>
+        <span style="position:relative;font-size:13px;line-height:1.5;color:var(--t3);flex:1">{{ ps.d }}</span>
+        <span style="position:relative;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--green);border-top:1px solid var(--glass-line2);padding-top:10px">DEXETERA: {{ ps.x }}<span>→</span></span>
+      </div>
+    </sc-for>
+  </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how" data-reveal data-screen-label="How it works" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">How it works</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">From an exposure to a live market in four steps.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Dexetera splits what a bank does into open parts: creating the market, pricing it, guaranteeing it and settling it. Each step runs on software and public data.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ c4 }};gap:24px 12px">
+    <div onClick="{{ st0.on }}" style="display:flex;flex-direction:column;gap:14px;cursor:pointer;min-width:0">
+      <div style="display:flex;align-items:center;gap:10px;margin-right:-12px"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;border-radius:4px;padding:3px 7px;background:{{ st0.badgeBg }};color:{{ st0.badgeColor }};border:1px solid {{ st0.badgeBorder }};transition:all .25s">01</span><span style="flex:1;height:1px;background:{{ st0.line }};transition:background .4s"></span></div>
+      <div style="flex:1;background:{{ st0.bg }};border:1px solid {{ st0.border }};border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:14px;transition:all .25s">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:600;color:{{ st0.titleColor }}">List</span><span style="font-size:13px;line-height:1.6;color:var(--t3)">Describe a number in plain language. The AI wizard builds the market and suggests public sources.</span></div>
+        <div style="margin-top:auto;background:var(--bg);border:1px solid var(--hair);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:13px;color:var(--t-soft);display:flex;align-items:center">GPU H100 rental $/hr<span style="display:inline-block;width:1px;height:14px;background:var(--t3);margin-left:2px;animation:dx-blink 1s steps(1) infinite"></span></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">SUGGESTED SOURCES</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span style="font-size:11px;color:var(--t2);border:1px solid var(--line3);border-radius:100px;padding:3px 9px">GPU rental index · daily</span><span style="font-size:11px;color:var(--t2);border:1px solid var(--line3);border-radius:100px;padding:3px 9px">Cloud list prices</span></div>
+          <div style="display:flex;justify-content:flex-end"><span style="height:26px;padding:0 10px;display:flex;align-items:center;background:var(--line2);border-radius:8px;font-size:11px;color:var(--t-soft)">✦ Create</span></div>
+        </div>
+      </div>
+    </div>
+    <div onClick="{{ st1.on }}" style="display:flex;flex-direction:column;gap:14px;cursor:pointer;min-width:0">
+      <div style="display:flex;align-items:center;gap:10px;margin-right:-12px"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;border-radius:4px;padding:3px 7px;background:{{ st1.badgeBg }};color:{{ st1.badgeColor }};border:1px solid {{ st1.badgeBorder }};transition:all .25s">02</span><span style="flex:1;height:1px;background:{{ st1.line }};transition:background .4s"></span></div>
+      <div style="flex:1;background:{{ st1.bg }};border:1px solid {{ st1.border }};border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:14px;transition:all .25s">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:600;color:{{ st1.titleColor }}">Trade</span><span style="font-size:13px;line-height:1.6;color:var(--t3)">Go long or short with USDC on a live order book, with the metric plotted on a TradingView chart.</span></div>
+        <div style="margin-top:auto;background:var(--bg);border:1px solid var(--hair);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px"><span style="height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--green);background:color-mix(in srgb,var(--emerald) 12%,transparent);border:1px solid color-mix(in srgb,var(--green) 60%,transparent)">↗ Long</span><span style="height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--t3);border:1px solid var(--line)">↘ Short</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;height:30px;padding:0 10px;background:var(--card3);border:1px solid var(--line2);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px"><span style="color:var(--t3);font-family:Manrope,sans-serif">Size</span><span>$1,000 <span style="color:var(--t4)">· 5x</span></span></div>
+          <span style="height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;background:var(--green);color:var(--bg)">Long GPU-H100</span>
+        </div>
+      </div>
+    </div>
+    <div onClick="{{ st2.on }}" style="display:flex;flex-direction:column;gap:14px;cursor:pointer;min-width:0">
+      <div style="display:flex;align-items:center;gap:10px;margin-right:-12px"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;border-radius:4px;padding:3px 7px;background:{{ st2.badgeBg }};color:{{ st2.badgeColor }};border:1px solid {{ st2.badgeBorder }};transition:all .25s">03</span><span style="flex:1;height:1px;background:{{ st2.line }};transition:background .4s"></span></div>
+      <div style="flex:1;background:{{ st2.bg }};border:1px solid {{ st2.border }};border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:14px;transition:all .25s">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:600;color:{{ st2.titleColor }}">Price &amp; margin</span><span style="font-size:13px;line-height:1.6;color:var(--t3)">Live bids and asks drive valuation, P&amp;L and margin. Exit any time before settlement.</span></div>
+        <div style="margin-top:auto;background:var(--bg);border:1px solid var(--hair);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px">
+          <div style="height:34px;margin-bottom:4px">{{ stepSpark }}</div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t4)">ENTRY · MARK</span><span>$2.00 · $2.14</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t4)">UNREALIZED P&amp;L</span><span style="color:var(--green);font-weight:600">+$350.00</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t4)">MARGIN USED</span><span>$1,000.00</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t4)">LIQ. PRICE</span><span>$1.62</span></div>
+        </div>
+      </div>
+    </div>
+    <div onClick="{{ st3.on }}" style="display:flex;flex-direction:column;gap:14px;cursor:pointer;min-width:0">
+      <div style="display:flex;align-items:center;gap:10px"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;border-radius:4px;padding:3px 7px;background:{{ st3.badgeBg }};color:{{ st3.badgeColor }};border:1px solid {{ st3.badgeBorder }};transition:all .25s">04</span><span style="flex:1;height:1px;background:var(--card3)"></span></div>
+      <div style="flex:1;background:{{ st3.bg }};border:1px solid {{ st3.border }};border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:14px;transition:all .25s">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:600;color:{{ st3.titleColor }}">Settle</span><span style="font-size:13px;line-height:1.6;color:var(--t3)">AI captures the final value and archives the source. Anyone can challenge. Disputes escalate to UMA.</span></div>
+        <div style="margin-top:auto;background:var(--bg);border:1px solid var(--hair);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--t4);letter-spacing:0.1em">FINAL VALUE</span><span style="color:var(--violet-soft);background:color-mix(in srgb,var(--violet) 15%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);border-radius:4px;padding:1px 6px;font-size:9px">UMA OO</span></div>
+          <span style="font-size:20px;font-weight:600">$2.31<span style="font-size:10px;color:var(--t4);font-weight:400"> /HR</span></span>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--t4)">SNAPSHOT</span><span style="color:var(--blue-soft)">archive.org/web/…</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--t4)">CHALLENGE WINDOW</span><span style="color:var(--amber-text);background:color-mix(in srgb,var(--amber) 8%,transparent);border:1px solid color-mix(in srgb,var(--amber) 20%,transparent);border-radius:4px;padding:1px 6px">2H</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAMPLE -->
+<div data-reveal data-screen-label="Example" style="max-width:1344px;margin:0 auto;padding:clamp(28px,3.5vw,44px) clamp(16px,3vw,32px) 0">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">A real example / GPU-H100</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">One market, two businesses, both protected.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">GPU compute trades at $2.00/hr. InferCo buys compute, so it goes long. RigCloud sells compute, so it goes short. Drag the price and watch each hedge cancel the other side's exposure.</p>
+  </div>
+  <div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0;display:grid;grid-template-columns:{{ exCardCols }}">
+      <div style="padding:{{ exPad }};display:flex;flex-direction:column;gap:14px;min-width:0">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">GPU-H100/USDC · MARK · 90 DAYS</span>
+          <span style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600">{{ gpuLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:{{ gpuChgColor }}">{{ moveLabel }}</span></span>
+        </div>
+        <div style="position:relative;height:{{ exChartH }}">
+          <div style="position:absolute;left:0;top:0;bottom:0;right:44px">{{ gpuChart }}</div>
+          <div style="position:absolute;right:0;top:0;bottom:0;width:44px;border-left:1px solid var(--hair);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t4)">
+            <span style="position:absolute;left:8px;top:12.5%;transform:translateY(-50%)">$3.00</span><span style="position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--t2)">$2.00</span><span style="position:absolute;left:8px;top:87.5%;transform:translateY(-50%)">$1.00</span>
+          </div>
+        </div>
+        <input type="range" min="1" max="3" step="0.05" value="{{ gpu }}" onInput="{{ onGpu }}" onChange="{{ onGpu }}" aria-label="GPU price per hour" style="width:100%;cursor:pointer;margin:4px 0 0">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4)"><span>$1.00</span><span>DRAG · ENTRY $2.00 · 1,000 HRS HEDGED</span><span>$3.00</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;min-width:0;border-left:{{ exRightBL }};border-top:{{ exRightBT }}">
+      <div style="flex:1;display:grid;grid-template-columns:{{ exLedgerCols }}">
+        <sc-for list="{{ ledgers }}" as="lg" hint-placeholder-count="2">
+          <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;border-right:{{ exLgBR }};border-bottom:1px solid var(--hair)">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:baseline;gap:8px;min-width:0;flex-wrap:wrap"><span style="font-size:15px;font-weight:600">{{ lg.name }}</span><span style="font-size:12px;color:var(--t3)">{{ lg.role }}</span></div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:{{ lg.sideColor }};background:{{ lg.sideBg }};border:1px solid {{ lg.sideLine }};border-radius:8px;padding:4px 9px">{{ lg.side }}</span>
+            </div>
+            <sc-for list="{{ lg.rows }}" as="rw" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px"><span style="color:var(--t3)">{{ rw.label }}</span><span style="color:{{ rw.color }}">{{ rw.val }}</span></div>
+                <div style="position:relative;height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
+                  <span style="position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--line4)"></span>
+                  <span style="position:absolute;top:0;bottom:0;left:{{ rw.left }};width:{{ rw.width }};background:{{ rw.barColor }};border-radius:3px;transition:left .15s,width .15s"></span>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid var(--hair);padding-top:6px"><span style="color:var(--t1)">NET</span><span style="color:var(--t1);font-weight:600">$0</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 10px;padding:12px 16px;background:var(--bg)">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">TRADING FEES GENERATED · CREATOR SHARES IN EVERY TRADE</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:var(--t1)">{{ feesLabel }}</span>
+        <p style="margin:0;flex-basis:100%;font-size:13px;line-height:1.5;color:var(--t4)">Neither side is gambling. Both lock in a more predictable quarter, and the market's creator earns a fee on every trade.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARKET TYPES -->
+<div data-reveal data-screen-label="Market types" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Market types</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">A market for almost any exposure.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Trade a single published number, or the gap between two numbers that sets a business's margin.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ tablesCols }};gap:12px">
+    <sc-for list="{{ typeTables }}" as="tt" hint-placeholder-count="2">
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--hair)">
+          <div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:600">{{ tt.title }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);background:var(--card3);border-radius:4px;padding:2px 6px">{{ tt.count }}</span></div>
+          <span style="font-size:12px;color:var(--t4)">{{ tt.sub }}</span>
+        </div>
+        <div style="overflow-x:auto">
+          <div style="min-width:580px">
+            <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) 64px 44px;gap:12px;padding:10px 20px;border-bottom:1px solid var(--hair);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)"><span>MARKET</span><span>LONG</span><span>SHORT</span><span>7D</span><span></span></div>
+            <sc-for list="{{ tt.rows }}" as="r" hint-placeholder-count="5">
+              <a href="{{ r.href }}" style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) 64px 44px;gap:12px;align-items:center;min-height:58px;padding:8px 20px;border-bottom:1px solid var(--hair);color:var(--t1);transition:background .15s" style-hover="background:var(--card2);color:var(--t1)">
+                <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:13px;font-weight:600">{{ r.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)">{{ r.sym }}</span></span>
+                <span style="font-size:12px;color:var(--t2)">{{ r.long }}</span>
+                <span style="font-size:12px;color:var(--t2)">{{ r.short }}</span>
+                <span style="height:22px">{{ r.spark }}</span>
+                <span style="text-align:right;font-size:12px;font-weight:600;color:var(--violet-soft2)">View</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- WHO -->
+<div data-reveal data-screen-label="Who it's for" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Who it's for</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">For anyone with exposure to a number.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Businesses hedge the inputs that move their margins. Traders take a view. Experts list what they know. Anyone with a wallet can take part.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ c4 }};gap:12px">
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px)">
+      <div style="height:128px;background:var(--bg);border:1px solid var(--hair);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em"><span style="color:var(--red)">— UNHEDGED COST</span><span style="color:var(--t2)">-- HEDGED</span></div>
+        <div style="flex:1">{{ whoV1 }}</div>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">01 / BUSINESSES</span>
+      <span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">Hedge the number that moves your margin.</span>
+      <span style="font-size:13px;line-height:1.6;color:var(--t3);flex:1">Importers, data centers, miners and farmers can take the other side of the price that drives their costs.</span>
+      <a href="https://dexetera.xyz/explore" style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t-soft);border:1px solid var(--line3);border-radius:4px;padding:4px 8px" style-hover="border-color:var(--line4);color:var(--t1)">GPU-H100 →</a>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px)">
+      <div style="height:128px;background:var(--bg);border:1px solid var(--hair);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em"><span style="color:var(--green)">— POWER</span><span style="color:var(--t3)">— GAS</span><span style="color:var(--t4)">▒ GAP</span></div>
+        <div style="flex:1">{{ whoV2 }}</div>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">02 / FUNDS &amp; TRADERS</span>
+      <span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">Trade a macro print, a spread or a KPI.</span>
+      <span style="font-size:13px;line-height:1.6;color:var(--t3);flex:1">Direct exposure to real-world numbers, long or short, with leverage in USDC. Exit any time.</span>
+      <a href="https://dexetera.xyz/explore" style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t-soft);border:1px solid var(--line3);border-radius:4px;padding:4px 8px" style-hover="border-color:var(--line4);color:var(--t1)">POWER / GAS →</a>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px)">
+      <div style="height:128px;background:var(--bg);border:1px solid var(--hair);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:space-between">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)">CREATOR FEES · DRAM-DDR5</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--t1)">{{ ownerFees }}</span>
+        <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px"><span style="color:var(--t4)">PAID PER TRADE</span><span style="color:var(--green)">▲ LIVE</span></div>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">03 / DATA OWNERS</span>
+      <span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">List what you know. Earn on every trade.</span>
+      <span style="font-size:13px;line-height:1.6;color:var(--t3);flex:1">If you know a number and where it is published, the wizard turns it into a market in minutes.</span>
+      <a href="https://dexetera.xyz/new-market" style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t-soft);border:1px solid var(--line3);border-radius:4px;padding:4px 8px" style-hover="border-color:var(--line4);color:var(--t1)">DRAM-DDR5 →</a>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s" style-hover="border-color:var(--line3);transform:translateY(-1px)">
+      <div style="height:128px;background:var(--bg);border:1px solid var(--hair);border-radius:8px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px">
+        <span style="font-size:9px;letter-spacing:0.1em;color:var(--t4)">WHAT YOU NEED</span>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Wallet</span><span style="color:var(--green)">✓</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Collateral</span><span>USDC</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Gas</span><span>$0</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Signatures per trade</span><span>1</span></div>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">04 / GLOBAL INVESTORS</span>
+      <span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">Hedging tools, open to anyone.</span>
+      <span style="font-size:13px;line-height:1.6;color:var(--t3);flex:1">Most hedging products are built for institutions. Dexetera is open to anyone with a wallet.</span>
+      <a href="https://dexetera.xyz/token/PRICE-EGGS" style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t-soft);border:1px solid var(--line3);border-radius:4px;padding:4px 8px" style-hover="border-color:var(--line4);color:var(--t1)">PRICE-EGGS →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT -->
+<div id="product" data-reveal data-screen-label="Product" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ hdrCols }};gap:20px 48px;align-items:end;margin-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">The product</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.08em;color:var(--green);background:color-mix(in srgb,var(--emerald) 12%,transparent);border:1px solid color-mix(in srgb,var(--emerald) 22%,transparent);border-radius:100px;padding:3px 9px;display:flex;align-items:center;gap:6px"><span style="width:5px;height:5px;border-radius:50%;background:var(--green)"></span>LIVE TODAY</span></div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">A full exchange, live on mainnet.</h2>
+    </div>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Order book, charting, margin and settlement in one terminal. One signature to trade, no gas, and your USDC never leaves your control.</p>
+  </div>
+  <div ref="{{ appRef }}" style="width:calc(100vw - 48px);max-width:1680px;margin-left:50%;transform:translateX(-50%);box-sizing:border-box;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 140px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 140px),transparent)">
+    <div style="height:38px;background:var(--card2);border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:8px;padding:0 14px">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--line2)"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--line2)"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--line2)"></span>
+      <span style="flex:1;display:flex;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 14px">dexetera.xyz/token/NINO34-DEC26</span></span>
+    </div>
+    <div style="position:relative;height:{{ appH }};overflow:hidden">
+    <div style="position:absolute;left:0;top:0;width:{{ appInnerW }};height:803px;transform:{{ appScale }};transform-origin:0 0;font-family:Manrope,sans-serif;color:var(--t1);background:var(--bg)">
+      <div style="position:absolute;left:0px;top:0px;width:52px;bottom:0;background:var(--card);border-right:1px solid var(--hair);box-sizing:border-box">
+        <span style="position:absolute;left:10px;top:14px;width:32px;height:32px;border-radius:8px;background:var(--line2);display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/user.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/user.svg) center/contain no-repeat"></span></span>
+        <span style="position:absolute;left:17px;top:79px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/layout-grid.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/layout-grid.svg) center/contain no-repeat"></span></span><span style="position:absolute;left:17px;top:122px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/compass.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/compass.svg) center/contain no-repeat"></span></span><span style="position:absolute;left:17px;top:167px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/bookmark.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/bookmark.svg) center/contain no-repeat"></span></span><span style="position:absolute;left:17px;top:211px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/signal.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/signal.svg) center/contain no-repeat"></span></span><span style="position:absolute;left:17px;top:255px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/lightbulb.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/lightbulb.svg) center/contain no-repeat"></span></span><span style="position:absolute;left:17px;top:299px;width:18px;height:18px;display:flex"><span style="width:18px;height:18px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/settings.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/settings.svg) center/contain no-repeat"></span></span>
+      </div>
+      <div style="position:absolute;left:52px;top:0px;right:0;height:56px;box-sizing:border-box;border-bottom:1px solid var(--hair);display:flex;align-items:center;padding:0 16px">
+        <div style="width:122px;display:flex;align-items:center;gap:8px;flex:none"><img src="assets/dexetera-logo.png" alt="Dexetera" style="width:36px;height:36px;border-radius:8px;display:block"><span style="font-family:Georgia,serif;font-size:14px;letter-spacing:0.04em">DEXETERA</span></div>
+        <span style="width:1px;height:22px;background:var(--line2);flex:none"></span>
+        <div style="margin-left:12px;flex:1 1 463px;max-width:463px;min-width:200px;height:30px;box-sizing:border-box;background:var(--card3);border:1px solid var(--line2);border-radius:6px;display:flex;align-items:center;padding-left:40px;font-size:14px;color:var(--t2);white-space:nowrap;overflow:hidden">Search Active Markets</div>
+        <div style="margin-left:24px;display:flex;gap:22px;text-align:center">
+          <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:12px;color:var(--t-soft)">Portfolio</span><span style="font-size:15px;font-weight:700">$90.10</span></div>
+          <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:12px;color:var(--t-soft);display:flex;align-items:center;gap:5px">Available Cash<span style="width:7px;height:7px;border-radius:50%;background:var(--green)"></span></span><span style="font-size:15px;font-weight:700">$24.58</span></div>
+          <div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:12px;color:var(--t-soft)">Unrealized P&amp;L</span><span style="font-size:15px;font-weight:700;color:var(--green)">+$24.74</span></div>
+        </div>
+        <span style="flex:1"></span><span style="margin-left:16px;width:111px;height:36px;border-radius:6px;background:var(--blue);display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;flex:none;color:#fff">Deposit<span style="width:20px;height:18px;box-sizing:border-box;border:1.5px solid #fff;border-radius:4px;display:flex;align-items:center;justify-content:center"><span style="width:11px;height:11px;flex:none;background:#fff;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/wallet.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/wallet.svg) center/contain no-repeat"></span></span></span>
+        <span style="margin-left:20px;display:flex"><span style="width:17px;height:17px;flex:none;background:var(--t-hi);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/bell.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/bell.svg) center/contain no-repeat"></span></span>
+        <span style="margin-left:16px;height:26px;padding:0 10px;display:flex;align-items:center;border:1px solid var(--line2);border-radius:6px;font-size:12px;color:var(--t-soft)">Demo view</span>
+        <span style="margin-left:18px;display:flex;align-items:center;gap:8px"><span style="width:28px;height:28px;box-sizing:border-box;border-radius:50%;border:2px solid var(--green);background:var(--line2);display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;flex:none;background:var(--t2);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/user.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/user.svg) center/contain no-repeat"></span></span><span style="font-size:14px;font-weight:600">Trader</span><span style="width:13px;height:13px;flex:none;background:var(--t2);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg) center/contain no-repeat"></span></span>
+      </div>
+      <div style="position:absolute;left:52px;top:56px;right:0;height:46px;box-sizing:border-box;border-bottom:1px solid var(--hair);overflow:hidden">{{ btcTicker }}</div>
+      <div style="position:absolute;left:52px;top:102px;right:0;height:138px;box-sizing:border-box;background:var(--card);border-bottom:1px solid var(--hair)">
+        <div style="position:absolute;left:16px;right:16px;top:8px;height:52px;display:flex;align-items:center">
+          <span style="position:relative;display:flex"><img src="assets/nino34-icon.svg" alt="" style="width:34px;height:34px;border-radius:50%;display:block;flex:none"><span style="position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--green);border:2px solid var(--card)"></span></span>
+          <div style="flex:none;margin-left:12px;display:flex;flex-direction:column;gap:2px;white-space:nowrap"><span style="display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600">Niño 3.4<span style="width:16px;height:16px;flex:none;background:var(--violet);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/badge-check.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/badge-check.svg) center/contain no-repeat"></span></span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--t3)">NINO34-DEC26</span></div>
+          <span style="flex:none;white-space:nowrap;margin-left:16px;height:24px;padding:0 10px;display:flex;align-items:center;gap:7px;border:1px solid color-mix(in srgb,var(--amber) 35%,transparent);background:color-mix(in srgb,var(--amber) 8%,transparent);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber)"><span style="width:13px;height:13px;flex:none;background:var(--amber);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar.svg) center/contain no-repeat"></span>Settles Dec 31, 2026</span>
+          <div style="flex:none;margin-left:14px;display:flex;gap:6px"><span style="flex:none;white-space:nowrap;height:22px;padding:0 8px;display:flex;align-items:center;border:1px solid var(--line2);background:var(--card2);border-radius:4px;font-size:11px;color:var(--t2)">Climate</span><span style="flex:none;white-space:nowrap;height:22px;padding:0 8px;display:flex;align-items:center;border:1px solid var(--line2);background:var(--card2);border-radius:4px;font-size:11px;color:var(--t2)">Weather</span><span style="flex:none;white-space:nowrap;height:22px;padding:0 8px;display:flex;align-items:center;border:1px solid var(--line2);background:var(--card2);border-radius:4px;font-size:11px;color:var(--t2)">Index</span><span style="flex:none;height:22px;padding:0 7px;display:flex;align-items:center;border:1px solid color-mix(in srgb,var(--green) 35%,transparent);border-radius:4px;font-size:11px;color:var(--green)">+3</span></div>
+          <div style="flex:none;margin-left:16px;display:flex;gap:8px"><span style="flex:none;white-space:nowrap;height:24px;padding:0 6px 0 3px;display:flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--card2);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)"><span style="font-size:9px;color:var(--t3);background:var(--ln);border-radius:3px;padding:2px 4px">OB</span>0x8EB2...94D1<span style="width:11px;height:11px;flex:none;background:var(--t4);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/copy.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/copy.svg) center/contain no-repeat"></span></span><span style="flex:none;white-space:nowrap;height:24px;padding:0 6px 0 3px;display:flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--card2);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2)"><span style="font-size:9px;color:var(--t3);background:var(--ln);border-radius:3px;padding:2px 4px">ID</span>0x2803...8da8<span style="width:11px;height:11px;flex:none;background:var(--t4);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/copy.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/copy.svg) center/contain no-repeat"></span></span></div>
+          <div style="flex:none;margin-left:16px;width:102px;height:46px;box-sizing:border-box;border:1px solid var(--line);border-radius:6px;background:var(--card2);display:flex;align-items:center;gap:8px;padding:0 10px"><span style="width:26px;height:26px;border-radius:50%;background:color-mix(in srgb,var(--violet) 18%,transparent);display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;flex:none;background:var(--violet-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/eye.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/eye.svg) center/contain no-repeat"></span></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)">WATCHING</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600">0</span></span></div>
+          <span style="margin-left:18px;width:8px;height:8px;border-radius:50%;background:var(--line2)"></span>
+          <span style="flex:1"></span>
+          <span style="width:32px;height:32px;box-sizing:border-box;border:1px solid var(--line2);border-radius:6px;display:flex;align-items:center;justify-content:center"><span style="width:15px;height:15px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/star.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/star.svg) center/contain no-repeat"></span></span>
+          <span style="margin-left:8px;height:32px;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,#6366F1,#8B5CF6 50%,#A855F7)"><span style="width:14px;height:14px;flex:none;background:#fff;-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/share.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/share.svg) center/contain no-repeat"></span>Share</span>
+        </div>
+        <div style="position:absolute;left:26px;right:16px;top:66px;height:28px;display:flex;align-items:center;gap:22px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:11px">
+          <sc-for list="{{ btcStats }}" as="st" hint-placeholder-count="10"><span style="display:flex;gap:6px;white-space:nowrap"><span style="color:var(--t3);letter-spacing:0.06em">{{ st.l }}</span><span style="font-weight:600;color:{{ st.c }}">{{ st.v }}</span></span></sc-for>
+        </div>
+        <div style="position:absolute;left:10px;right:16px;top:98px;height:28px;display:flex;align-items:center;gap:10px">
+          <span style="flex:1;min-width:0;height:26px;display:flex;align-items:center;padding:0 6px;background:var(--card2);border-radius:4px;font-size:11px;color:var(--t4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">A market tracking the NOAA CPC monthly Niño 3.4 sea surface temperature anomaly in °C. Settles at 3,000 + 1,000 × anomaly, floored at zero, $1 per point. Source: NOAA Climate Prediction Center.</span>
+          <span style="width:57px;height:26px;box-sizing:border-box;border:1px solid var(--line2);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:var(--t3)"><span style="width:12px;height:12px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-down.svg) center/contain no-repeat"></span>More</span>
+        </div>
+      </div>
+      <div style="position:absolute;left:56px;right:4px;top:242px;display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) 320px;grid-template-rows:318px 240px;gap:3px 5px">
+      <div style="position:relative;grid-column:1;grid-row:1;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px;background:var(--card);overflow:hidden">
+        <div style="position:absolute;left:0;right:0;top:0;height:40px;box-sizing:border-box;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:14px;padding:0 10px;font-size:15px;color:var(--t-soft)">
+          <span style="width:17px;height:17px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/search.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/search.svg) center/contain no-repeat"></span><span style="width:68px">NINO34</span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/circle-plus.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/circle-plus.svg) center/contain no-repeat"></span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span>1D</span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="width:19px;height:19px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chart-candlestick.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chart-candlestick.svg) center/contain no-repeat"></span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="display:flex;align-items:center;gap:8px"><span style="font-style:italic;font-family:Georgia,serif;font-size:16px">fx</span>Indicators</span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="width:17px;height:17px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/undo-2.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/undo-2.svg) center/contain no-repeat"></span><span style="width:17px;height:17px;flex:none;background:var(--t4);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/redo-2.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/redo-2.svg) center/contain no-repeat"></span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="display:flex;gap:16px"><span style="width:18px;height:18px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/history.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/history.svg) center/contain no-repeat"></span><span style="width:18px;height:18px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/hexagon.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/hexagon.svg) center/contain no-repeat"></span><span style="width:18px;height:18px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/maximize.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/maximize.svg) center/contain no-repeat"></span><span style="width:18px;height:18px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/camera.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/camera.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="position:absolute;left:0;top:40px;bottom:0;width:54px;box-sizing:border-box;border-right:1px solid var(--ln);display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:10px"><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;background:var(--line2);border:1px solid var(--line3);"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/plus.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/plus.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/slash.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/slash.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/align-justify.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/align-justify.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/spline.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/spline.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/list.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/list.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/brush.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/brush.svg) center/contain no-repeat"></span></span><span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;box-sizing:border-box;"><span style="width:20px;height:20px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/type.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/type.svg) center/contain no-repeat"></span></span></div>
+        <span style="position:absolute;left:50px;top:240px;width:7px;height:22px;box-sizing:border-box;background:var(--ln);border:1px solid var(--line2);border-radius:2px;display:flex;align-items:center;justify-content:center"><span style="width:7px;height:7px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-left.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-left.svg) center/contain no-repeat"></span></span>
+        <div style="position:absolute;left:56px;right:0;top:40px;height:240px">{{ btcChart }}</div>
+        <div style="position:absolute;left:66px;top:50px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:none">
+          <span style="display:flex;align-items:center;gap:12px;font-size:16px;color:var(--t-hi)">NINO34-DEC26 (NOAA CPC) · 1D · ORDERBOOK<span style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)"></span></span>
+          <span style="display:flex;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t-soft)"><span>O <span style="color:{{ btcLeg.col }}">{{ btcLeg.o }}</span></span><span>H <span style="color:{{ btcLeg.col }}">{{ btcLeg.h }}</span></span><span>L <span style="color:{{ btcLeg.col }}">{{ btcLeg.l }}</span></span><span>C <span style="color:{{ btcLeg.col }}">{{ btcLeg.c }}</span></span><span style="color:{{ btcLeg.col }}">{{ btcLeg.chg }}</span></span>
+          <span style="font-size:13px;color:var(--t-soft)">Live Metric Tracker (1) NINO34</span>
+          <span style="width:28px;height:20px;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;display:flex;align-items:center;justify-content:center;background:var(--card)"><span style="width:12px;height:12px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-up.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/chevron-up.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="position:absolute;left:56px;right:0;top:278px;height:38px;box-sizing:border-box;border-top:1px solid var(--ln);display:flex;align-items:center;gap:14px;padding:0 6px 0 14px;font-size:14px;color:var(--t-soft);background:var(--card)">
+          <span>5y</span><span>1y</span><span>3m</span><span>1m</span><span>5d</span><span>1d</span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span style="width:18px;height:18px;flex:none;background:var(--t-soft);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar-range.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/calendar-range.svg) center/contain no-repeat"></span><span style="flex:1"></span><span style="font-family:'JetBrains Mono',monospace;font-size:13px">{{ clock }}</span><span style="width:1px;height:22px;background:var(--line2);flex:none"></span><span>%</span><span>log</span><span style="height:30px;padding:0 6px;display:flex;align-items:center;background:var(--line2);border-radius:4px">auto</span>
+        </div>
+      </div>
+      <div style="position:relative;grid-column:1;grid-row:2;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px;background:var(--card);overflow:hidden">
+        <div style="height:46px;display:flex;align-items:center;gap:8px;padding:0 10px">
+          <sc-for list="{{ posTabs }}" as="pt" hint-placeholder-count="4"><button onClick="{{ pt.on }}" style="height:34px;padding:0 10px;display:flex;align-items:center;gap:8px;border-radius:4px;border:1px solid {{ pt.border }};background:{{ pt.bg }};color:{{ pt.color }};font-family:Manrope,sans-serif;font-size:13px;font-weight:500;cursor:pointer">{{ pt.label }}<span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2);background:var(--line2);border-radius:3px;padding:1px 6px">{{ pt.n }}</span></button></sc-for>
+          <span style="flex:1"></span><span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t-soft)"><span style="width:6px;height:6px;border-radius:50%;background:var(--green)"></span>Live</span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.8fr) minmax(0,1.8fr) minmax(0,1.1fr) minmax(0,1.3fr);align-items:center;height:34px;padding:0 12px 0 9px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);font-size:10px;color:var(--t-soft);letter-spacing:0.02em"><span>SYMBOL</span><span>SIDE</span><span style="text-align:right">SIZE</span><span style="text-align:right">ENTRY</span><span style="text-align:right">MARK</span><span style="text-align:right">PNL</span><span style="text-align:right">LIQ PRICE</span></div>
+        <sc-if value="{{ showPos }}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{ btcPos }}" as="r" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.8fr) minmax(0,1.8fr) minmax(0,1.1fr) minmax(0,1.3fr);align-items:center;height:44px;padding:0 12px 0 9px;border-bottom:1px solid var(--hair);font-family:'JetBrains Mono',monospace;font-size:12px">
+              <span style="display:flex;align-items:center;gap:6px;min-width:0"><span style="width:14px;height:14px;flex:none;box-sizing:border-box;border-radius:50%;background:var(--card3);border:1px solid var(--line3);font-family:Manrope,sans-serif;font-size:8px;font-weight:700;color:var(--t-soft);display:flex;align-items:center;justify-content:center">{{ r.ic }}</span><span style="display:flex;flex-direction:column;min-width:0;font-family:Manrope,sans-serif"><span style="font-size:12px;color:var(--t-hi);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="font-size:10px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.sub }}</span></span></span>
+              <span style="font-size:11px;color:var(--green)">LONG</span><span style="text-align:right">{{ r.size }}</span><span style="text-align:right;color:var(--t4)">{{ r.entry }}</span><span style="text-align:right">{{ r.mark }}</span>
+              <span style="display:flex;flex-direction:column;align-items:flex-end;color:{{ r.pc }}"><span style="font-size:11px">{{ r.pnl }}</span><span style="font-size:9px">{{ r.pct }}</span></span><span style="text-align:right">{{ r.liq }}</span>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ posEmptyOn }}" hint-placeholder-val="{{ false }}"><div style="padding:56px 0;text-align:center;font-size:12px;color:var(--t4)">{{ posEmpty }}</div></sc-if>
+      </div>
+      <div style="position:relative;grid-column:2;grid-row:1 / 3;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px;background:var(--card)">
+        <span style="position:absolute;top:-11px;left:12px;z-index:5;display:flex;align-items:center;gap:6px;height:22px;padding:0 10px 0 4px;background:var(--btn-p-bg);color:var(--btn-p-fg);border-radius:100px;font-size:11px;font-weight:600;pointer-events:none"><span style="width:16px;height:16px;border-radius:50%;background:var(--bg);color:var(--t1);font-family:'JetBrains Mono',monospace;font-size:9px;display:flex;align-items:center;justify-content:center">1</span>Live order book</span>
+        <div style="position:absolute;left:12px;right:12px;top:12px;height:28px;box-sizing:border-box;background:var(--card3);border-radius:4px;padding:2px;display:flex">
+          <sc-for list="{{ bookTabs }}" as="bt" hint-placeholder-count="2"><button onClick="{{ bt.on }}" style="flex:1;border:none;border-radius:3px;background:{{ bt.bg }};color:{{ bt.color }};font-family:Manrope,sans-serif;font-size:11px;font-weight:500;cursor:pointer">{{ bt.label }}</button></sc-for>
+        </div>
+        <sc-if value="{{ showBook }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;left:0;right:0;top:46px;text-align:center;font-size:11px;color:var(--t-soft)">Order Book</div>
+          <div style="position:absolute;left:0;right:0;top:68px;display:grid;grid-template-columns:1fr 1fr 1fr;padding:0 12px;font-size:11px;color:var(--t-soft);text-align:center"><span>PRICE</span><span style="white-space:nowrap">SIZE</span><span>TOTAL (USD)</span></div>
+          <div style="position:absolute;left:0;right:0;top:88px;height:198px;display:flex;flex-direction:column;justify-content:flex-end"><sc-for list="{{ btcAsks }}" as="o" hint-placeholder-count="9">
+            <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;padding:0 12px;height:22px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;background:{{ o.bg }};transition:background .35s">
+              <span style="position:absolute;right:0;top:1px;bottom:1px;width:{{ o.depth }};background:color-mix(in srgb,var(--red) 8%,transparent);transition:width .4s"></span>
+              <span style="position:relative;text-align:center;color:var(--red)">{{ o.p }}</span><span style="position:relative;text-align:center;color:var(--t-soft)">{{ o.s }}</span><span style="position:relative;text-align:center;color:var(--t1)">{{ o.t }}</span>
+            </div>
+          </sc-for></div>
+          <div style="position:absolute;left:12px;right:12px;top:290px;display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--t-soft)">ASKS (SELL)</span><span style="color:var(--red)">{{ askCount }}</span></div>
+          <div style="position:absolute;left:12px;right:12px;top:308px;height:26px;background:var(--card3);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3)">{{ spreadTxt }}</div>
+          <div style="position:absolute;left:12px;right:12px;top:340px;display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--t-soft)">BIDS (BUY)</span><span style="color:var(--green)">{{ bidCount }}</span></div>
+          <div style="position:absolute;left:0;right:0;top:356px;display:flex;flex-direction:column"><sc-for list="{{ btcBids }}" as="o" hint-placeholder-count="9">
+            <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;padding:0 12px;height:22px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;background:{{ o.bg }};transition:background .35s">
+              <span style="position:absolute;right:0;top:1px;bottom:1px;width:{{ o.depth }};background:color-mix(in srgb,var(--emerald) 10%,transparent);transition:width .4s"></span>
+              <span style="position:relative;text-align:center;color:var(--green)">{{ o.p }}</span><span style="position:relative;text-align:center;color:var(--t-soft)">{{ o.s }}</span><span style="position:relative;text-align:center;color:var(--t1)">{{ o.t }}</span>
+            </div>
+          </sc-for></div>
+        </sc-if>
+        <sc-if value="{{ showTrades }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:0;right:0;top:56px;display:flex;flex-direction:column">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0 12px 8px;font-size:11px;color:var(--t-soft);text-align:center"><span>PRICE</span><span>SIZE (CONTRACTS)</span><span>TIME</span></div>
+            <sc-for list="{{ btcTr }}" as="t" hint-placeholder-count="14"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0 12px;height:22px;align-items:center;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="color:{{ t.color }}">{{ t.p }}</span><span style="color:var(--t-soft)">{{ t.s }}</span><span style="color:var(--t3)">{{ t.t }}</span></div></sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <div style="grid-column:3;grid-row:1 / 3;display:flex;flex-direction:column;gap:6px;position:relative">
+      <span style="position:absolute;top:-11px;left:150px;z-index:5;display:flex;align-items:center;gap:6px;height:22px;padding:0 10px 0 4px;background:var(--btn-p-bg);color:var(--btn-p-fg);border-radius:100px;font-size:11px;font-weight:600;pointer-events:none"><span style="width:16px;height:16px;border-radius:50%;background:var(--bg);color:var(--t1);font-family:'JetBrains Mono',monospace;font-size:9px;display:flex;align-items:center;justify-content:center">3</span>Source + UMA settlement</span><span style="position:absolute;top:193px;left:12px;z-index:5;display:flex;align-items:center;gap:6px;height:22px;padding:0 10px 0 4px;background:var(--btn-p-bg);color:var(--btn-p-fg);border-radius:100px;font-size:11px;font-weight:600;pointer-events:none"><span style="width:16px;height:16px;border-radius:50%;background:var(--bg);color:var(--t1);font-family:'JetBrains Mono',monospace;font-size:9px;display:flex;align-items:center;justify-content:center">2</span>Gasless, one signature</span>
+      <div style="position:relative;height:198px;flex:none;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px;background:var(--card)">
+        <div style="height:30px;display:flex;align-items:center;gap:8px;padding:0 12px"><span style="width:7px;height:7px;border-radius:50%;background:var(--red)"></span><span style="font-size:12px;font-weight:500;color:var(--t-hi)">Metric Source</span><span style="flex:1"></span><span style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--red)">cpc.ncep.noaa.gov<span style="width:11px;height:11px;flex:none;background:var(--red);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/external-link.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/external-link.svg) center/contain no-repeat"></span></span></div>
+        <div style="position:absolute;left:5px;right:5px;top:33px;height:158px;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px">
+          <div style="height:28px;display:flex;align-items:center;gap:6px;padding:0 8px"><span style="width:5px;height:5px;border-radius:50%;background:var(--green)"></span><span style="font-size:11px;font-weight:600;color:var(--t-hi)">Token Information</span><span style="flex:1"></span><span style="font-size:10px;color:var(--t2)">ACTIVE</span></div>
+          <span style="position:absolute;left:8px;top:35px"><img src="assets/nino34-icon.svg" alt="" style="width:26px;height:26px;border-radius:50%;display:block;flex:none"></span>
+          <span style="position:absolute;left:40px;top:28px;font-size:13px;font-weight:600">Niño 3.4</span>
+          <div style="position:absolute;left:38px;top:48px;display:flex;gap:4px"><sc-for list="{{ tiTabs }}" as="ti" hint-placeholder-count="3"><button onClick="{{ ti.on }}" style="height:20px;padding:0 8px;border:none;border-radius:4px;background:{{ ti.bg }};color:{{ ti.color }};font-family:Manrope,sans-serif;font-size:11px;cursor:pointer">{{ ti.label }}</button></sc-for></div>
+          <div style="position:absolute;left:4px;right:4px;top:76px;height:76px;box-sizing:border-box;border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:8px 10px;display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:6px"><span style="width:5px;height:5px;border-radius:50%;background:var(--green)"></span><span style="font-size:11px;font-weight:500;color:var(--t-hi)">Current Price</span><span style="flex:1"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);background:color-mix(in srgb,var(--emerald) 12%,transparent);border-radius:3px;padding:1px 5px">LIVE</span><span style="font-size:10px;color:var(--t2)">USDC</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700">{{ curPrice }}</span><span style="font-size:12px;color:{{ curChgColor }}">{{ curChg }}</span><span style="flex:1"></span><span style="width:20px;height:20px;box-sizing:border-box;border:1px solid var(--line2);border-radius:4px;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;flex:none;background:var(--t2);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/circle.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/circle.svg) center/contain no-repeat"></span></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--t2)"><span>{{ tiLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t1)">{{ tiVal }}</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:357px;flex:none;box-sizing:border-box;border:1px solid var(--ln);border-radius:6px;background:var(--card);padding:14px 14px 0;display:flex;flex-direction:column">
+        <div style="height:42px;flex:none;box-sizing:border-box;border:1px solid var(--line);border-radius:6px;padding:3px;display:flex;gap:4px">
+          <sc-for list="{{ mkTabs }}" as="mt" hint-placeholder-count="2"><button onClick="{{ mt.on }}" style="flex:1;border:none;border-radius:4px;background:{{ mt.bg }};color:{{ mt.color }};font-family:Manrope,sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:5px;height:5px;border-radius:50%;background:{{ mt.dot }}"></span>{{ mt.label }}</button></sc-for>
+        </div>
+        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ setLong }}" style="height:34px;border-radius:6px;border:1px solid {{ lsL.border }};background:{{ lsL.bg }};color:{{ lsL.color }};font-family:Manrope,sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span style="display:{{ lsL.dotD }};width:5px;height:5px;border-radius:50%;background:var(--t4)"></span>Long<span style="display:{{ lsL.arD }}">↗</span></button>
+          <button onClick="{{ setShort }}" style="height:34px;border-radius:6px;border:1px solid {{ lsS.border }};background:{{ lsS.bg }};color:{{ lsS.color }};font-family:Manrope,sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span style="display:{{ lsS.dotD }};width:5px;height:5px;border-radius:50%;background:var(--t4)"></span>Short<span style="display:{{ lsS.arD }}">↘</span></button>
+        </div>
+        <div style="margin-top:14px;height:18px;display:flex;align-items:center;justify-content:space-between;padding:0 8px"><span style="font-size:12px;font-weight:500;color:var(--t-soft);letter-spacing:0.02em">POSITION SIZE</span><span style="height:18px;box-sizing:border-box;padding:0 6px;display:flex;align-items:center;gap:4px;border:1px solid var(--line2);background:var(--card3);border-radius:4px;font-size:10px;color:var(--t3)">USD<span style="width:10px;height:10px;flex:none;background:var(--t3);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/arrow-left-right.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/arrow-left-right.svg) center/contain no-repeat"></span></span></div>
+        <label style="margin-top:10px;height:50px;flex:none;box-sizing:border-box;border:1px solid var(--line2);border-radius:6px;background:var(--card2);display:flex;align-items:center;gap:10px;padding:0 16px"><span style="font-size:20px;font-weight:600;color:var(--t-soft)">$</span><input value="{{ bsize }}" onChange="{{ onBSize }}" placeholder="1,000.00" aria-label="Position size" style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--t1);font-family:'JetBrains Mono',monospace;font-size:22px;text-align:right;padding:0"></label>
+        <div style="margin-top:14px;height:18px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:500;color:var(--t-soft);letter-spacing:0.02em">QUICK AMOUNTS</span><span style="height:18px;box-sizing:border-box;padding:0 6px;display:flex;align-items:center;border:1px solid var(--line2);background:var(--card3);border-radius:4px;font-size:10px;color:var(--t3)">USD</span></div>
+        <div style="margin-top:10px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px"><sc-for list="{{ quick }}" as="q" hint-placeholder-count="5"><button onClick="{{ q.on }}" style="height:24px;border:1px solid var(--line);border-radius:4px;background:var(--card2);color:{{ q.color }};font-family:Manrope,sans-serif;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;padding:0"><span style="width:3px;height:3px;border-radius:50%;background:{{ q.color }}"></span>{{ q.label }}</button></sc-for></div>
+        <div style="margin-top:10px;height:14px;display:flex;justify-content:flex-end;align-items:center;gap:6px;padding-right:8px;font-size:10px;color:var(--line4)"><span style="width:11px;height:11px;flex:none;background:var(--line4);-webkit-mask:url(https://unpkg.com/lucide-static@0.460.0/icons/gauge.svg) center/contain no-repeat;mask:url(https://unpkg.com/lucide-static@0.460.0/icons/gauge.svg) center/contain no-repeat"></span>Slippage<span style="color:var(--t4)">1%</span></div>
+        <a href="https://dexetera.xyz/token/NINO34-DEC26" style="margin-top:16px;height:42px;flex:none;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff" style-hover="filter:brightness(1.08);color:#fff">Enable Trading</a>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div style="margin-top:12px;display:grid;grid-template-columns:{{ c3 }};gap:12px">
+    <div style="display:flex;gap:12px;padding:16px 4px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:var(--btn-p-bg);color:var(--btn-p-fg);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:13px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">Live order book.</span> Real bids, asks and liquidations. The mark price comes from the book, not a model.</span></div>
+    <div style="display:flex;gap:12px;padding:16px 4px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:var(--btn-p-bg);color:var(--btn-p-fg);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:13px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">One signature to trade.</span> Gasless mode signs the order once. No gas token, no pop-up chain.</span></div>
+    <div style="display:flex;gap:12px;padding:16px 4px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:var(--btn-p-bg);color:var(--btn-p-fg);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:13px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">Settled from public data.</span> Every market names its source. UMA's optimistic oracle resolves disputes.</span></div>
+  </div>
+  <div style="margin-top:12px;display:grid;grid-template-columns:{{ c5 }};border:1px solid var(--line);border-radius:12px;background:var(--card)">
+    <sc-for list="{{ features }}" as="ft" hint-placeholder-count="5">
+      <div style="padding:20px;display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+        <span style="width:18px;height:18px;background:var(--t-gray);-webkit-mask:url({{ ft.icon }}) center/contain no-repeat;mask:url({{ ft.icon }}) center/contain no-repeat"></span>
+        <span style="font-size:14px;font-weight:600">{{ ft.t }}</span>
+        <span style="font-size:12px;line-height:1.55;color:var(--t3)">{{ ft.d }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- COMPARISON -->
+<div data-reveal data-screen-label="Why Dexetera" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0">
+  <div style="display:grid;grid-template-columns:{{ split57 }};gap:40px 56px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px;position:{{ cmpSticky }};top:96px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Why Dexetera</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">Open where the others are closed.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty">Prediction markets trade yes or no. Crypto perps trade crypto. Banks trade real risk, but only with institutions. Dexetera trades any real number, with anyone.</p>
+      <a href="https://doc.dexetera.org" style="align-self:flex-start;height:40px;padding:0 18px;display:flex;align-items:center;gap:8px;background:var(--card3);border:1px solid var(--line);border-radius:6px;color:var(--t1);font-size:13px;font-weight:500" style-hover="border-color:var(--line3);color:var(--t1)">Read the docs <span>→</span></a>
+    </div>
+    <div style="overflow-x:{{ cmpOverflow }};background:var(--card);border:1px solid var(--line);border-radius:12px">
+      <div style="min-width:640px">
+        <div style="position:{{ cmpSticky }};top:57px;z-index:5;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) repeat(3,minmax(0,1fr));font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4);background:var(--card);border-bottom:1px solid var(--line);border-radius:12px 12px 0 0">
+          <span style="padding:14px 16px">FEATURE</span><span style="padding:14px 16px;background:var(--card2);color:var(--t1);border-top:1px solid var(--t1);font-weight:600">DEXETERA</span><span style="padding:14px 16px">PREDICTION MKTS</span><span style="padding:14px 16px">CRYPTO PERPS</span><span style="padding:14px 16px">BANKS</span>
+        </div>
+        <sc-for list="{{ compare }}" as="c" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) repeat(3,minmax(0,1fr));font-size:13px;border-bottom:1px solid var(--hair)">
+            <span style="padding:16px;color:var(--t2)">{{ c.f }}</span>
+            <span style="padding:16px;background:var(--card2);color:var(--t1);font-weight:600;display:flex;gap:8px"><span style="font-family:'JetBrains Mono',monospace;color:var(--green)">✓</span>{{ c.d }}</span>
+            <sc-for list="{{ c.o }}" as="x" hint-placeholder-count="3">
+              <span style="padding:16px;color:var(--t3);display:flex;gap:8px"><span style="font-family:'JetBrains Mono',monospace;color:{{ x.gc }}">{{ x.g }}</span>{{ x.v }}</span>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREATORS -->
+<div data-reveal data-screen-label="Creators" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0">
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:{{ split57 }}">
+    <div style="padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Creators earn</div>
+      <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">List a market. Earn on every trade it does.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:480px">Every trade pays a ~0.10% fee. The market's creator receives a share of it, paid to their wallet for as long as the market trades.</p>
+      <a href="https://dexetera.xyz/new-market" style="align-self:flex-start;height:44px;padding:0 22px;display:flex;align-items:center;gap:8px;border-radius:10px;background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 50%,#F97316 100%);color:var(--t1);font-size:14px;font-weight:600" style-hover="filter:brightness(1.08);color:var(--t1)">+ Create a market</a>
+    </div>
+    <div style="padding:clamp(16px,2.5vw,28px);background:var(--bg);border-left:1px solid var(--hair);min-width:0">
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+          <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">MY MARKETS / DRAM-DDR5</span><span style="font-size:15px;font-weight:600">DRAM DDR5 spot, $/Gb</span></div>
+          <div style="display:flex;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--violet-soft);background:color-mix(in srgb,var(--violet) 15%,transparent);border:1px solid color-mix(in srgb,var(--violet) 30%,transparent);border-radius:100px;padding:3px 9px">CREATED BY YOU</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--t4);border:1px solid var(--line);border-radius:100px;padding:3px 9px">EXAMPLE</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+          <div style="background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">30D VOLUME</span><span style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600">$1.84M</span></div>
+          <div style="background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">FEES EARNED</span><span style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600;color:var(--green)">{{ ownerFees }}</span></div>
+          <div style="background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">TRADERS</span><span style="font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600">318</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--t4)"><span>DAILY VOLUME · 30D</span><span>USDC</span></div>
+          <div style="height:120px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid var(--line)">
+            <sc-for list="{{ bars }}" as="bb" hint-placeholder-count="30">
+              <span style="flex:1;height:{{ bb.h }};background:{{ bb.c }};border-radius:2px 2px 0 0"></span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;border-top:1px solid var(--hair);padding-top:12px"><span style="color:var(--t3)">Creator fee share</span><span style="color:var(--t-soft)">Paid per trade · see docs</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div id="faq" data-reveal data-screen-label="FAQ" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0;scroll-margin-top:88px">
+  <div style="display:grid;grid-template-columns:{{ split57 }};gap:40px 56px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Learn how this works</div>
+      <h2 style="margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-0.03em">Questions, answered.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:420px">Something not covered here? The docs go deeper, and support replies by email.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a href="mailto:admin@dexetera.xyz" style="height:40px;padding:0 18px;display:flex;align-items:center;background:var(--card3);border:1px solid var(--line);border-radius:6px;color:var(--t1);font-size:13px;font-weight:500" style-hover="border-color:var(--line3);color:var(--t1)">admin@dexetera.xyz</a>
+        <a href="https://doc.dexetera.org" style="height:40px;padding:0 18px;display:flex;align-items:center;gap:8px;border-radius:6px;color:var(--t2);font-size:13px;font-weight:500">Docs <span>→</span></a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="8">
+        <div style="background:{{ q.bg }};border:1px solid {{ q.border }};border-radius:12px;transition:background .2s,border-color .2s">
+          <button onClick="{{ q.on }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:16px 18px;background:none;border:none;cursor:pointer;text-align:left;font-family:Manrope,sans-serif;color:var(--t1)">
+            <span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--t-gray)">?</span>
+            <span style="flex:1;font-size:15px;font-weight:600">{{ q.q }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t3)">{{ q.sign }}</span>
+          </button>
+          <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;padding:0 18px 18px 52px;font-size:14px;line-height:1.65;color:var(--t3);text-wrap:pretty">{{ q.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div data-screen-label="Final CTA" style="position:relative;overflow:hidden;margin-top:clamp(56px,7vw,88px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--bg)">
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:10px;opacity:0.22;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse 70% 90% at 50% 50%,transparent 20%,#000 75%);mask-image:radial-gradient(ellipse 70% 90% at 50% 50%,transparent 20%,#000 75%)">
+    <div style="overflow:hidden">{{ ctaTicker1 }}</div><div style="overflow:hidden">{{ ctaTicker2 }}</div><div style="overflow:hidden">{{ ctaTicker3 }}</div><div style="overflow:hidden">{{ ctaTicker1 }}</div><div style="overflow:hidden">{{ ctaTicker2 }}</div>
+  </div>
+  <div style="position:relative;max-width:1344px;margin:0 auto;padding:clamp(80px,10vw,128px) clamp(16px,3vw,32px);display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">DEXETERA / LIVE ON MAINNET</div>
+    <h2 style="margin:0;font-size:clamp(40px,5.6vw,72px);font-weight:600;line-height:1.0;letter-spacing:-0.04em;text-wrap:balance">Hedge the unhedgeable.</h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:520px">Trade a live market or list your own in minutes. USDC, gasless, settled by public data.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+      <a href="https://dexetera.xyz" style="height:44px;padding:0 22px;display:flex;align-items:center;gap:8px;background:var(--btn-p-bg);border-radius:6px;color:var(--btn-p-fg);font-size:14px;font-weight:600" style-hover="background:var(--btn-p-hover);color:var(--btn-p-fg)">Launch app <span>→</span></a>
+      <a href="https://dexetera.xyz/new-market" style="height:44px;padding:0 22px;display:flex;align-items:center;background:var(--card3);border:1px solid var(--line);border-radius:6px;color:var(--t1);font-size:14px;font-weight:500" style-hover="border-color:var(--line4);color:var(--t1)">Create a market</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer data-screen-label="Footer" style="background:var(--bg)">
+  <div style="max-width:1344px;margin:0 auto;padding:56px clamp(16px,3vw,32px) 40px;display:grid;grid-template-columns:{{ footCols }};gap:40px 32px">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:320px">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;color:var(--t1)">
+        <img src="assets/dexetera-logo.png" alt="Dexetera" style="width:32px;height:32px;border-radius:6px;display:block;flex:none">
+        <span style="font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--t1)">Dexetera</span>
+      </a>
+      <span style="font-size:14px;line-height:1.6;color:var(--t3)">The on-chain marketplace for risk. Create and trade futures on any measurable number.</span>
+      <div style="display:flex;gap:8px">
+        <a href="https://x.com/dexeteralabs" style="height:32px;padding:0 12px;display:flex;align-items:center;border:1px solid var(--line);border-radius:6px;font-size:12px" style-hover="border-color:var(--line3)">X</a>
+        <a href="https://discord.com/invite/ntVTBwhTd" style="height:32px;padding:0 12px;display:flex;align-items:center;border:1px solid var(--line);border-radius:6px;font-size:12px" style-hover="border-color:var(--line3)">Discord</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4);margin-bottom:4px">PRODUCT</span><a href="https://dexetera.xyz/explore">Markets</a><a href="https://dexetera.xyz/new-market">Create a market</a></div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4);margin-bottom:4px">RESOURCES</span><a href="#how">How it works</a><a href="https://doc.dexetera.org">Settlement</a><a href="#faq">FAQ</a><a href="Whitepaper.dc.html">Whitepaper</a></div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4);margin-bottom:4px">COMPANY</span><a href="Team.dc.html">Team</a><a href="Contact.dc.html">Contact</a><a href="https://x.com/dexeteralabs">X</a><a href="https://discord.com/invite/ntVTBwhTd">Discord</a><a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a></div>
+  </div>
+  <div style="max-width:1344px;margin:0 auto;padding:20px clamp(16px,3vw,32px) 24px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:12px">
+    <span style="color:var(--t4);max-width:720px;line-height:1.6">Trading derivatives involves risk of loss. Markets are created by users. Nothing here is investment advice.</span>
+    <div style="display:flex;gap:20px"><a href="https://dexetera.org/dexetera-tos.html">Terms of Service</a><a href="https://dexetera.org/dexetera-privacy.html">Privacy Policy</a></div>
+  </div>
+  <div style="background:var(--bg);background-image:radial-gradient(var(--glass-line2) 1px,transparent 1px);background-size:6px 6px;border-top:1px solid var(--hair)">
+    <div style="max-width:1344px;margin:0 auto;min-height:48px;padding:10px clamp(16px,3vw,32px);display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;font-size:13px">
+      <span style="display:flex;align-items:center;gap:6px;color:var(--green)"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:dx-pulse 2s infinite"></span>Live</span>
+      <a href="#how">How it works</a><a href="https://dexetera.xyz/watchlist">Watchlist</a><a href="mailto:admin@dexetera.xyz">Support</a>
+      <div style="margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px">
+        <span style="color:var(--t4)">Active Markets:</span>
+        <sc-for list="{{ footerChips }}" as="f" hint-placeholder-count="4">
+          <a href="{{ f.href }}" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);border:1px solid var(--line3);border-radius:4px;padding:3px 7px">{{ f.s }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  hv(t, p, ...c) { if (p) { let st = null; for (const k of ['fill', 'stroke', 'stopColor']) { const v = p[k]; if (typeof v === 'string' && /var\(|color-mix/.test(v)) { st = st || {}; st[k] = v; } } if (st) p = { ...p, style: { ...st, ...(p.style || {}) } }; } return React.createElement(t, p, ...c); }
+  constructor(p) {
+    super(p);
+    let seed = 11;
+    this.rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const r = this.rnd;
+    const walk = (base, n, drift, vol) => { let v = base, a = []; for (let i = 0; i < n; i++) { v *= 1 + drift + (r() - 0.5) * vol; a.push(v); } const f = base / a[n - 1]; return a.map(x => x * f); };
+    this.walk = walk;
+    let v = 2.6, cs = [];
+    for (let i = 0; i < 44; i++) { const o = v; v = v * (1 + (r() - 0.46) * 0.014); cs.push({ o, c: v, h: Math.max(o, v) * (1 + r() * 0.005), l: Math.min(o, v) * (1 - r() * 0.005) }); }
+    const f = 2.715 / v; cs = cs.map(k => ({ o: k.o * f, c: k.c * f, h: k.h * f, l: k.l * f }));
+    this.open24 = cs[20].c;
+    this.mk = [
+      { id: 'GPU-H100', name: 'GPU compute, H100', unit: '$/hr', cat: 'Compute', base: 2.0, dec: 2, settle: '31 MAR 2027', ab: 'GP' },
+      { id: 'PRICE-EGGS', name: 'Eggs, Grade A', unit: '$/dozen', cat: 'Commodities', base: 2.715, dec: 3, settle: '31 DEC 2026', live: true },
+      { id: 'ERCOT-N', name: 'ERCOT North power', unit: '$/MWh', cat: 'Energy', base: 38.4, dec: 2, settle: '30 JUN 2027' },
+      { id: 'FREIGHT-FEU', name: 'Asia to US freight', unit: '$/FEU', cat: 'Freight', base: 2140, dec: 0, settle: '31 JAN 2027' },
+      { id: 'DRAM-DDR5', name: 'DRAM DDR5 spot', unit: '$/Gb', cat: 'Compute', base: 4.85, dec: 2, settle: '31 MAR 2027' },
+      { id: 'US-CPI-YOY', name: 'US CPI, year on year', unit: '%', cat: 'Macro', base: 2.9, dec: 2, settle: '15 JAN 2027', pct: true },
+      { id: 'BTC-MINE-M', name: 'BTC mining margin', unit: 'BTC / POWER', cat: 'Ratio', base: 48.2, dec: 2, settle: '31 MAR 2027' },
+    ];
+    const featS = Array.from({ length: 90 }, (_, i) => { const t = i / 89; return 1.72 + 0.28 * (t * t * (3 - 2 * t)) + 0.035 * Math.sin(t * 11) + 0.02 * Math.sin(t * 23 + 1) - (0.035 * Math.sin(11) + 0.02 * Math.sin(24)) * t; });
+    this.featVol = featS.map((_, i) => 0.2 + 0.35 * (i / 89) + r() * 0.45);
+    const series = this.mk.map((m, i) => i === 0 ? featS : walk(m.base, 40, i % 3 === 2 ? -0.003 : 0.0025, 0.03));
+    this.tbl = Array.from({ length: 10 }, (_, i) => walk(10, 24, i % 3 === 1 ? -0.004 : 0.004, 0.05));
+    this.gpuNoise = (() => { let a = [], x = 0; for (let i = 0; i < 60; i++) { x = x * 0.8 + (r() - 0.5) * 0.9; a.push(x); } return a; })();
+    this.bars = Array.from({ length: 30 }, (_, i) => 0.25 + 0.55 * (i / 29) + r() * 0.3);
+    this.tagLines = [
+      { label: 'EGGS · BLS', unit: '/ dozen', live: true, bar: 'EGGS', k: 9 },
+      { label: 'GPU H100 · RENTAL', num: '$2.00', unit: '/ hr', chg: 1.2, bar: 'GPU-H100', k: 29 },
+      { label: 'ERCOT NORTH · POWER', num: '$41.80', unit: '/ MWh', chg: 3.42, bar: 'ERCOT-N', k: 52 },
+      { label: 'ASIA TO US · FREIGHT', num: '$2,140', unit: '/ FEU', chg: -2.15, bar: 'FREIGHT-FEU', k: 77 },
+      { label: 'DRAM DDR5 · SPOT', num: '$4.74', unit: '/ Gb', chg: 0.85, bar: 'DRAM-DDR5', k: 103 },
+      { label: 'BTC MINING · MARGIN', num: '0.42x', unit: '', chg: -1.6, bar: 'BTC-MINE', k: 130 },
+    ];
+    this.litLabels = ['NdPr OXIDE', 'NAND SPOT', 'US CPI', 'FARM MARGIN', 'COLO SPARK', 'EGG INDEX', 'HBM SPOT', 'JET FUEL', 'PJM WEST', 'UREA NOLA', 'COBALT', 'SOLAR WAFER', 'LITHIUM', 'COCOA', 'COLO RENT', 'DIESEL', 'CORN BASIS', 'HELIUM'];
+    this.tailNoise = Array.from({ length: 160 }, () => r());
+    this.netRef = React.createRef(); this.netNodes = [
+      { id: 'imp', n: 'Importer', d: 'Pays for goods priced in freight it cannot hedge.', x: 170, y: 130, nw: [110, 380], tag: 'BESPOKE TERMS', dtag: 'OPEN LISTING' },
+      { id: 'dc', n: 'Data center', d: 'Large power buyer. Big enough for a bank desk.', x: 370, y: 70, ok: true },
+      { id: 'farm', n: 'Farmer', d: 'Exposed to crop and fertilizer prices every season.', x: 120, y: 330, nw: [40, 510], tag: 'CREDIT CHECK', dtag: 'ANYONE TRADES' },
+      { id: 'mine', n: 'Miner', d: 'Margin swings with power cost and BTC price.', x: 240, y: 500, wideOnly: true },
+      { id: 'air', n: 'Airline', d: 'Fuel is its largest variable cost.', x: 840, y: 80, dtag: 'ONE SIGNATURE' },
+      { id: 'fund', n: 'Fund', d: 'Has a credit line and a dealer. Gets a quote.', x: 1060, y: 160, nw: [250, 380], ok: true },
+      { id: 'ret', n: 'Retail trader', d: 'Wants a view on real prices. No access to a desk.', x: 1070, y: 370, nw: [320, 510], tag: 'GEOGRAPHY', dtag: '~0.10% FEE' },
+      { id: 'smb', n: 'Small business', d: 'Too small for a bank minimum ticket.', x: 980, y: 510, wideOnly: true, tag: '$ MINIMUMS' },
+    ];
+    this.dashRef = React.createRef(); this.heroRef = React.createRef(); this.copyRef = React.createRef(); this.pillRef = React.createRef(); this.rockLRef = React.createRef(); this.rockRRef = React.createRef();
+    this.dBars = (() => { let x = 0.5; return Array.from({ length: 120 }, (_, i) => { x = Math.min(1, Math.max(0.18, x * 0.7 + 0.15 + (r() - 0.5) * 0.5)); const hi = (i >= 30 && i <= 46) || (i >= 82 && i <= 96); return { h: Math.round((hi ? Math.min(1, x + 0.15) : x) * 100) + '%', c: hi ? 'var(--t-soft)' : 'var(--line2)' }; }); })();
+    this.whoA = walk(100, 30, 0.004, 0.08); this.whoB = walk(60, 30, 0.001, 0.05);
+    this.state = { w: 1440, tagI: 0, tagPrev: null, tagN: 0, lit: [{ k: 9, label: 'EGGS', tag: true }], litN: 0, cs, flash: 0, flashRow: -1, series, heroHover: null, prodHover: null, tab: 'Market', lev: '5x', side: 'long', size: '1,000', filter: 'All', step: 0, gpu: 2, fees: 0, faq: 0, ownerFees: 1284.2, menu: false, hoverTk: false, scrolled: false, hin: false, myOpen: true, h: 800, rm: false, netMode: 'today', netManual: false, netI: 0, netHover: null, book: this.makeBook(2.715), trades: this.seedTrades(2.715) };
+    { const r = this.rnd; const a = [[3580,3610,3520,3600,0.39],[3600,3650,3560,3600,0.32],[3600,3740,3560,3690,0.85],[3690,3760,3670,3710,0.42],[3710,3790,3700,3750,0.62],[3750,3810,3700,3750,0.24],[3750,3850,3710,3790,0.61],[3790,3890,3730,3830,0.51],[3830,3880,3780,3850,0.41],[3850,3870,3770,3800,0.53],[3800,3920,3750,3880,0.87],[3880,3900,3720,3760,0.92],[3760,3810,3700,3790,0.36],[3790,3820,3740,3780,0.57],[3780,3820,3760,3780,0.34],[3780,3830,3750,3800,0.41],[3800,3920,3780,3880,0.88],[3880,3970,3840,3920,0.6],[3920,4010,3880,3970,0.76],[3970,4050,3950,4000,0.54],[4000,4080,3970,4050,0.71],[4050,4180,4000,4160,0.73],[4160,4180,4140,4150,0.59],[4150,4210,4130,4170,0.45],[4170,4280,4110,4260,0.92],[4260,4350,4210,4300,0.7],[4300,4320,4290,4300,0.29],[4300,4310,4140,4180,0.83],[4180,4250,4140,4220,0.47],[4220,4240,4170,4200,0.6],[4200,4230,4070,4080,1],[4080,4160,4070,4100,0.61],[4100,4120,3990,4050,0.63],[4050,4150,4030,4130,0.64],[4130,4180,4080,4170,0.63],[4170,4270,4160,4240,0.56],[4240,4350,4200,4330,0.92],[4330,4380,4230,4280,0.77],[4280,4490,4250,4440,1],[4440,4520,4410,4470,0.42],[4470,4530,4420,4500,0.53],[4500,4540,4420,4470,0.45],[4470,4530,4450,4500,0.45],[4500,4570,4460,4510,0.55],[4510,4530,4450,4490,0.34],[4490,4520,4380,4420,0.79],[4420,4590,4400,4560,0.99],[4560,4600,4510,4550,0.44],[4550,4720,4520,4670,1],[4670,4710,4630,4690,0.36],[4690,4880,4670,4860,1],[4860,4920,4810,4910,0.72],[4910,5060,4850,5000,0.85],[5000,5010,4940,4990,0.46],[4990,5040,4890,4900,0.66],[4900,4920,4750,4760,0.84],[4760,4800,4690,4750,0.31],[4750,4780,4710,4760,0.33],[4760,4920,4730,4860,0.89],[4860,4990,4830,4960,0.68],[4960,5010,4890,4950,0.3],[4950,5130,4930,5090,0.91],[5090,5140,5070,5100,0.27],[5100,5140,5020,5060,0.55],[5060,5140,5030,5130,0.63],[5130,5140,5040,5050,0.71],[5050,5110,4990,5090,0.65],[5090,5290,5040,5260,1],[5260,5360,5220,5310,0.63],[5310,5430,5310,5400,0.78]].map(([o, h, l, c, v]) => ({ o, h, l, c, v })); let p = a[a.length - 1].c;
+      this.btcSz = Array.from({ length: 18 }, () => 0.002 + r() * 0.06); const now = Date.now();
+      Object.assign(this.state, { btc: a, btcTrades: Array.from({ length: 14 }, (_, i) => ({ p: p + Math.round((r() - 0.5) * 4) * 10, s: Math.round(1 + r() * 40), up: r() > 0.5, t: now - i * 3700 })), btcHover: null, bookTab: 'book', posTab: 'Positions', tiTab: 'Margin Used', bsize: '', appW: 0 });
+      this.appRef = React.createRef(); this.simS = [0, 1, 2].map(i => this.walk(10, 16, 0.003 + i * 0.002, 0.04)); }
+  }
+  makeBook(mid) {
+    const r = this.rnd, t = 0.001, m = Math.round(mid * 1000) / 1000;
+    let ca = 0, cb = 0; const asks = [], bids = [];
+    for (let i = 0; i < 8; i++) { const sa = Math.round(300 + r() * 3200); ca += sa; asks.push({ p: m + t * (i + 1), s: sa, t: ca }); const sb = Math.round(300 + r() * 3200); cb += sb; bids.push({ p: m - t * i, s: sb, t: cb }); }
+    return { asks, bids, max: Math.max(ca, cb) };
+  }
+  seedTrades(m) { const r = this.rnd, now = Date.now(); return Array.from({ length: 9 }, (_, i) => ({ p: m + (r() - 0.5) * 0.004, s: Math.round(50 + r() * 900), up: r() > 0.5, t: now - i * 4100 })); }
+  componentDidMount() {
+    { const go = () => { const cv = document.querySelector('canvas.dx-storm'); if (!cv || !window.dxStorm) return setTimeout(go, 100); if (!cv.__dx) { cv.__dx = 1; window.dxStorm(cv.parentElement, cv); } }; go(); }
+    this.reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => this.setState({ w: window.innerWidth, h: window.innerHeight, appW: this.appRef.current ? this.appRef.current.clientWidth : 0 }, () => this.onScroll && this.onScroll());
+    this.onResize(); window.addEventListener('resize', this.onResize);
+    if (!this.reduce) {
+      this.tick = setInterval(() => this.doTick(), 1500);
+      this.stepT = setInterval(() => { if (Date.now() - (this.stepClick || 0) > 8000) this.setState(s => ({ step: (s.step + 1) % 4 })); }, 4000);
+    }
+    setTimeout(() => this.setupReveal(), 60);
+    this.onScroll = () => { if (this.raf) return; this.raf = requestAnimationFrame(() => {
+      this.raf = 0; const y = window.scrollY || 0, sc = y > 24;
+      if (sc !== this.state.scrolled) this.setState({ scrolled: sc });
+      const hero = this.heroRef.current, dd = this.dashRef.current, cp = this.copyRef.current, l = this.rockLRef.current, r = this.rockRRef.current, pl = this.pillRef.current;
+      if (!hero || !dd) return;
+      const vh = window.innerHeight;
+      if (this.reduce || window.innerWidth <= 768) { [dd, cp, l, r].forEach(e => { if (e) e.style.transform = ''; }); if (cp) cp.style.opacity = ''; return; }
+      const p = Math.min(1, Math.max(0, (y - hero.offsetTop) / Math.max(1, hero.offsetHeight - vh)));
+      const fit = Math.max(0.82, Math.min(1, (vh - 104) / dd.offsetHeight)), end = Math.max(88, 72 + (vh - 72 - dd.offsetHeight * fit) / 2), delta = Math.max(0, dd.offsetTop - end);
+      dd.style.transformOrigin = '50% 0';
+      dd.style.transform = 'translateY(' + (-delta * p).toFixed(1) + 'px) scale(' + (1 - (1 - fit) * p).toFixed(4) + ')';
+      if (cp) { cp.style.opacity = String(1 - Math.min(1, p / 0.7)); cp.style.transform = 'translateY(' + (-120 * p).toFixed(1) + 'px)'; }
+      const s2 = 1 + 0.12 * p;
+      if (l) l.style.transform = 'translateX(' + (-28 * p).toFixed(2) + '%) scale(' + s2 + ')';
+      if (r) r.style.transform = 'translateX(' + (28 * p).toFixed(2) + '%) scale(' + s2 + ')';
+      if (pl) pl.style.opacity = String(Math.max(0, 1 - p / 0.15));
+    }); };
+    window.addEventListener('scroll', this.onScroll, { passive: true }); this.onScroll();
+    this.netT = setInterval(() => { if (this.state.netMode === 'dex' && !this.reduce) this.setState(s => ({ netI: s.netI + 1 })); }, 1600);
+    if ('IntersectionObserver' in window && this.netRef.current) { this.netIo = new IntersectionObserver(es => { if (es[0].isIntersecting) { this.netIo.disconnect(); this.netAuto = setTimeout(() => { if (!this.state.netManual) this.setState({ netMode: 'dex' }); }, 2200); } }, { threshold: 0.4 }); this.netIo.observe(this.netRef.current); }
+    if (this.reduce) this.setState({ hin: true, rm: true }); else requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ hin: true })));
+  }
+  componentWillUnmount() { clearInterval(this.tick); clearInterval(this.stepT); clearTimeout(this.ft); clearTimeout(this.revealT); window.removeEventListener('resize', this.onResize); window.removeEventListener('scroll', this.onScroll); clearInterval(this.netT); clearTimeout(this.netAuto); this.netIo && this.netIo.disconnect(); cancelAnimationFrame(this.raf); this.io && this.io.disconnect(); }
+  setupReveal() {
+    if (this.reduce || !('IntersectionObserver' in window)) return;
+    const els = [...document.querySelectorAll('[data-reveal],[data-spark]')];
+    this.io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.hasAttribute('data-spark')) el.style.clipPath = 'inset(0 0 0 0)'; else { el.style.opacity = '1'; el.style.transform = 'none'; }
+      this.io.unobserve(el);
+    }), { rootMargin: '0px 0px -6% 0px' });
+    els.forEach(el => {
+      if (el.hasAttribute('data-spark')) el.style.clipPath = 'inset(0 100% 0 0)';
+      else { el.style.opacity = '0'; el.style.transform = 'translateY(8px)'; el.style.transition = 'opacity 400ms ease, transform 400ms ease'; }
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => this.io.observe(el))));
+    this.revealT = setTimeout(() => this.revealAll(), 1500);
+  }
+  revealAll() {
+    document.querySelectorAll('[data-reveal],[data-spark]').forEach(el => { if (el.hasAttribute('data-spark')) el.style.clipPath = 'inset(0 0 0 0)'; else { el.style.opacity = '1'; el.style.transform = 'none'; } });
+    this.io && this.io.disconnect();
+  }
+  doTick() {
+    this.setState(s => {
+      const r = this.rnd, last = s.cs[s.cs.length - 1], m = last.c * (1 + (r() - 0.5) * 0.004);
+      this.tn = (this.tn || 0) + 1;
+      const bl = s.btc[s.btc.length - 1], bm = Math.min(5430, Math.max(5380, bl.c + (r() < 0.5 ? -10 : 10)));
+      const btc = s.btc.slice(); btc[btc.length - 1] = { ...bl, c: bm, h: Math.max(bl.h, bm), l: Math.min(bl.l, bm) };
+      const btcTrades = [{ p: bm, s: Math.round(1 + r() * 40), up: bm >= bl.c, t: Date.now() }].concat(s.btcTrades.slice(0, 13));
+      let cs = s.cs.slice();
+      if (this.tn % 6 === 0) { cs = cs.slice(1); cs.push({ o: last.c, c: m, h: Math.max(last.c, m), l: Math.min(last.c, m) }); }
+      else cs[cs.length - 1] = { ...last, c: m, h: Math.max(last.h, m), l: Math.min(last.l, m) };
+      const series = s.series.map((a, i) => i < 2 || r() < 0.5 ? a : a.slice(1).concat(a[a.length - 1] * (1 + (r() - 0.5) * 0.012)));
+      const trades = [{ p: m, s: Math.round(50 + r() * 900), up: m >= last.c, t: Date.now() }].concat(s.trades.slice(0, 8));
+      return { btc, btcTrades, cs, flash: m >= last.c ? 1 : -1, flashRow: Math.floor(r() * 16), book: this.makeBook(m), series, trades, ownerFees: s.ownerFees + 0.4 + r() * 2.6 };
+    });
+    clearTimeout(this.ft); this.ft = setTimeout(() => this.setState({ flash: 0, flashRow: -1 }), 450);
+  }
+  heroVals(s, w, last, chg) {
+    const D = w > 1024, T = w > 768, seq = T && !s.rm;
+    const dashW = D ? Math.min(880, w * 0.72) : T ? w * 0.86 : w - 32;
+    const m = (w - dashW) / 2, ov = T ? 70 : 20;
+    const sc = Math.max((m + ov) / 515, D ? 0 : w * 0.22 / 515);
+    const fs = D ? 76 : T ? 60 : 44;
+    const gain = 15840 + (last - 2.715) * 52000, pv = 345398.34 + (last - 2.715) * 52000;
+    const up = chg >= 0, on = !!s.hin;
+    const usd = v => (v >= 0 ? '+$' : '−$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const pos = [['PRICE-EGGS', 'Long', 2.690, last, 20000, 3], ['GPU-H100', 'Short', 2.06, 2.00, 10000, 2], ['ERCOT-N', 'Long', 42.35, 41.80, 400, 2]].map(([mk, side, e, k, q, dc]) => { const pl = (k - e) * q * (side === 'Long' ? 1 : -1); return { m: mk, side, sc: side === 'Long' ? 'var(--green)' : 'var(--red)', e: '$' + e.toFixed(dc), k: '$' + k.toFixed(dc), pnl: usd(pl), pc: pl >= 0 ? 'var(--green)' : 'var(--red)' }; });
+    return {
+      hdrBg: s.scrolled ? 'var(--hdr-glass)' : 'transparent', hdrLine: s.scrolled ? 'var(--hair)' : 'transparent',
+      toggleTheme: () => window.dxToggleTheme && window.dxToggleTheme(), toggleThemeMenu: e => { e.stopPropagation(); window.dxToggleTheme && window.dxToggleTheme(); }, hdrBlur: s.scrolled ? 'blur(14px) saturate(140%)' : 'none',
+      showCreate: w > 720, showLang: w > 1100, hdrNav: w > 1100, hdrBurger: w <= 1100, hdrPad: w > 720 ? '32px' : '16px',
+      seq, heroH: seq ? '180vh' : 'auto', stagePos: seq ? 'sticky' : 'relative', stageH: seq ? '100vh' : 'auto', stagePb: seq ? '0px' : T ? '96px' : '72px', rocksZ: T ? 3 : 0,
+      heroPadT: (T ? 96 : 112) + 'px', h1Size: fs + 'px', dashMt: (T ? 44 : 36) + 'px', dashW: Math.round(dashW) + 'px', showSide: T, pvSize: T ? '40px' : '28px',
+      inO: on ? 1 : 0, inT: on ? 'none' : 'translateY(16px)', dashO: on ? 1 : 0, dashT: on ? 'none' : 'translateY(48px)', rockS: on ? 'scale(1)' : 'scale(1.08)',
+      rk: { h: (1080 * sc).toFixed(1) + 'px', lw: (530 * sc).toFixed(1) + 'px', rw: (m + ov + 10 * sc).toFixed(1) + 'px', bs: (1920 * sc).toFixed(1) + 'px ' + (1080 * sc).toFixed(1) + 'px', rp: (-1300 * sc).toFixed(1) + 'px 0px' },
+      pv: '$ ' + pv.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), pvPct: '+' + (gain / (pv - gain) * 100).toFixed(1) + '%', pvGain: '+$' + Math.round(gain).toLocaleString('en-US'),
+      heroAssets: [
+        { sym: 'PRICE-EGGS', p: '$' + last.toFixed(3), c: (up ? '+' : '') + chg.toFixed(2) + '%', col: up ? 'var(--green)' : 'var(--red)', dot: 'var(--t-hi)' },
+        { sym: 'GPU-H100', p: '$2.00', c: '+1.20%', col: 'var(--green)', dot: 'var(--t3)' },
+        { sym: 'ERCOT-N', p: '$41.80', c: '+3.42%', col: 'var(--green)', dot: 'var(--green)' },
+      ],
+      posRows: pos,
+      myMarkets: [{ sym: 'PRICE-EGGS', p: '$' + last.toFixed(3), dot: 'var(--t-hi)' }, { sym: 'GPU-H100', p: '$2.00', dot: 'var(--t3)' }, { sym: 'ERCOT-N', p: '$41.80', dot: 'var(--green)' }],
+      myOpen: s.myOpen, toggleMy: () => this.setState({ myOpen: !s.myOpen }), myChev: s.myOpen ? 'none' : 'rotate(-90deg)',
+      dBars: T ? this.dBars : this.dBars.filter((_, i) => i % 2 === 0),
+      heroRef: this.heroRef, copyRef: this.copyRef, pillRef: this.pillRef, dashRef: this.dashRef, rockLRef: this.rockLRef, rockRRef: this.rockRRef,
+    };
+  }
+  netSvg() {
+    const h = this.hv, s = this.state, w = s.w, dex = s.netMode === 'dex', mono = "'JetBrains Mono',monospace";
+    const NW = w < 640, MID = !NW, ky = NW ? 0.7 : 1;
+    const VB = NW ? [360, 640 * ky] : [1200, 600], hub = NW ? [180, 96 * ky] : [600, 270];
+    const bank = NW ? [180, 590 * ky] : [600, 480], usdc = NW ? [50, 225 * ky] : [400, 500], uma = NW ? [310, 225 * ky] : [800, 500];
+    const nodes = NW ? this.netNodes.filter(n => n.nw).map(n => ({ ...n, x: n.nw[0], y: n.nw[1] * ky })) : MID ? this.netNodes.filter(n => !n.wideOnly) : this.netNodes;
+    const fs = NW ? 11 : 20, N = nodes.length, cyc = s.netI % (N + 2), act = dex && cyc < N ? cyc : -1;
+    const B = NW ? 26 : 46, A = NW ? 8 : 14, ease = 'cubic-bezier(.2,.7,.2,1)', fade = on => ({ opacity: on ? 1 : 0, transition: 'opacity 900ms ' + ease });
+    const tw = (t, k) => t.length * fs * (k || 0.62);
+    const txt = (key, x, y, t, o) => h('text', { key, x, y, textAnchor: o.anchor || 'middle', style: { fontFamily: mono, fontSize: o.fs || fs * 0.85, letterSpacing: '0.06em', fill: o.fill || 'var(--t3)', fontWeight: o.fw || 400, ...(o.style || {}) } }, t);
+    const tag = (key, x, y, t, on, green) => { const tW = tw(t, 0.58) * 0.85 + 14, tH = fs * 0.85 + 9; return h('g', { key, style: fade(on), pointerEvents: 'none' },
+      h('rect', { x: x - tW / 2, y: y - tH / 2, width: tW, height: tH, rx: 3, fill: 'var(--bg)', stroke: green ? 'color-mix(in srgb,var(--green) 35%,transparent)' : 'var(--line2)' }),
+      txt(key + 't', x, y + fs * 0.3, t, { fill: green ? 'var(--green)' : 'var(--t4)', fs: fs * 0.78 })); };
+    const els = [h('defs', { key: 'df' },
+      h('radialGradient', { id: 'netG' }, h('stop', { offset: '0%', stopColor: 'var(--t1)', stopOpacity: 0.07 }), h('stop', { offset: '100%', stopColor: 'var(--t1)', stopOpacity: 0 })),
+      h('radialGradient', { id: 'netGG' }, h('stop', { offset: '0%', stopColor: 'var(--green)', stopOpacity: 0.07 }), h('stop', { offset: '100%', stopColor: 'var(--green)', stopOpacity: 0 })))];
+    els.push(h('circle', { key: 'lg', cx: hub[0], cy: hub[1], r: NW ? 180 : 340, fill: 'url(#netG)', style: fade(!dex) }));
+    els.push(h('circle', { key: 'lgg', cx: hub[0], cy: hub[1], r: NW ? 180 : 340, fill: 'url(#netGG)', style: fade(dex) }));
+    const top = [], nodeEls = [];
+    nodes.forEach((n, i) => {
+      const dx = hub[0] - n.x, dy = hub[1] - n.y, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len, R = B * 1.15;
+      const ex = hub[0] - ux * R, ey = hub[1] - uy * R, bx = n.x + dx * 0.58, by = n.y + dy * 0.58, L2 = Math.hypot(ex - n.x, ey - n.y);
+      els.push(h('line', { key: 'tl' + n.id, x1: n.x, y1: n.y, x2: n.ok ? ex : bx, y2: n.ok ? ey : by, stroke: n.ok ? 'var(--t3)' : 'var(--line4)', strokeWidth: 1, strokeDasharray: n.ok ? null : '4 4', style: fade(!dex) }));
+      if (!n.ok) els.push(h('g', { key: 'x' + n.id, style: fade(!dex) }, h('line', { x1: bx - 4, y1: by - 4, x2: bx + 4, y2: by + 4, stroke: 'var(--t3)', strokeWidth: 1.25 }), h('line', { x1: bx + 4, y1: by - 4, x2: bx - 4, y2: by + 4, stroke: 'var(--t3)', strokeWidth: 1.25 })));
+      els.push(h('line', { key: 'dl' + n.id, x1: n.x, y1: n.y, x2: ex, y2: ey, strokeWidth: 1, style: { stroke: i === act ? 'color-mix(in srgb,var(--green) 75%,transparent)' : 'color-mix(in srgb,var(--t1) 25%,transparent)', strokeDasharray: L2, strokeDashoffset: dex ? 0 : L2, transition: 'stroke-dashoffset 900ms ' + ease + ' ' + (i * 60) + 'ms, stroke 400ms' } }));
+      if (i === act) els.push(h('circle', { key: 'tv' + s.netI, r: 2.5, fill: 'var(--green)', style: { '--x0': n.x + 'px', '--y0': n.y + 'px', '--x1': ex + 'px', '--y1': ey + 'px', transform: 'translate(' + ex + 'px,' + ey + 'px)', animation: 'dx-travel 1.3s cubic-bezier(.4,0,.2,1) both' } }));
+      if (!NW && n.tag) top.push(tag('tt' + n.id, bx, by + fs * 1.5, n.tag, !dex, false));
+      if (!NW && n.dtag) top.push(tag('dt' + n.id, n.x + dx * 0.45, n.y + dy * 0.45, n.dtag, dex, true));
+      const lit = dex && (i < cyc || i === act), hov = s.netHover === n.id, above = n.y < hub[1] - 60;
+      nodeEls.push(h('g', { key: 'n' + n.id, onMouseEnter: () => this.setState({ netHover: n.id }), onMouseLeave: () => this.setState({ netHover: null }), style: { cursor: 'default' } },
+        h('circle', { cx: n.x, cy: n.y, r: 18, fill: 'transparent' }),
+        h('circle', { cx: n.x, cy: n.y, r: NW ? 4 : MID ? 6 : 4, style: { fill: lit ? 'var(--green)' : dex ? 'var(--t-soft)' : n.ok ? 'var(--t3)' : 'var(--line4)', stroke: 'var(--bg)', strokeWidth: 2, transformBox: 'fill-box', transformOrigin: 'center', transform: hov ? 'scale(1.15)' : 'none', transition: 'fill 400ms, transform 200ms' } }),
+        txt('l', n.x, above ? n.y - fs * 1.2 : n.y + fs * 1.9, n.n.toUpperCase(), { fill: hov || dex ? 'var(--t-soft)' : 'var(--t3)', style: { transition: 'fill 400ms' } })));
+    });
+    const br = (cx, cy, b, a, col) => h('path', { d: [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([sx, sy]) => 'M' + (cx + sx * b) + ',' + (cy + sy * b - sy * a) + ' L' + (cx + sx * b) + ',' + (cy + sy * b) + ' L' + (cx + sx * b - sx * a) + ',' + (cy + sy * b)).join(' '), fill: 'none', strokeWidth: 1.25, style: { stroke: col, transition: 'stroke 900ms' } });
+    els.push(h('g', { key: 'bk', style: fade(!dex) },
+      h('line', { x1: bank[0], y1: hub[1] + B * 1.15, x2: bank[0], y2: bank[1] - 8, stroke: 'var(--line4)', strokeDasharray: '4 4' }),
+      h('rect', { x: bank[0] - 4, y: bank[1] - 4, width: 8, height: 8, fill: 'var(--line2)', stroke: 'var(--t4)' }),
+      txt('bl', bank[0], bank[1] + fs * 1.7, 'BANK BALANCE SHEET', { fill: 'var(--t2)', fw: 600 }),
+      txt('bd', bank[0], bank[1] + fs * 3.1, 'Holds all the risk, decides the payout', { fill: 'var(--t4)', fs: fs * 0.8 })));
+    [[usdc, NW ? 'USDC' : 'USDC COLLATERAL', 'Held in contracts, not by us', 'u'], [uma, 'UMA ORACLE', 'Settles from public data', 'm']].forEach(([p, t, d, k], j) => {
+      const dx = p[0] - hub[0], dy = p[1] - hub[1], len = Math.hypot(dx, dy), sx = hub[0] + dx / len * B * 1.15, sy = hub[1] + dy / len * B * 1.15, L3 = Math.hypot(p[0] - sx, p[1] - sy);
+      els.push(h('g', { key: 'sd' + k, style: fade(dex) },
+        h('line', { x1: sx, y1: sy, x2: p[0], y2: p[1], strokeWidth: 1, style: { stroke: 'color-mix(in srgb,var(--green) 60%,transparent)', strokeDasharray: L3, strokeDashoffset: dex ? 0 : L3, transition: 'stroke-dashoffset 900ms ' + ease + ' ' + (300 + j * 120) + 'ms' } }),
+        h('circle', { cx: p[0], cy: p[1], r: 4, fill: 'var(--green)', stroke: 'var(--bg)', strokeWidth: 2 }),
+        txt('t', p[0], p[1] + fs * 1.7, t, { fill: 'var(--t1)', fw: 600 }),
+        NW ? null : txt('d', p[0], p[1] + fs * 3.1, d, { fill: 'var(--t3)', fs: fs * 0.8 })));
+    });
+    els.push(br(hub[0], hub[1], B, A, dex ? 'color-mix(in srgb,var(--t1) 90%,transparent)' : 'var(--t4)'));
+    els.push(h('circle', { key: 'hc', cx: hub[0], cy: hub[1], r: NW ? 6 : 9, style: { fill: dex ? 'var(--t1)' : 'var(--line2)', stroke: dex ? 'var(--t1)' : 'var(--line4)', transition: 'fill 900ms, stroke 900ms' } }));
+    const hl = 'DEXETERA ORDER BOOK', ly = hub[1] - B - fs * 0.9;
+    els.push(h('g', { key: 'ht', style: fade(!dex) }, txt('a', hub[0], ly, 'BANK SWAP DESK', { fill: 'var(--t2)', fw: 600, fs: fs * 0.95 }), txt('b', hub[0], hub[1] + B + fs * 1.6, 'Prices the hedge, keeps the spread', { fill: 'var(--t4)', fs: fs * 0.82 })));
+    els.push(h('g', { key: 'hd', style: fade(dex) }, h('circle', { cx: hub[0] - tw(hl, 0.66) * 0.95 / 2 - 10, cy: ly - fs * 0.3, r: 3, fill: 'var(--green)' }), txt('a', hub[0], ly, hl, { fill: 'color-mix(in srgb,var(--t1) 90%,transparent)', fw: 600, fs: fs * 0.95 }), txt('b', hub[0], hub[1] + B + fs * 1.6, 'Live bids and asks set the price', { fill: 'var(--t3)', fs: fs * 0.82 })));
+    els.push(...top, ...nodeEls);
+    const hn = nodes.find(n => n.id === s.netHover);
+    if (hn) { const tW = tw(hn.d, 0.55) * 0.85 + 24, tH = fs * 2.2, below = hn.y < hub[1] - 60, tx = Math.max(8, Math.min(VB[0] - tW - 8, hn.x - tW / 2)), ty = below ? hn.y + fs * 2.8 : hn.y - fs * 2.8 - tH;
+      els.push(h('g', { key: 'tip', pointerEvents: 'none' }, h('rect', { x: tx, y: ty, width: tW, height: tH, rx: 6, fill: 'var(--card2)', stroke: 'var(--line3)' }), txt('t', tx + 12, ty + tH / 2 + fs * 0.3, hn.d, { anchor: 'start', fill: 'var(--t-soft)', fs: fs * 0.85 }))); }
+    return h('svg', { viewBox: '0 0 ' + VB[0] + ' ' + VB[1], preserveAspectRatio: 'xMidYMid meet', style: { width: '100%', height: '100%', display: 'block', overflow: 'visible' } }, els);
+  }
+  mono() { return { fontFamily: "'JetBrains Mono',monospace" }; }
+  candle(cs, key, height, opt = {}) {
+    const h = this.hv, s = this.state, mono = this.mono();
+    const hi = Math.max(...cs.map(k => k.h)), lo = Math.min(...cs.map(k => k.l)), pad = (hi - lo) * 0.12, top = opt.range ? opt.range[1] : hi + (hi - lo) * (opt.padT ?? 0.12), bot = opt.range ? opt.range[0] : lo - pad * (opt.padB ?? 1);
+    const W = 1000, H = 400, n = cs.length, cw = W / n, Y = v => (top - v) / (top - bot) * H, pct = v => (top - v) / (top - bot) * 100;
+    const levels = opt.levels || [0.1, 0.3, 0.5, 0.7, 0.9].map(t => top - (top - bot) * t);
+    const idx = s[key] ?? n - 1, k = cs[idx], lastC = cs[n - 1].c, up = cs[n - 1].c >= cs[n - 1].o;
+    const els = [];
+    levels.forEach((l, i) => els.push(h('line', { key: 'g' + i, x1: 0, x2: W, y1: Y(l), y2: Y(l), stroke: 'var(--hair)', vectorEffect: 'non-scaling-stroke' })));
+    for (let i = 4; i < n; i += 8) els.push(h('line', { key: 'v' + i, x1: i * cw, x2: i * cw, y1: 0, y2: H, stroke: 'var(--row)', vectorEffect: 'non-scaling-stroke' }));
+    if (opt.vol) cs.forEach((c, i) => els.push(h('rect', { key: 'vo' + i, x: i * cw + cw * 0.2, width: cw * 0.6, y: H - (c.v || 0.3) * H * 0.14, height: (c.v || 0.3) * H * 0.14, fill: c.c >= c.o ? 'var(--green)' : 'var(--red)', opacity: 0.2 })));
+    cs.forEach((c, i) => {
+      const col = c.c >= c.o ? 'var(--green)' : 'var(--red)', x = i * cw + cw / 2;
+      els.push(h('line', { key: 'w' + i, x1: x, x2: x, y1: Y(c.h), y2: Y(c.l), stroke: col, vectorEffect: 'non-scaling-stroke' }));
+      els.push(h('rect', { key: 'b' + i, x: i * cw + cw * 0.2, width: cw * 0.6, y: Y(Math.max(c.o, c.c)), height: Math.max(2, Math.abs(Y(c.o) - Y(c.c))), fill: col }));
+    });
+    const onMove = e => { const b = e.currentTarget.getBoundingClientRect(); const i = Math.max(0, Math.min(n - 1, Math.floor((e.clientX - b.left) / b.width * n))); if (i !== this.state[key]) this.setState({ [key]: i }); };
+    const f3 = opt.fmt || (v => v.toFixed(3)), AX = opt.axis || 54;
+    return h('div', { style: { position: 'relative', width: '100%', height } },
+      h('div', { onMouseMove: onMove, onMouseLeave: () => this.setState({ [key]: null }), style: { position: 'absolute', left: 0, top: 0, bottom: 0, right: AX, cursor: 'crosshair' } },
+        h('svg', { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: 'none', style: { position: 'absolute', inset: 0, width: '100%', height: '100%' } }, els),
+        h('div', { style: { position: 'absolute', top: 0, bottom: 0, left: ((idx + 0.5) / n * 100) + '%', borderLeft: '1px dashed var(--line4)', pointerEvents: 'none' } }),
+        h('div', { style: { position: 'absolute', left: 0, right: 0, top: pct(k.c) + '%', borderTop: '1px dashed var(--line4)', pointerEvents: 'none' } }),
+        opt.ref ? h('div', { style: { ...mono, position: 'absolute', left: 0, right: 0, top: pct(opt.ref.v) + '%', borderTop: '1px dashed var(--line4)', pointerEvents: 'none' } }, h('span', { style: { position: 'absolute', left: 6, bottom: 3, fontSize: 9, color: 'var(--t3)', whiteSpace: 'nowrap' } }, opt.ref.label)) : null,
+        opt.noOhlc ? null : h('div', { style: { ...mono, position: 'absolute', left: 6, top: 4, fontSize: 10, color: 'var(--t4)', display: 'flex', gap: 10, pointerEvents: 'none', background: 'color-mix(in srgb,var(--card) 80%,transparent)', padding: '2px 4px', borderRadius: 4 } },
+          [['O', k.o], ['H', k.h], ['L', k.l], ['C', k.c]].map(([a, b]) => h('span', { key: a }, a + ' ', h('span', { style: { color: k.c >= k.o ? 'var(--green)' : 'var(--red)' } }, f3(b)))))),
+      h('div', { style: { position: 'absolute', right: 0, top: 0, bottom: 0, width: AX, borderLeft: '1px solid var(--hair)', pointerEvents: 'none' } },
+        levels.map((l, i) => h('div', { key: i, style: { ...mono, position: 'absolute', left: 7, top: pct(l) + '%', transform: 'translateY(-50%)', fontSize: 9, color: 'var(--t4)' } }, (opt.lvFmt || f3)(l))),
+        h('div', { style: { ...mono, position: 'absolute', left: 0, right: 0, top: pct(lastC) + '%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 600, padding: '2px 6px', background: up ? 'var(--green)' : 'var(--red)', color: 'var(--bg)', transition: 'top .3s' } }, f3(lastC)),
+        s[key] != null ? h('div', { style: { ...mono, position: 'absolute', left: 0, right: 0, top: pct(k.c) + '%', transform: 'translateY(-50%)', fontSize: 9, padding: '2px 6px', background: 'var(--line2)', color: 'var(--t1)' } }, f3(k.c)) : null));
+  }
+  area(data, color, id, opt = {}) {
+    const h = this.hv, W = 200, H = 60;
+    const min = opt.min ?? Math.min(...data), max = opt.max ?? Math.max(...data), rg = max - min || 1;
+    const yy = v => H - 3 - (v - min) / rg * (H - 6);
+    const line = this.smooth(data.map((v, i) => [i / (data.length - 1) * W, yy(v)])), fill = line + ` L${W},${H} L0,${H} Z`, gid = 'ar-' + id;
+    const kids = [h('defs', { key: 'd' }, h('linearGradient', { id: gid, x1: 0, y1: 0, x2: 0, y2: 1 }, h('stop', { offset: '0%', stopColor: color, stopOpacity: 0.18 }), h('stop', { offset: '100%', stopColor: color, stopOpacity: 0 })))];
+    if (opt.grid) [0.25, 0.5, 0.75].forEach((t, i) => kids.push(h('line', { key: 'g' + i, x1: 0, x2: W, y1: H * t, y2: H * t, stroke: 'var(--hair)', vectorEffect: 'non-scaling-stroke' })));
+    if (opt.ref != null) kids.push(h('line', { key: 'ref', x1: 0, x2: W, y1: yy(opt.ref), y2: yy(opt.ref), stroke: 'var(--line4)', strokeDasharray: '4 4', vectorEffect: 'non-scaling-stroke' }));
+    if (opt.band) { const b = this.smooth(opt.band.map((v, i) => [i / (opt.band.length - 1) * W, yy(v)])); const poly = line + ' L' + opt.band.map((v, i) => (i / (opt.band.length - 1) * W).toFixed(2) + ',' + yy(v).toFixed(2)).reverse().join(' L') + ' Z'; kids.push(h('path', { key: 'bp', d: poly, fill: color, fillOpacity: 0.1 })); kids.push(h('path', { key: 'bl', d: b, fill: 'none', stroke: opt.bandColor || 'var(--t3)', strokeWidth: 1.25, vectorEffect: 'non-scaling-stroke' })); }
+    else kids.push(h('path', { key: 'f', d: fill, fill: `url(#${gid})` }));
+    kids.push(h('path', { key: 'l', d: line, fill: 'none', stroke: color, strokeWidth: opt.sw || 1.5, vectorEffect: 'non-scaling-stroke', strokeLinejoin: 'round', strokeLinecap: 'round' }));
+    return h('div', { 'data-spark': '1', style: { width: '100%', height: '100%', transition: 'clip-path 900ms cubic-bezier(.2,.7,.2,1)' } },
+      h('svg', { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: 'none', style: { width: '100%', height: '100%', display: 'block', overflow: 'visible' } }, kids));
+  }
+  smooth(P) {
+    let d = 'M' + P[0][0].toFixed(2) + ',' + P[0][1].toFixed(2);
+    for (let i = 0; i < P.length - 1; i++) {
+      const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+      d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(2) + ',' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(2) + ' ' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(2) + ',' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(2) + ' ' + p2[0].toFixed(2) + ',' + p2[1].toFixed(2);
+    }
+    return d;
+  }
+  featChart(data, vol, color) {
+    const h = this.hv, mono = this.mono(), W = 200, H = 60;
+    const mn = Math.min(...data), mx = Math.max(...data), pad = (mx - mn) * 0.18, lo = mn - pad, hi = mx + pad;
+    const yy = v => (hi - v) / (hi - lo) * H, pc = v => (hi - v) / (hi - lo) * 100;
+    const levels = [0.12, 0.37, 0.62, 0.87].map(t => hi - (hi - lo) * t), last = data[data.length - 1];
+    const line = this.smooth(data.map((v, i) => [i / (data.length - 1) * W, yy(v)])), fill = line + ` L${W},${H} L0,${H} Z`;
+    return h('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 } },
+      h('div', { style: { flex: 1, position: 'relative', minHeight: 64 } },
+        h('div', { style: { position: 'absolute', left: 0, top: 0, bottom: 0, right: 48 } },
+          h('svg', { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: 'none', style: { position: 'absolute', inset: 0, width: '100%', height: '100%' } },
+            h('defs', null, h('linearGradient', { id: 'feat-g', x1: 0, y1: 0, x2: 0, y2: 1 }, h('stop', { offset: '0%', stopColor: color, stopOpacity: 0.18 }), h('stop', { offset: '100%', stopColor: color, stopOpacity: 0 }))),
+            levels.map((l, i) => h('line', { key: i, x1: 0, x2: W, y1: yy(l), y2: yy(l), stroke: 'var(--hair)', vectorEffect: 'non-scaling-stroke' })),
+            h('path', { d: fill, fill: 'url(#feat-g)' }),
+            h('path', { d: line, fill: 'none', stroke: color, strokeWidth: 1.75, vectorEffect: 'non-scaling-stroke', strokeLinejoin: 'round' }),
+            h('line', { x1: 0, x2: W, y1: yy(last), y2: yy(last), stroke: color, strokeOpacity: 0.4, strokeDasharray: '3 3', vectorEffect: 'non-scaling-stroke' }))),
+        h('div', { style: { position: 'absolute', right: 0, top: 0, bottom: 0, width: 48, borderLeft: '1px solid var(--hair)' } },
+          levels.map((l, i) => h('span', { key: i, style: { ...mono, position: 'absolute', left: 7, top: pc(l) + '%', transform: 'translateY(-50%)', fontSize: 9, color: 'var(--t4)' } }, '$' + l.toFixed(2))),
+          h('span', { style: { ...mono, position: 'absolute', left: 0, right: 0, top: pc(last) + '%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 600, padding: '2px 6px', background: color, color: 'var(--bg)' } }, '$' + last.toFixed(2)))),
+      h('div', { style: { height: 16, display: 'flex', alignItems: 'flex-end', gap: 1, marginRight: 48, borderBottom: '1px solid var(--hair)' } },
+        vol.map((v, i) => h('span', { key: i, style: { flex: 1, height: (v * 100).toFixed(0) + '%', background: i === vol.length - 1 ? 'var(--t3)' : 'var(--line2)', borderRadius: '1px 1px 0 0' } }))),
+      h('div', { style: { ...mono, display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--t4)', marginRight: 48 } }, ['90D', '60D', '30D', 'NOW'].map(x => h('span', { key: x }, x))));
+  }
+  fmtP(m, v) { return m.pct ? v.toFixed(m.dec) + '%' : '$' + v.toLocaleString('en-US', { minimumFractionDigits: m.dec, maximumFractionDigits: m.dec }); }
+  card(i, idp) {
+    const m = this.mk[i], a = i === 1 ? this.state.cs.map(k => k.c) : this.state.series[i], last = a[a.length - 1], chg = i === 1 ? (last / this.open24 - 1) * 100 : i === 0 ? (last / a[0] - 1) * 100 : (last / a[Math.max(0, a.length - 25)] - 1) * 100, up = chg >= 0, col = up ? 'var(--green)' : 'var(--red)';
+    const f = this.state.filter, on = f === 'All' || f === m.cat;
+    return { id: m.id, name: m.name, unit: m.unit, cat: m.cat, settle: 'SETTLES ' + m.settle, price: this.fmtP(m, last), chg: (up ? '▲ ' : '▼ ') + Math.abs(chg).toFixed(2) + '%', chgColor: col,
+      tag: m.live ? 'LIVE' : 'EXAMPLE', tagColor: m.live ? 'var(--green)' : 'var(--t4)', href: m.live ? 'https://dexetera.xyz/token/' + m.id : 'https://dexetera.xyz/explore',
+      spark: this.area(a, col, (idp || 'c') + i), op: on ? 1 : 0.28 };
+  }
+  money(v, dec = 0) { const r = dec ? v : Math.round(v); if (Math.abs(r) < 0.5) return '$0'; return (r > 0 ? '+' : '−') + '$' + Math.abs(r).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+  col(v) { return Math.abs(v) < 0.5 ? 'var(--t2)' : v > 0 ? 'var(--green)' : 'var(--red)'; }
+  tabStyle(on) { return on ? { bg: 'color-mix(in srgb,var(--t1) 6%,transparent)', border: 'color-mix(in srgb,var(--violet) 25%,transparent)', color: 'var(--t1)' } : { bg: 'transparent', border: 'transparent', color: 'var(--t3)' }; }
+  bookRows(rows, max, off) { const s = this.state; return rows.map((o, i) => ({ p: o.p.toFixed(3), s: o.s.toLocaleString('en-US'), t: o.t.toLocaleString('en-US'), depth: (o.t / max * 100).toFixed(1) + '%', bg: s.flashRow === i + off ? 'color-mix(in srgb,var(--t1) 6%,transparent)' : 'transparent' })); }
+  tickerEl(items, dur, rev, extra) {
+    const h = this.hv;
+    const item = (t, k) => h('span', { key: k, style: { display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 22px', borderRight: '1px solid var(--hair)', whiteSpace: 'nowrap' } },
+      h('span', { style: { color: 'var(--t3)' } }, t[0]), h('span', { style: { color: 'var(--line4)' } }, '•'), h('span', { style: { color: 'var(--t1)' } }, t[1]),
+      h('span', { style: { color: t[2] > 0 ? 'var(--green)' : t[2] < 0 ? 'var(--red)' : 'var(--t2)' } }, (t[2] >= 0 ? '+' : '') + t[2].toFixed(2) + '%'));
+    return h('div', { onMouseEnter: extra ? undefined : () => this.setState({ hoverTk: true }), onMouseLeave: extra ? undefined : () => this.setState({ hoverTk: false }),
+      style: { display: 'flex', width: 'max-content', height: 46, alignItems: 'center', fontFamily: "'JetBrains Mono',monospace", fontSize: 11, animation: `${rev ? 'dx-ticker-r' : 'dx-ticker'} ${dur}s linear infinite`, animationPlayState: !extra && this.state.hoverTk ? 'paused' : 'running' } }, items.concat(items).map(item));
+  }
+
+  appTicker(items) {
+    const h = this.hv;
+    const it = (t, k) => h('span', { key: k, style: { display: 'inline-flex', alignItems: 'center', gap: 10, padding: '0 24px', whiteSpace: 'nowrap' } }, h('span', { style: { color: 'var(--t-soft)' } }, t[0]), h('span', { style: { color: 'var(--t1)' } }, t[1]), h('span', { style: { color: t[2] < 0 ? 'var(--red)' : 'var(--green)' } }, (t[2] >= 0 ? '+' : '') + t[2].toFixed(2) + '%'));
+    return h('div', { style: { display: 'flex', width: 'max-content', height: 46, alignItems: 'center', fontFamily: "'JetBrains Mono',monospace", fontSize: 12, animation: 'dx-ticker 70s linear infinite' } }, items.concat(items).map(it));
+  }
+  appVals(s, w, egg) {
+    const b = s.btc, n = b.length, last = b[n - 1].c, prevC = b[n - 2].c, chg = (last / prevC - 1) * 100, up = chg >= 0;
+    const usd = (v, d = 2) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const num = v => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const aSz = [120, 85, 240, 60, 310, 180, 420, 95, 600], bSz = [150, 90, 260, 40, 380, 210, 500, 130, 560];
+    let ca = 0, cb = 0; const A = [], Bd = [];
+    aSz.forEach((sa, i) => { const pa = last + 10 * (i + 1), sz = bSz[i], pb = last - 10 * (i + 1); ca += sa; A.push({ p: pa, s: sa, t: ca }); cb += sz; Bd.push({ p: pb, s: sz, t: cb }); });
+    const mx = Math.max(ca, cb), row = (o, i, off) => ({ p: usd(o.p), s: String(o.s), t: usd(o.p * o.s), depth: (o.t / mx * 100).toFixed(1) + '%', bg: s.flashRow === i + off ? 'color-mix(in srgb,var(--t1) 5%,transparent)' : 'transparent' });
+    const k = b[s.btcHover ?? n - 1], kd = k.c - k.o, kup = kd >= 0;
+    const two = x => String(x).padStart(2, '0'), d = new Date();
+    const cw = s.appW || (Math.min(1680, w - 48) - 2), D = cw >= 1330, sc = D ? 1 : Math.min(1, cw / 1280);
+    const t0 = s.btcTrades[0];
+    const nPl = 12 * (last - 4620), money0 = v => (v >= 0 ? '+$' : '−$') + Math.abs(Math.round(v)).toLocaleString('en-US');
+    const pos = [
+      { ic: 'N', name: 'Niño 3.4', sub: 'NINO34-DEC26', size: '12', entry: '$4,620.00', mark: usd(last), pnl: money0(nPl), pct: (nPl >= 0 ? '+' : '−') + Math.abs((last / 4620 - 1) * 100).toFixed(1) + '%', pc: nPl >= 0 ? 'var(--green)' : 'var(--red)', liq: '$2,980.00' },
+      { ic: 'N', name: 'Niño 1+2', sub: 'NINO12-DEC26', size: '5', entry: '$6,100.00', mark: '$7,400.00', pnl: '+$6,500', pct: '+21.3%', pc: 'var(--green)', liq: '$3,950.00' },
+      { ic: 'E', name: 'Average egg price', sub: 'PRICE-EGGS', size: '4.2', entry: '$2.5377', mark: '$2.7180', pnl: '+$0.76', pct: '+7.10%', pc: 'var(--green)', liq: '$0.00' },
+    ];
+    const ls = on => on ? { bg: 'color-mix(in srgb,var(--emerald) 8%,transparent)', border: 'var(--green)', color: 'var(--green)', dotD: 'none', arD: 'inline' } : { bg: 'var(--card2)', border: 'var(--line2)', color: 'var(--t3)', dotD: 'inline-block', arD: 'none' };
+    const addQ = v => () => this.setState(st => { const cur = parseFloat(String(st.bsize).replace(/,/g, '')) || 0; return { bsize: (cur + v).toLocaleString('en-US') }; });
+    const tiV = { 'Margin Used': '31.1900', 'Reserved': '12.4000', 'Available': '24.5800' };
+    const posN = { Positions: 5, 'Open Orders': 12, 'Trade History': 0, 'Order History': 50 };
+    return {
+      appRef: this.appRef, appScale: D ? 'none' : 'scale(' + sc.toFixed(4) + ')', appInnerW: D ? '100%' : '1280px', appH: Math.round(803 * sc) + 'px',
+      btcTicker: this.appTicker([['NINO34-DEC26', usd(last), +chg.toFixed(2)], ['ETHEREUM', '$2,430.15', -1.49], ['GOLD', '$2,412.30', 0.31], ['NASDAQ', '$29,686.80', 0], ['PRICE-EGGS', '$' + egg.toFixed(3), 0.12], ['PRICE-MILK-US', '$4.52', 0], ['SILVER', '$75.96', 0.21], ['500', '$7,594.21', 0.08]]),
+      btcStats: [['MARK', usd(last)], ['LAST', usd(t0.p), t0.up ? 'var(--green)' : 'var(--red)'], ['24H CHG', (up ? '+' : '') + chg.toFixed(1) + '%', up ? 'var(--green)' : 'var(--red)'], ['24H HIGH', usd(b[n - 1].h, 0)], ['24H LOW', usd(b[n - 1].l, 0)], ['BID', usd(Bd[0].p), 'var(--green)'], ['ASK', usd(A[0].p), 'var(--red)'], ['SPREAD', '$20.00'], ['VOLUME', '$184K'], ['TRADES', '1,412']].map(([l, v, c]) => ({ l, v, c: c || 'var(--t1)' })),
+      btcChart: this.candle(b, 'btcHover', 240, { fmt: num, lvFmt: v => v.toLocaleString('en-US'), axis: 72, noOhlc: true, vol: true, levels: [5500, 5000, 4500, 4000, 3500], range: [2850, 5800], ref: { v: 3000, label: 'Neutral (0.0 °C)' } }),
+      btcLeg: { o: num(k.o), h: num(k.h), l: num(k.l), c: num(k.c), chg: (kup ? '+' : '−') + num(Math.abs(kd)) + ' (' + (kup ? '+' : '−') + Math.abs(kd / k.o * 100).toFixed(2) + '%)', col: kup ? 'var(--green)' : 'var(--red)' },
+      clock: two(d.getUTCHours()) + ':' + two(d.getUTCMinutes()) + ':' + two(d.getUTCSeconds()) + ' UTC',
+      bookTabs: [['book', 'BOOK'], ['trades', 'TRADES']].map(([id, label]) => ({ label, on: () => this.setState({ bookTab: id }), bg: s.bookTab === id ? 'var(--line2)' : 'transparent', color: s.bookTab === id ? 'var(--t1)' : 'var(--t2)' })),
+      showBook: s.bookTab === 'book', showTrades: s.bookTab === 'trades',
+      btcAsks: A.slice().reverse().map((o, i) => row(o, i, 0)), btcBids: Bd.map((o, i) => row(o, i, 9)), askCount: A.length + ' orders', bidCount: Bd.length + ' orders', spreadTxt: '$20.00 · ' + (20 / last * 100).toFixed(2) + '%',
+      btcTr: s.btcTrades.map(t => { const x = new Date(t.t); return { p: usd(t.p), s: String(t.s), t: two(x.getHours()) + ':' + two(x.getMinutes()) + ':' + two(x.getSeconds()), color: t.up ? 'var(--green)' : 'var(--red)' }; }),
+      curPrice: usd(last), curChg: (up ? '↑ ' : '↓ ') + Math.abs(chg).toFixed(2) + '%', curChgColor: up ? 'var(--green)' : 'var(--red)',
+      tiTabs: Object.keys(tiV).map(t => ({ label: t, on: () => this.setState({ tiTab: t }), bg: s.tiTab === t ? 'var(--line2)' : 'transparent', color: s.tiTab === t ? 'var(--t1)' : 'var(--t3)' })), tiLabel: s.tiTab + ':', tiVal: tiV[s.tiTab],
+      mkTabs: ['Market', 'Limit'].map(t => ({ label: t, on: () => this.setState({ tab: t }), bg: s.tab === t ? 'var(--ln)' : 'transparent', color: s.tab === t ? 'var(--t1)' : 'var(--t3)', dot: s.tab === t ? 'var(--green)' : 'var(--t4)' })),
+      lsL: ls(s.side === 'long'), lsS: ls(s.side !== 'long'),
+      bsize: s.bsize, onBSize: e => this.setState({ bsize: e.target.value.replace(/[^0-9.,]/g, '').slice(0, 12) }),
+      quick: [['+$100', 100], ['+$500', 500], ['+$1K', 1000], ['+$5K', 5000]].map(([label, v]) => ({ label, on: addQ(v), color: 'var(--t3)' })).concat({ label: 'Max', on: () => this.setState({ bsize: '24.58' }), color: 'var(--blue)' }),
+      posTabs: Object.keys(posN).map(t => ({ label: t, n: posN[t], on: () => this.setState({ posTab: t }), border: s.posTab === t ? 'var(--line2)' : 'transparent', bg: s.posTab === t ? 'var(--card2)' : 'transparent', color: s.posTab === t ? 'var(--t1)' : 'var(--t-soft)' })),
+      showPos: s.posTab === 'Positions', posEmptyOn: s.posTab !== 'Positions', posEmpty: posN[s.posTab] ? 'Open the app to view ' + s.posTab.toLowerCase() : 'No ' + s.posTab.toLowerCase() + ' yet', btcPos: pos,
+      simMk: [['Niño 1+2', 'Climate'], ['PRICE-EGGS', 'Commodities'], ['Silver', 'Precious Metals']].map(([nm, c], i) => ({ n: nm, c, spark: this.area(this.simS[i], 'var(--green)', 'sim' + i, { sw: 1.25 }) })),
+    };
+  }
+  renderVals() {
+    const s = this.state, w = s.w, L = w >= 1100, M = w >= 900, S = w >= 640;
+    const cs = s.cs, last = cs[cs.length - 1].c, chg = (last / this.open24 - 1) * 100;
+    const tk = [['PRICE-EGGS', '$' + last.toFixed(3), +chg.toFixed(2)], ['PRICE-MILK-US', '$4.12', 0.24], ['CRUDE-OIL', '$71.84', -0.62], ['GOLD', '$2,412.30', 0.31], ['SILVER', '$29.84', 0.48], ['NASDAQ', '$18,240.11', -0.12], ['GPU-H100', '$2.00', 0], ['ERCOT-N', '$38.40', 1.12], ['DRAM-DDR5', '$4.85', -0.41], ['FREIGHT-FEU', '$2,140', 0.66], ['BTC', '$64,210.00', 0.86], ['ETH', '$3,120.45', -0.33]];
+    const sizeN = parseFloat(String(s.size).replace(/[^0-9.]/g, '')) || 0, lev = parseInt(s.lev), long = s.side === 'long';
+    const liq = long ? last * (1 - 0.9 / lev) : last * (1 + 0.9 / lev);
+    const b = s.book;
+    const c4 = M ? 'repeat(4,minmax(0,1fr))' : S ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)';
+    return {
+      ...this.heroVals(s, w, last, chg), wide: M, narrow: !M, menuOpen: s.menu && w <= 1100, toggleMenu: () => this.setState({ menu: !s.menu }),
+      heroCols: w >= 1024 ? 'minmax(0,5fr) minmax(0,7fr)' : 'minmax(0,1fr)', 
+      termCols: S ? 'minmax(0,1fr) 210px' : 'minmax(0,1fr)', ticketCols: S ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr)',
+      c4, c2: S ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)', hdrCols: M ? 'minmax(0,7fr) minmax(0,5fr)' : 'minmax(0,1fr)', cmpSticky: L ? 'sticky' : 'static',
+      split57: L ? 'minmax(0,5fr) minmax(0,7fr)' : 'minmax(0,1fr)', split75: L ? 'minmax(0,7fr) minmax(0,5fr)' : 'minmax(0,1fr)',
+      tablesCols: L ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)', c5: M ? 'repeat(5,minmax(0,1fr))' : 'minmax(0,1fr)',
+      statCols: M ? 'repeat(5,minmax(0,1fr))' : 'repeat(2,minmax(0,1fr))',
+      featWrap: M ? 'nowrap' : 'wrap', wallRows: M ? '300px' : 'auto', wallCols: M ? 'minmax(0,4fr) minmax(0,6fr)' : 'minmax(0,1fr)', smDisplay: M ? 'grid' : 'flex', smOverflow: M ? 'visible' : 'auto', smFlex: M ? '0 1 auto' : '0 0 220px', smPadB: M ? '0' : '4px',
+      bentoCols: c4, featCol: S ? 'span 2' : 'span 1', featRow: M ? 'span 3' : 'span 1', featChartH: M ? '100%' : '200px',
+      prodCols: L ? 'minmax(0,1fr) 230px 270px' : S ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr)', prodChartSpan: L ? 'auto' : '1 / -1',
+      cmpOverflow: L ? 'visible' : 'auto', exLedgerCols: M && !L ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)', exCardCols: L ? 'minmax(0,58fr) minmax(0,42fr)' : 'minmax(0,1fr)', exPad: M ? '20px 20px 14px' : '14px', exChartH: L ? '200px' : M ? '180px' : '160px', exRightBL: L ? '1px solid var(--hair)' : '0', exRightBT: L ? '0' : '1px solid var(--hair)', exLgBR: M && !L ? '1px solid var(--hair)' : '0',
+      ticker: this.tickerEl(tk, 60, false),
+      ctaTicker1: this.tickerEl(tk, 80, false, true), ctaTicker2: this.tickerEl(tk.slice().reverse(), 95, true, true), ctaTicker3: this.tickerEl(tk.slice(4).concat(tk.slice(0, 4)), 70, false, true),
+      mark: '$' + last.toFixed(3), markColor: s.flash > 0 ? 'var(--green)' : s.flash < 0 ? 'var(--red)' : 'var(--t1)', markBg: s.flash > 0 ? 'color-mix(in srgb,var(--emerald) 12%,transparent)' : s.flash < 0 ? 'color-mix(in srgb,var(--red) 10%,transparent)' : 'transparent',
+      chg24: (chg >= 0 ? '+' : '') + chg.toFixed(2) + '% 24H', chgColor: chg >= 0 ? 'var(--green)' : 'var(--red)',
+      asks: this.bookRows(b.asks.slice().reverse(), b.max, 0), bids: this.bookRows(b.bids, b.max, 8), spread: '0.001',
+      ticketTabs: ['Market', 'Limit'].map(t => ({ label: t, on: () => this.setState({ tab: t }), ...this.tabStyle(s.tab === t) })),
+      levs: ['1x', '2x', '5x', '10x'].map(l => ({ label: l, on: () => this.setState({ lev: l }), bg: s.lev === l ? 'var(--line2)' : 'transparent', border: s.lev === l ? 'var(--line4)' : 'var(--line)', color: s.lev === l ? 'var(--t1)' : 'var(--t3)' })),
+      size: s.size, onSize: e => { const d = e.target.value.replace(/[^0-9]/g, '').slice(0, 7); this.setState({ size: d ? parseInt(d).toLocaleString('en-US') : '' }); },
+      setLong: () => this.setState({ side: 'long' }), setShort: () => this.setState({ side: 'short' }),
+      longTab: long ? { bg: 'color-mix(in srgb,var(--emerald) 12%,transparent)', border: 'color-mix(in srgb,var(--green) 60%,transparent)', color: 'var(--green)' } : { bg: 'var(--card)', border: 'var(--line)', color: 'var(--t3)' },
+      shortTab: !long ? { bg: 'color-mix(in srgb,var(--red) 10%,transparent)', border: 'color-mix(in srgb,var(--red) 60%,transparent)', color: 'var(--red)' } : { bg: 'var(--card)', border: 'var(--line)', color: 'var(--t3)' },
+      tk: { notional: '$' + (sizeN * lev).toLocaleString('en-US'), liq: '$' + liq.toFixed(3), fee: '$' + (sizeN * lev * 0.001).toFixed(2), btn: (long ? 'Long' : 'Short') + ' PRICE-EGGS', btnBg: long ? 'var(--green)' : 'var(--red)' },
+      stats: [{ label: 'Markets live', value: '9', sub: 'ON MAINNET' }, { label: 'Fee per trade', value: '~0.10%', sub: 'VS ~2%' }, { label: 'Settlement', value: 'UMA', sub: 'OPTIMISTIC ORACLE' }, { label: 'Custody', value: 'Your wallet', sub: 'USDC' }, { label: 'Gas', value: '$0', sub: 'GASLESS' }].map((x, i) => ({ ...x, span: !M && i === 0 ? 'span 2' : 'auto', bb: M ? 'none' : '1px solid var(--hair)' })),
+      ...this.restVals(s, M, S, L, last), ...this.appVals(s, w, last),
+      netRef: this.netRef, netSvg: this.netSvg(), netH: w < 640 ? '420px' : w < 900 ? '320px' : '380px', probCols: L ? 'minmax(0,62fr) minmax(0,38fr)' : 'minmax(0,1fr)', probRows: L ? 'repeat(2,minmax(0,1fr))' : 'auto', probStatCols: L ? 'repeat(2,minmax(0,1fr))' : M ? 'repeat(4,minmax(0,1fr))' : 'repeat(2,minmax(0,1fr))',
+      netToday: () => { clearTimeout(this.netAuto); this.setState({ netMode: 'today', netManual: true }); }, netDex: () => { clearTimeout(this.netAuto); this.setState({ netMode: 'dex', netManual: true }); },
+      netTodayBg: s.netMode === 'today' ? 'var(--line2)' : 'transparent', netTodayC: s.netMode === 'today' ? 'var(--t1)' : 'var(--t3)', netDexBg: s.netMode === 'dex' ? 'var(--line2)' : 'transparent', netDexC: s.netMode === 'dex' ? 'var(--t1)' : 'var(--t3)',
+    };
+  }
+  restVals(s, M, S, L, last) {
+    const filters = ['All', 'Commodities', 'Energy', 'Compute', 'Freight', 'Macro', 'Ratio'].map(f => ({ label: f, on: () => this.setState({ filter: f }), ...(s.filter === f ? { bg: 'var(--glass-line2)', border: 'color-mix(in srgb,var(--violet) 25%,transparent)', color: 'var(--t1)' } : { bg: 'transparent', border: 'transparent', color: 'var(--t3)' }) }));
+    const fa = s.series[0], fc = this.card(0, 'f');
+    const feat = { ...fc, chart: this.featChart(fa, this.featVol, 'var(--green)'), vol: '$412K', oi: '$1.9M', traders: '186', settleShort: this.mk[0].settle };
+    const mkStep = i => ({ on: () => { this.stepClick = Date.now(); this.setState({ step: i }); },
+      badgeBg: i === s.step ? 'var(--t1)' : 'var(--card)', badgeColor: i === s.step ? 'var(--bg)' : 'var(--t3)', badgeBorder: i <= s.step ? 'var(--t1)' : 'var(--line3)',
+      line: i < s.step ? 'var(--step-line)' : 'var(--line)', border: i === s.step ? 'var(--line4)' : 'var(--hair)', titleColor: i === s.step ? 'var(--t1)' : 'var(--t2)', bg: i === s.step ? 'var(--card2)' : 'var(--card)' });
+    const d = (s.gpu - 2) * 1000;
+    const path = Array.from({ length: 90 }, (_, i) => { const t = i / 89, nz = 0.12 * Math.sin(t * 9 + 0.5) + 0.07 * Math.sin(t * 21 + 2) + 0.04 * Math.sin(t * 37); return 2 + (s.gpu - 2) * (t * t * (3 - 2 * t)) + nz * Math.sin(Math.PI * t); });
+    const gcol = s.gpu >= 2 ? 'var(--green)' : 'var(--red)';
+    const bar = v => { const p = Math.min(50, Math.abs(v) / 1000 * 50); return { left: (v >= 0 ? 50 : 50 - p) + '%', width: p + '%', barColor: v >= 0 ? 'var(--green)' : 'var(--red)' }; };
+    const row = (label, v) => ({ label, val: this.money(v), color: this.col(v), ...bar(v) });
+    const ledgers = [
+      { name: 'InferCo', role: 'Buys GPU compute', side: '↗ LONG', sideColor: 'var(--green)', sideBg: 'color-mix(in srgb,var(--emerald) 12%,transparent)', sideLine: 'color-mix(in srgb,var(--emerald) 22%,transparent)', rows: [row('Compute cost change', -d), row('Hedge P&L', d)] },
+      { name: 'RigCloud', role: 'Sells GPU compute', side: '↘ SHORT', sideColor: 'var(--red)', sideBg: 'color-mix(in srgb,var(--red) 10%,transparent)', sideLine: 'color-mix(in srgb,var(--red) 22%,transparent)', rows: [row('Compute revenue change', d), row('Hedge P&L', -d)] },
+    ];
+    const tsp = (i, idp) => { const a = this.tbl[i]; return this.area(a, a[a.length - 1] >= a[0] ? 'var(--green)' : 'var(--red)', idp + i, { sw: 1.25 }); };
+    const ex = 'https://dexetera.xyz/explore';
+    const single = [
+      ['Eggs', 'PRICE-EGGS · BLS', 'Bakeries, food makers', 'Egg producers', 'https://dexetera.xyz/token/PRICE-EGGS'],
+      ['GPU compute', 'GPU-H100 · $/HR', 'AI labs, inference cos.', 'GPU clouds', ex],
+      ['Regional power', 'ERCOT / PJM · $/MWH', 'Data centers, factories', 'Generators', ex],
+      ['Ocean freight', 'FREIGHT-FEU · $/FEU', 'Importers, retailers', 'Carriers', ex],
+      ['DRAM / NAND', 'DRAM-DDR5 · $/GB', 'Device makers', 'Memory producers', ex],
+    ].map((r, i) => ({ name: r[0], sym: r[1], long: r[2], short: r[3], href: r[4], spark: tsp(i, 'ts') }));
+    const ratio = [
+      ['Power-plant margin', 'POWER / GAS', 'Large power buyers', 'Gas-fired generators'],
+      ['BTC mining margin', 'BTC / POWER', 'Funds, traders', 'Miners'],
+      ['Farming margin', 'CROP / FERTILIZER', 'Food processors', 'Farmers'],
+      ['AI margin', 'AI REVENUE / CHIP COST', 'Funds, traders', 'AI companies'],
+      ['Data-center margin', 'COMPUTE / POWER', 'Funds, traders', 'GPU clouds'],
+    ].map((r, i) => ({ name: r[0], sym: r[1], long: r[2], short: r[3], href: ex, spark: tsp(i + 5, 'tr') }));
+    const flat = this.whoA.map(() => 100);
+    const gas = this.whoA.map((v, i) => v * 0.62 + this.whoB[i] * 0.2);
+    const pnl = 5000 / 2.69 * (last - 2.69);
+    const lucide = n => 'https://unpkg.com/lucide-static@0.460.0/icons/' + n + '.svg';
+    const faqData = [
+      ['How does creating a market work?', 'Describe the number in plain language. The AI wizard turns it into a market, suggests public sources to settle against, and lists it with one signature. The bond and any penalty are shown before you sign.'],
+      ['How is a market settled?', 'At expiry the final value is captured from the named public source and a snapshot is saved to archive.org. Anyone can challenge it during the challenge window. Disputes escalate to UMA.'],
+      ['What is UMA?', 'UMA runs an optimistic oracle. A proposed value is accepted unless someone disputes it within a set window. Disputed values are resolved by UMA token holders voting on the evidence.'],
+      ['Who holds my funds?', 'You do. Dexetera is non-custodial. Your USDC stays in your wallet and in the market\'s smart contracts. Dexetera never takes custody.'],
+      ['What does it cost to trade?', 'About 0.10% per trade, with no gas thanks to gasless mode. For comparison, popular prediction markets charge around 2%, and bank hedges hide 0.25 to 1% or more in the spread.'],
+      ['What makes a good market?', 'A number that a public source publishes on a regular schedule, that is hard to manipulate, and that has people on both sides who care where it goes.'],
+      ['Can I exit before settlement?', 'Yes. Close all or part of a position at any time against the live order book. Your P&L is realized at the price you exit.'],
+      ['What happens if the data source is disputed?', 'Anyone can challenge the proposed final value during the challenge window. The archived snapshot serves as the record, and UMA\'s oracle makes the final decision.'],
+    ];
+    const g = (v, ok) => ({ v, g: ok === 1 ? '✓' : ok === 0 ? '–' : '✕', gc: ok === 1 ? 'var(--green)' : ok === 0 ? 'var(--t4)' : 'var(--red)' });
+    const two = (n) => String(n).padStart(2, '0');
+    const tm = t => { const x = new Date(t); return two(x.getHours()) + ':' + two(x.getMinutes()) + ':' + two(x.getSeconds()); };
+    return {
+      filters, feat, cards: [1, 2, 3, 4, 5, 6].map(i => this.card(i)),
+      probStats: [
+        { v: '0.25 to 1%+', d: 'Typical cost hidden in a bank\'s spread on a bespoke hedge.', x: '~0.10% FEE', tint: 'radial-gradient(circle,color-mix(in srgb,var(--green) 8%,transparent),transparent 70%)' },
+        { v: '~2%', d: 'Typical fee per trade on popular prediction markets.', x: '~0.10% FEE', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
+        { v: 'Platform only', d: 'Who decides which new markets get listed on most venues.', x: 'ANYONE LISTS', tint: 'radial-gradient(circle,color-mix(in srgb,var(--green) 8%,transparent),transparent 70%)' },
+        { v: 'Institutions', d: 'Who gets access to a bank\'s hedging desk.', x: 'ANYONE TRADES', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
+      ],
+      st0: mkStep(0), st1: mkStep(1), st2: mkStep(2), st3: mkStep(3),
+      stepSpark: this.area(this.walk(2.14, 30, 0.003, 0.04), 'var(--green)', 'step', { ref: 2.0, min: 1.9, max: 2.25 }),
+      gpu: s.gpu, gpuLabel: '$' + s.gpu.toFixed(2) + '/hr', gpuChgColor: Math.abs(d) < 1 ? 'var(--t2)' : gcol,
+      moveLabel: Math.abs(d) < 1 ? 'AT ENTRY' : (d > 0 ? '+' : '−') + '$' + Math.abs(s.gpu - 2).toFixed(2) + ' FROM ENTRY',
+      onGpu: e => { const v = parseFloat(e.target.value); this.setState(st => ({ gpu: v, fees: st.fees + (v !== st.gpu ? 2 * 1000 * v * 0.001 : 0) })); },
+      gpuChart: this.area(path, gcol, 'gpu', { min: 0.8, max: 3.2, ref: 2, grid: true, sw: 1.75 }),
+      ledgers, feesLabel: '$' + s.fees.toFixed(2),
+      typeTables: [{ title: 'Single metric', count: '5', sub: 'One public number', rows: single }, { title: 'Ratio', count: '5', sub: 'The gap between two numbers', rows: ratio }],
+      whoV1: this.area(this.whoA, 'var(--red)', 'w1', { ref: 100 }),
+      whoV2: this.area(this.whoA, 'var(--green)', 'w2', { band: gas, bandColor: 'var(--t3)', min: Math.min(...gas) * 0.95 }),
+      ownerFees: '$' + s.ownerFees.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+      prodStats: [
+        { l: 'MARK', v: '$' + last.toFixed(3), c: 'var(--t1)' }, { l: 'LAST', v: '$' + s.trades[0].p.toFixed(3), c: s.trades[0].up ? 'var(--green)' : 'var(--red)' },
+        { l: '24H CHG', v: ((last / this.open24 - 1) * 100 >= 0 ? '+' : '') + ((last / this.open24 - 1) * 100).toFixed(2) + '%', c: last >= this.open24 ? 'var(--green)' : 'var(--red)' },
+        { l: 'BID', v: '$' + s.book.bids[0].p.toFixed(3), c: 'var(--green)' }, { l: 'ASK', v: '$' + s.book.asks[0].p.toFixed(3), c: 'var(--red)' }, { l: 'SPREAD', v: '0.001', c: 'var(--t1)' },
+        { l: 'VOLUME', v: '$184.2K', c: 'var(--t1)' }, { l: 'TRADES', v: '2,412', c: 'var(--t1)' }, { l: 'TOTAL MARGIN', v: '$96.4K', c: 'var(--t1)' },
+      ],
+      trades: s.trades.slice(0, 6).map(t => ({ p: t.p.toFixed(3), s: t.s.toLocaleString('en-US'), t: tm(t.t), color: t.up ? 'var(--green)' : 'var(--red)' })),
+      pos: { pnl: this.money(pnl, 2), color: this.col(pnl) },
+      c3: M ? 'repeat(3,minmax(0,1fr))' : 'minmax(0,1fr)',
+      features: [
+        { icon: lucide('activity'), t: 'Live order book', d: 'Real bids, asks and liquidations.' },
+        { icon: lucide('wallet'), t: 'USDC, non-custodial', d: 'Funds stay in your wallet and contracts.' },
+        { icon: lucide('zap'), t: 'Gasless, one signature', d: 'Trade or list without paying gas.' },
+        { icon: lucide('shield-check'), t: 'Public data + UMA', d: 'Named sources, open disputes.' },
+        { icon: lucide('sparkles'), t: 'List in minutes', d: 'The AI wizard drafts the market.' },
+      ],
+      compare: [
+        { f: 'What you trade', d: 'Any real number', o: [g('Yes/no events', -1), g('Crypto only', -1), g('Real risk', 1)] },
+        { f: 'Who can list', d: 'Anyone', o: [g('Platform only', -1), g('Platform only', -1), g('Banks only', -1)] },
+        { f: 'Who can trade', d: 'Anyone', o: [g('Some regions', -1), g('Anyone', 1), g('Institutions', -1)] },
+        { f: 'Who settles', d: 'Public data + UMA', o: [g('The platform', -1), g('Mark price', 0), g('The bank', -1)] },
+        { f: 'Who holds funds', d: 'You do', o: [g('The platform', -1), g('You do', 1), g('The bank', -1)] },
+        { f: 'Cost to trade', d: '~0.10%', o: [g('~2%', -1), g('Varies', 0), g('0.25 to 1%+ spread', -1)] },
+      ],
+      cmpOverflow: L ? 'visible' : 'auto',
+      bars: this.bars.map((v, i) => ({ h: Math.min(100, v * 100).toFixed(0) + '%', c: i === this.bars.length - 1 ? 'var(--t1)' : 'var(--line3)' })),
+      faqs: faqData.map(([q, a], i) => ({ q, a, open: s.faq === i, sign: s.faq === i ? '−' : '+', on: () => this.setState({ faq: s.faq === i ? null : i }), bg: s.faq === i ? 'var(--card)' : 'transparent', border: s.faq === i ? 'var(--line)' : 'var(--hair)' })),
+      footCols: M ? 'minmax(0,2fr) repeat(3,minmax(0,1fr))' : S ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)',
+      footerChips: ['PRICE-EGGS', 'PRICE-MILK-US', 'CRUDE-OIL', 'GOLD'].map(x => ({ s: x, href: 'https://dexetera.xyz/token/' + x })),
+    };
+  }
+}
+</script>
+</body>
+</html>

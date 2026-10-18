@@ -1,0 +1,338 @@
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+/* Put this in <head> BEFORE the stylesheet renders to avoid a flash. Shared key across all Dexetera pages. */
+(function(){
+  try{var t=localStorage.getItem('dx-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}
+  window.dxToggleTheme=function(){
+    var h=document.documentElement,n=h.getAttribute('data-theme')==='light'?'dark':'light';
+    h.classList.add('theme-anim');h.setAttribute('data-theme',n);
+    try{localStorage.setItem('dx-theme',n)}catch(e){}
+    setTimeout(function(){h.classList.remove('theme-anim')},350);
+    document.querySelectorAll('.theme-toggle').forEach(function(b){b.setAttribute('aria-label',n==='light'?'Switch to dark mode':'Switch to light mode')});
+  };
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>:root{
+  --bg:#0A0A0B; --bg-deep:#000; --card:#0F0F0F; --card2:#141414; --card3:#1A1A1A;
+  --line:#222; --line2:#2A2A2A; --line3:#333; --line4:#404040; --hair:#1A1A1A; --row:#161616;
+  --t1:#FFFFFF; --t2:#A1A1A1; --t3:#808080; --t4:#606060; --t5:#5C5C5C;
+  --green:#4ADE80; --red:#F87171; --amber:#FACC15; --violet:#8B5CF6; --blue:#3B82F6;
+  --hero-a:#232323; --hero-b:#121212;
+  --hdr-glass:rgba(10,10,11,.78);
+  --btn-p-bg:#FFFFFF; --btn-p-fg:#000; --btn-p-hover:#E5E5E5;
+  --btn-s-bg:#141414; --btn-s-fg:#FFFFFF; --btn-s-line:#2A2A2A; --btn-s-hover:#404040;
+  --progress:rgba(255,255,255,.8);
+  --shadow:0 40px 120px rgba(0,0,0,.8); --highlight:inset 0 1px 0 rgba(255,255,255,.06);
+  --grain:.07; --rock-filter:none; --sel-bg:#fff; --sel-fg:#000;
+  --t-soft:#D1D5DB; --t-gray:#9CA3AF; --grain-lp:.06; --pill:rgba(20,20,20,0.8);
+  --glass:rgba(255,255,255,0.04); --glass-line:rgba(255,255,255,0.08); --glass-line2:rgba(255,255,255,0.06); --glass-line3:rgba(255,255,255,0.14);
+  --btn-p-ic:#0F0F0F; --btn-p-ic-f:invert(1); --hero-ts:none; --step-line:rgba(255,255,255,0.5);
+  --ln:#1F1F1F; --t-hi:#E5E5E5; --emerald:#10B981; --blue-soft:#93C5FD; --violet-soft:#A78BFA; --violet-soft2:#C4B5FD; --amber-text:#D4A017; --dash-sh:0 40px 120px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+[data-theme="light"]{
+  --bg:#FAFAFA; --bg-deep:#FFFFFF; --card:#FFFFFF; --card2:#F4F4F5; --card3:#EDEDED;
+  --line:#E5E5E5; --line2:#DADADA; --line3:#D4D4D4; --line4:#A3A3A3; --hair:#EBEBEB; --row:#EFEFEF;
+  --t1:#0A0A0B; --t2:#404040; --t3:#595959; --t4:#737373; --t5:#A3A3A3;
+  --green:#16A34A; --red:#DC2626; --amber:#CA8A04; --violet:#7C3AED; --blue:#2563EB;
+  --hero-a:#FFFFFF; --hero-b:#F2F2F2;
+  --hdr-glass:rgba(250,250,250,.82);
+  --btn-p-bg:#0A0A0B; --btn-p-fg:#FFFFFF; --btn-p-hover:#262626;
+  --btn-s-bg:#FFFFFF; --btn-s-fg:#0A0A0B; --btn-s-line:#DADADA; --btn-s-hover:#A3A3A3;
+  --progress:rgba(10,10,11,.8);
+  --shadow:0 30px 80px rgba(0,0,0,.08); --highlight:inset 0 1px 0 rgba(255,255,255,.9);
+  --grain:.035; --rock-filter:saturate(.9) brightness(1.08); --sel-bg:#0A0A0B; --sel-fg:#fff;
+  --t-soft:#262626; --t-gray:#6B7280; --grain-lp:.035; --pill:rgba(255,255,255,0.85);
+  --glass:rgba(255,255,255,0.7); --glass-line:rgba(0,0,0,0.08); --glass-line2:rgba(0,0,0,0.06); --glass-line3:rgba(0,0,0,0.16);
+  --btn-p-ic:#FFFFFF; --btn-p-ic-f:none; --hero-ts:0 0 24px #FAFAFA,0 0 48px #FAFAFA; --step-line:rgba(10,10,11,0.5);
+  --ln:#E8E8E8; --t-hi:#171717; --emerald:#059669; --blue-soft:#1D4ED8; --violet-soft:#6D28D9; --violet-soft2:#6D28D9; --amber-text:#A16207; --dash-sh:0 30px 80px rgba(0,0,0,.08);
+  color-scheme:light;
+}
+/* Theme switch helpers (copied from source) */
+html.theme-anim *{transition:background-color .3s,border-color .3s,color .3s,fill .3s,stroke .3s!important}
+.theme-toggle{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--btn-s-bg);border:1px solid var(--btn-s-line);color:var(--t2);cursor:pointer;transition:border-color .2s,color .2s;padding:0;flex:none}
+.theme-toggle:hover{border-color:var(--btn-s-hover);color:var(--t1)}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
+html,body{margin:0;background:var(--bg);color:var(--t1);font-family:"Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+</style><style>html{scroll-behavior:smooth;} body{margin:0}</style><style>/* Contact page styles, copied from design/source/Contact.dc.html and scoped under .dx-contact.
+   Wrap the page in <div className="dx-contact">. Theme tokens come from globals.css (design/tokens/theme.css).
+   Fonts: --sans/--mono are set below; point them at your next/font variables if you renamed them.
+   Route-level: html{scroll-behavior:smooth} */
+.dx-contact{--sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--serif:Georgia,'Times New Roman',serif;--max:1344px}
+.dx-contact *, .dx-contact{box-sizing:border-box;margin:0;padding:0}
+/* moved from html: apply globally on this route */ /* html{scroll-behavior:smooth} */
+.dx-contact{background:var(--bg);color:var(--t2);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.dx-contact a{color:inherit;text-decoration:none}
+.dx-contact ::selection{background:var(--sel-bg);color:var(--sel-fg)}
+.dx-contact :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.dx-contact .hdr{position:fixed;top:0;left:0;right:0;height:72px;z-index:50;border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+.dx-contact .hdr.scrolled{background:var(--hdr-glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--hair)}
+.dx-contact .hdr-in{max-width:var(--max);margin:0 auto;height:100%;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.dx-contact .brand{display:flex;align-items:center;gap:12px}
+.dx-contact .brand img{width:32px;height:32px;border-radius:8px}
+.dx-contact .brand span{font-family:var(--serif);font-size:12px;letter-spacing:.18em;color:var(--t1)}
+.dx-contact .nav{display:flex;gap:28px}
+.dx-contact .nav a{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);transition:color .2s}
+.dx-contact .nav a:hover, .dx-contact .nav a.on{color:var(--t1)}
+.dx-contact .hdr-r{display:flex;align-items:center;gap:10px}
+.dx-contact .lang{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);padding:0 8px}
+.dx-contact .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 13px/1 var(--sans);cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.dx-contact .btn-p{background:var(--btn-p-bg);color:var(--btn-p-fg);border:1px solid var(--btn-p-bg)}
+.dx-contact .btn-p:hover{background:var(--btn-p-hover);border-color:var(--btn-p-hover)}
+.dx-contact .btn-s{background:var(--btn-s-bg);color:var(--btn-s-fg);border:1px solid var(--btn-s-line)}
+.dx-contact .btn-s:hover{border-color:var(--btn-s-hover)}
+.dx-contact .btn-h{height:34px;padding:0 14px}
+.dx-contact .btn-app{height:34px;padding:0 14px 0 5px}
+.dx-contact .btn-app .ic{width:24px;height:24px;border-radius:50%;background:var(--btn-p-fg);color:var(--btn-p-bg);display:grid;place-items:center}
+.dx-contact .hero{position:relative;overflow:hidden;min-height:100vh;background:radial-gradient(120% 70% at 50% 0%,var(--hero-a) 0%,var(--hero-b) 45%,var(--bg) 75%)}
+.dx-contact .hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,transparent,var(--bg));z-index:1;pointer-events:none}
+.dx-contact .grain{position:absolute;inset:0;pointer-events:none;opacity:var(--grain);mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.dx-contact .rock{position:absolute;bottom:0;pointer-events:none;will-change:transform}
+.dx-contact .rock i{display:block;width:100%;height:100%;background-image:var(--rocks);background-repeat:no-repeat;background-position:0 0;filter:var(--rock-filter);transform:scale(1.08);transition:transform 1200ms cubic-bezier(.2,.7,.2,1)}
+.dx-contact .rock.l{left:0;transform-origin:left bottom}
+.dx-contact .rock.l i{transform-origin:left bottom}
+.dx-contact .rock.r{right:0;transform-origin:right bottom}
+.dx-contact .rock.r i{transform-origin:right bottom}
+.dx-contact .hero.in .rock i{transform:scale(1)}
+.dx-contact .hero-in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:168px 32px 320px;text-align:center}
+.dx-contact .chip{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;background:var(--card2);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2)}
+.dx-contact .chip i{width:6px;height:6px;border-radius:50%;background:var(--t1);opacity:.7}
+.dx-contact h1{font-size:76px;line-height:1.02;font-weight:600;letter-spacing:-.04em;color:var(--t1);margin:22px auto 0}
+.dx-contact h1 .g, .dx-contact h2 .g{color:var(--t5);display:block}
+.dx-contact .lede{max-width:580px;margin:24px auto 0;font-size:17px;line-height:1.6;color:var(--t3)}
+.dx-contact .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.dx-contact .contact{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;margin-top:calc(-100vh + 520px);position:relative;z-index:3}
+.dx-contact .card{background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .2s}
+.dx-contact .formcard{border-radius:16px;box-shadow:var(--highlight),var(--shadow);padding:32px}
+.dx-contact .k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--t4)}
+.dx-contact .formcard h2{font-size:30px;line-height:1.1;font-weight:600;letter-spacing:-.03em;color:var(--t1);margin:10px 0 24px}
+.dx-contact .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dx-contact .field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.dx-contact .field label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+.dx-contact .field label em{font-style:normal;color:var(--t5);text-transform:none;letter-spacing:0}
+.dx-contact .in{height:44px;padding:0 14px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--t1);font:500 14px var(--sans);transition:border-color .2s,box-shadow .2s;width:100%}
+.dx-contact textarea.in{height:128px;padding:12px 14px;resize:vertical;line-height:1.55}
+.dx-contact .in::placeholder{color:var(--t4)}
+.dx-contact .in:hover{border-color:var(--line3)}
+.dx-contact .in:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+.dx-contact .field.err .in{border-color:var(--red)}
+.dx-contact .field .msg{display:none;font-size:12px;color:var(--red)}
+.dx-contact .field.err .msg{display:block}
+.dx-contact .topics{display:flex;flex-wrap:wrap;gap:8px}
+.dx-contact .topics input{position:absolute;opacity:0;pointer-events:none}
+.dx-contact .topics label{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card2);font:500 13px var(--sans);letter-spacing:0;text-transform:none;color:var(--t2);cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.dx-contact .topics label:hover{border-color:var(--line4);color:var(--t1)}
+.dx-contact .topics input:checked+label{background:var(--t1);border-color:var(--t1);color:var(--bg)}
+.dx-contact .topics input:focus-visible+label{outline:2px solid var(--blue);outline-offset:2px}
+.dx-contact .submit{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px;padding-top:20px;border-top:1px solid var(--line)}
+.dx-contact .submit p{font-size:12.5px;color:var(--t4);max-width:320px;line-height:1.5}
+.dx-contact .done{display:none;text-align:center;padding:48px 16px}
+.dx-contact .done .tick{width:48px;height:48px;border-radius:50%;border:1px solid var(--line3);display:grid;place-items:center;margin:0 auto 18px;color:var(--t1)}
+.dx-contact .done h3{color:var(--t1);font-size:24px;font-weight:600;letter-spacing:-.02em}
+.dx-contact .done p{color:var(--t3);margin-top:8px}
+.dx-contact .formcard.sent form{display:none}
+.dx-contact .formcard.sent .done{display:block}
+.dx-contact .side{display:flex;flex-direction:column;gap:12px}
+.dx-contact .chan{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px}
+.dx-contact .chan:hover{border-color:var(--line3)}
+.dx-contact .chan .v{color:var(--t1);font-size:15px;font-weight:600;margin-top:4px;letter-spacing:-.01em}
+.dx-contact .chan .d{font-size:13px;color:var(--t3);margin-top:2px}
+.dx-contact .chan .go{width:32px;height:32px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--t2);flex:none}
+.dx-contact .chan:hover .go{color:var(--t1);border-color:var(--line4)}
+.dx-contact .next{padding:22px}
+.dx-contact .next ol{list-style:none;counter-reset:s;margin-top:12px}
+.dx-contact .next li{counter-increment:s;position:relative;padding:10px 0 10px 36px;border-top:1px solid var(--row);font-size:14px;color:var(--t2)}
+.dx-contact .next li:first-child{border-top:0}
+.dx-contact .next li:before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:11px;color:var(--t4)}
+.dx-contact .sec{padding:88px 0 56px}
+.dx-contact .sec-h{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+.dx-contact h2.big{font-size:44px;line-height:1.08;font-weight:600;letter-spacing:-.035em;color:var(--t1);margin-top:14px}
+.dx-contact .faq details{border-top:1px solid var(--line)}
+.dx-contact .faq details:last-child{border-bottom:1px solid var(--line)}
+.dx-contact .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;color:var(--t1);font-size:16px;font-weight:600;letter-spacing:-.01em}
+.dx-contact .faq summary::-webkit-details-marker{display:none}
+.dx-contact .faq summary span{font-family:var(--mono);color:var(--t4);font-size:16px;transition:transform .2s}
+.dx-contact .faq details[open] summary span{transform:rotate(45deg)}
+.dx-contact .faq details p{padding:0 0 20px;color:var(--t3);max-width:640px}
+.dx-contact footer{border-top:1px solid var(--hair);background:var(--bg);margin-top:32px}
+.dx-contact .ft{max-width:var(--max);margin:0 auto;padding:56px 32px 32px;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+.dx-contact .ft p{font-size:13px;color:var(--t4);margin-top:14px;max-width:280px}
+.dx-contact .ft h5{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:14px}
+.dx-contact .ft a{display:block;font-size:13px;color:var(--t2);padding:4px 0}
+.dx-contact .ft a:hover{color:var(--t1)}
+.dx-contact .ft a.brand{display:flex;padding:0}
+.dx-contact .fb{max-width:var(--max);margin:0 auto;padding:20px 32px 32px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+.dx-contact .mnav-btn, .dx-contact .mnav{display:none}
+@media (max-width:1100px){.dx-contact .mnav-btn{display:flex} .dx-contact .mnav.open{display:flex}}
+@media (max-width:1100px){.dx-contact h1{font-size:60px} .dx-contact .nav, .dx-contact .lang{display:none} .dx-contact .contact, .dx-contact .sec-h{grid-template-columns:1fr}}
+@media (max-width:720px){.dx-contact h1{font-size:44px} .dx-contact h2.big{font-size:30px} .dx-contact .row2, .dx-contact .ft{grid-template-columns:1fr} .dx-contact .hdr-in, .dx-contact .hero-in, .dx-contact .wrap{padding-left:16px;padding-right:16px} .dx-contact .formcard{padding:22px} .dx-contact .submit{flex-direction:column;align-items:stretch} .dx-contact .btn-h{display:none}}
+[data-theme=light] .dx-contact .hero h1, [data-theme=light] .dx-contact .hero .lede{text-shadow:0 0 24px #FAFAFA,0 0 48px #FAFAFA}
+@media (prefers-reduced-motion:reduce){.dx-contact{scroll-behavior:auto} .dx-contact .rock{transform:none!important} .dx-contact .rock i{transition:none}}
+
+/* Light mode remap for inline SVG figures drawn with dark hex values (keep verbatim) */
+[data-theme="light"] .dx-contact svg [fill="#0F0F0F"], [data-theme="light"] .dx-contact svg [fill="#0A0A0B"]{fill:#FFFFFF}
+[data-theme="light"] .dx-contact svg [fill="#141414"], [data-theme="light"] .dx-contact svg [fill="#1A1A1A"]{fill:#F4F4F5}
+[data-theme="light"] .dx-contact svg [stroke="#222"], [data-theme="light"] .dx-contact svg [stroke="#222222"]{stroke:#E5E5E5}
+[data-theme="light"] .dx-contact svg [stroke="#333"], [data-theme="light"] .dx-contact svg [stroke="#333333"]{stroke:#C9C9C9}
+[data-theme="light"] .dx-contact svg [stroke="#A1A1A1"]{stroke:#737373}
+[data-theme="light"] .dx-contact svg [fill="#fff"], [data-theme="light"] .dx-contact svg [fill="#FFF"], [data-theme="light"] .dx-contact svg [fill="#FFFFFF"]{fill:#0A0A0B}
+[data-theme="light"] .dx-contact svg [fill="#A1A1A1"]{fill:#404040}
+[data-theme="light"] .dx-contact svg [fill="#808080"]{fill:#595959}
+[data-theme="light"] .dx-contact svg [fill="#606060"]{fill:#737373}
+[data-theme="light"] .dx-contact svg [fill="#4ADE80"]{fill:#16A34A}
+[data-theme="light"] .dx-contact svg [fill="#F87171"]{fill:#DC2626}
+[data-theme="light"] .dx-contact svg [fill="#FACC15"], [data-theme="light"] .dx-contact svg [stroke="#FACC15"]{fill:#CA8A04;stroke:#CA8A04}
+[data-theme="light"] .dx-contact svg rect[fill="#FACC15"]{fill:#CA8A04}
+[data-theme="light"] .dx-contact svg [fill="#8B5CF6"]{fill:#7C3AED}
+[data-theme="light"] .dx-contact svg stop[stop-color="#fff"]{stop-color:#000}
+</style></head>
+<body><div class="dx-contact" style="--rocks:url('../source/assets/hero_rocks.webp')"><!-- Contact page markup (body only), from design/source/Contact.dc.html.
+     Links rewritten to routes; logo is assets/dexetera-logo.svg (copy design/source/assetsassets/dexetera-logo.svg to public/; rocks: assets/hero_rocks.webp to public/).
+     Port to JSX 1:1 (class -> className, inline style strings -> objects, onclick -> handlers). Keep every class name: design/pages/contact.css targets them.
+     Page behaviour (rocks sizing/parallax, header scroll state, form validation) is the script at the end; port it to a useEffect. -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="/"><img src="../source/assets/dexetera-logo.svg" alt=""><span>DEXETERA</span></a>
+    <nav class="nav">
+      <a href="/#markets">Markets</a>
+      <a href="/#how">How it works</a>
+      <a href="/#product">Product</a>
+      <a href="/whitepaper">Whitepaper</a>
+      <a href="/contact" class="on" aria-current="page">Contact</a>
+    </nav>
+    <div class="hdr-r">
+      <span class="lang"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor"/><path d="M1.5 8h13M8 1.5c2 2 2.6 4 2.6 6.5S10 12.5 8 14.5C6 12.5 5.4 10.5 5.4 8S6 3.5 8 1.5z" stroke="currentColor"/></svg>English</span>
+      <button class="theme-toggle" type="button" onclick="dxToggleTheme()" aria-label="Switch to light mode">
+        <svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+      <a class="btn btn-s btn-h" href="https://dexetera.xyz/new-market">Create a market</a>
+      <a class="btn btn-p btn-app" href="https://dexetera.xyz"><span class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Launch app</a>
+      <button class="mnav-btn" type="button" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')" style="width:34px;height:34px;border-radius:100px;border:1px solid var(--line2);background:var(--card2);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:0"><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span></button>
+    </div>
+  </div>
+  <div id="mnav" class="mnav" onclick="this.classList.remove('open')" style="position:absolute;top:72px;left:0;right:0;background:var(--card2);border-bottom:1px solid var(--line);padding:8px clamp(16px,3vw,32px) 16px;flex-direction:column;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t2)"><a href="/#markets" style="padding:14px 0;border-bottom:1px solid var(--hair)">Markets</a><a href="/#how" style="padding:14px 0;border-bottom:1px solid var(--hair)">How it works</a><a href="/#product" style="padding:14px 0;border-bottom:1px solid var(--hair)">Product</a><a href="/whitepaper" style="padding:14px 0;border-bottom:1px solid var(--hair)">Whitepaper</a><a href="/contact" style="padding:14px 0;border-bottom:1px solid var(--hair)">Contact</a><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><a href="https://dexetera.xyz/new-market" style="padding:14px 0;color:var(--t1)">Create a market</a><button class="theme-toggle" type="button" onclick="event.stopPropagation();dxToggleTheme()" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button></div></div>
+</header>
+
+<section class="hero" id="top">
+  <div class="rock l" id="rockL"><i></i></div>
+  <div class="rock r" id="rockR"><i></i></div>
+  <div class="grain"></div>
+  <div class="hero-in">
+    <span class="chip"><i></i>Contact</span>
+    <h1><span class="g">Tell us the risk.</span>We'll help you price it.</h1>
+    <p class="lede">Hedging a business exposure, creating a market, providing liquidity or partnering with us. Send a note and the team will reply by email.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="contact">
+    <div class="card formcard" id="formcard">
+      <form id="cform" novalidate>
+        <div class="k">Send a message</div>
+        <h2>How can we help?</h2>
+        <div class="field">
+          <label>I'm interested in</label>
+          <div class="topics" role="radiogroup">
+            <input type="radio" name="topic" id="t1" value="hedge" checked><label for="t1">Hedging a risk</label>
+            <input type="radio" name="topic" id="t2" value="create"><label for="t2">Creating a market</label>
+            <input type="radio" name="topic" id="t3" value="liquidity"><label for="t3">Providing liquidity</label>
+            <input type="radio" name="topic" id="t4" value="partner"><label for="t4">Partnerships</label>
+            <input type="radio" name="topic" id="t5" value="press"><label for="t5">Press</label>
+            <input type="radio" name="topic" id="t6" value="other"><label for="t6">Other</label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="name">Name</label><input class="in" id="name" name="name" autocomplete="name" placeholder="Jane Smith" required><span class="msg">Please add your name.</span></div>
+          <div class="field"><label for="email">Work email</label><input class="in" id="email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" required><span class="msg">Please add a valid email.</span></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="company">Company <em>(optional)</em></label><input class="in" id="company" name="company" autocomplete="organization" placeholder="Company name"></div>
+          <div class="field"><label for="metric">Metric or exposure <em>(optional)</em></label><input class="in" id="metric" name="metric" placeholder="e.g. Niño 3.4, ERCOT power, GPU rates"></div>
+        </div>
+        <div class="field"><label for="message">Message</label><textarea class="in" id="message" name="message" placeholder="What moves your costs or revenue, and what would you like to hedge or build?" required></textarea><span class="msg">Please add a short message.</span></div>
+        <div class="submit">
+          <p>We only use your details to reply to you. Prefer email? Write to <a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a>.</p>
+          <button class="btn btn-p" type="submit">Send message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </form>
+      <div class="done" role="status">
+        <div class="tick"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.5l3.2 3L14 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Message sent.</h3>
+        <p>Thanks for reaching out. We'll reply to you by email.</p>
+        <button class="btn btn-s" type="button" style="margin-top:22px" onclick="document.getElementById('formcard').classList.remove('sent')">Send another</button>
+      </div>
+    </div>
+
+    <aside class="side">
+      <a class="card chan" href="mailto:admin@dexetera.xyz"><div><div class="k">Email</div><div class="v">admin@dexetera.xyz</div><div class="d">Hedging, markets, partnerships</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="card chan" href="https://x.com/dexeteralabs"><div><div class="k">X / Twitter</div><div class="v">@dexeteralabs</div><div class="d">Product updates and new markets</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="card chan" href="https://doc.dexetera.org"><div><div class="k">Documentation</div><div class="v">doc.dexetera.org</div><div class="d">How markets, trading and settlement work</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <div class="card next">
+        <div class="k">What happens next</div>
+        <ol>
+          <li>We read every message and reply by email.</li>
+          <li>If you have an exposure, we look at which public metric tracks it.</li>
+          <li>We walk you through creating or trading the market on Dexetera.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <section class="sec">
+    <div class="sec-h">
+      <div>
+        <span class="k">Questions</span>
+        <h2 class="big"><span class="g">Before you</span>write to us.</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Can you help me find a market for my exposure?<span>+</span></summary><p>Yes. Tell us what moves your costs or revenue. We'll help you check whether a credible, public, archivable data source tracks it, and whether it fits as a market on Dexetera.</p></details>
+        <details><summary>Do I need a crypto wallet to talk to you?<span>+</span></summary><p>No. Start with a conversation. When you're ready to trade, positions use USDC held in your own wallet, and creating a market or placing orders can be gasless.</p></details>
+        <details><summary>Is there a minimum size?<span>+</span></summary><p>There is no dealer setting a minimum ticket. Positions are sized in contracts on a public on-chain orderbook, so you can start small.</p></details>
+        <details><summary>How is a market settled?<span>+</span></summary><p>Each market settles against its named public data source. Anyone can propose the final value with evidence, anyone can challenge it with a bond, and disputes go to UMA's Optimistic Oracle.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="ft">
+    <div>
+      <a class="brand" href="/"><img src="../source/assets/dexetera-logo.svg" alt=""><span>DEXETERA</span></a>
+      <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
+    </div>
+    <div><h5>Product</h5><a href="/#markets">Markets</a><a href="https://dexetera.xyz">Launch app</a><a href="https://dexetera.xyz/new-market">Create a market</a></div>
+    <div><h5>Learn</h5><a href="/#how">How it works</a><a href="/whitepaper">Whitepaper</a></div>
+    <div><h5>Company</h5><a href="/contact">Contact</a><a href="https://x.com/dexeteralabs">X / Twitter</a><a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a></div>
+  </div>
+  <div class="fb"><span>© 2026 Dexetera</span><span>Settled by public data</span></div>
+</footer>
+
+<!-- ORIGINAL PAGE SCRIPT (port to useEffect) -->
+<script>
+(function(){
+  var hdr=document.getElementById('hdr'),L=document.getElementById('rockL'),R=document.getElementById('rockR'),hero=document.getElementById('top');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Rock sizing + parallax: same values as the Landing v2 hero */
+  function size(){var w=innerWidth,D=w>1024,T=w>768,dashW=D?Math.min(880,w*.72):T?w*.86:w-32,m=(w-dashW)/2,ov=T?70:20,sc=Math.max((m+ov)/515,D?0:w*.22/515);
+    L.style.width=(530*sc).toFixed(1)+'px';R.style.width=(m+ov+10*sc).toFixed(1)+'px';L.style.height=R.style.height=(1080*sc).toFixed(1)+'px';
+    var bs=(1920*sc).toFixed(1)+'px '+(1080*sc).toFixed(1)+'px';L.firstChild.style.backgroundSize=R.firstChild.style.backgroundSize=bs;R.firstChild.style.backgroundPosition=(-1300*sc).toFixed(1)+'px 0px';}
+  function s(){var y=scrollY;hdr.classList.toggle('scrolled',y>24);
+    if(reduce||innerWidth<=768){L.style.transform=R.style.transform='';return}
+    var p=Math.min(1,Math.max(0,y/(innerHeight*.8))),s2=1+.12*p;L.style.transform='translateX('+(-28*p).toFixed(2)+'%) scale('+s2+')';R.style.transform='translateX('+(28*p).toFixed(2)+'%) scale('+s2+')';}
+  addEventListener('resize',function(){size();s()});addEventListener('scroll',s,{passive:true});size();s();
+  if(reduce)hero.classList.add('in');else requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('in')})});
+  var f=document.getElementById('cform');
+  f.addEventListener('submit',function(e){e.preventDefault();var ok=true;
+    [['name',function(v){return v.trim().length>1}],['email',function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}],['message',function(v){return v.trim().length>3}]].forEach(function(p){
+      var el=document.getElementById(p[0]),good=p[1](el.value);el.parentNode.classList.toggle('err',!good);if(!good&&ok){el.focus();ok=false}});
+    if(!ok)return;
+    /* Developer: POST new FormData(f) to the contact endpoint here (e.g. /api/contact), then show the success state. */
+    document.getElementById('formcard').classList.add('sent');f.reset();});
+  f.querySelectorAll('.in').forEach(function(el){el.addEventListener('input',function(){el.parentNode.classList.remove('err')})});
+})();
+</script>
+</div></body></html>

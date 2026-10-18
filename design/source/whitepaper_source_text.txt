@@ -1,0 +1,196 @@
+﻿Commercial Risk Markets
+Bringing Business Risk On-Chain
+An on-chain marketplace for risk, built on Dexetera.
+
+
+Executive Summary
+Every business makes decisions under uncertainty. A festival operator worries about attendance. A data center worries about the price of electricity and GPUs. A manufacturer worries about commodity and freight costs. A conference organizer worries about consumer confidence and travel demand.
+These exposures are not abstract. They determine whether a season is profitable or ruinous, whether a facility is built, whether a product ships. Collectively they represent trillions of dollars of economic risk, and yet only a small fraction of it can be efficiently hedged through today's financial system.
+Commercial risk transfer is still dominated by private negotiations between banks, brokers, insurers, and large corporations. These over the counter (OTC) markets are opaque, expensive, relationship gated, and inaccessible to the vast majority of businesses. For most companies, the only realistic option is to absorb the risk and hope.
+This paper proposes a new category of financial infrastructure: an on-chain marketplace for risk. These are decentralized commercial risk markets that settle against existing, authoritative public data sources. By turning any objectively measurable economic variable into a standardized, continuously traded market, businesses can hedge real world exposures transparently, without brokers, minimum ticket sizes, or institutional relationships.
+The objective is not to replace insurance or traditional derivatives. It is to make commercial risk transfer more accessible, more liquid, and more efficient, and to expand the universe of risks that can be hedged at all.
+The protocol described here, Dexetera, already exists as working infrastructure. It is a permissionless system where anyone can create a market on any measurable metric, anyone can trade it on a true on-chain orderbook with USDC collateral, and settlement is decided by verifiable public evidence secured by UMA's Optimistic Oracle. No exchange. No gatekeeper. No one who controls the outcome.
+
+
+1. The Problem
+Every business is exposed to risks it cannot control.
+* A festival cannot control national travel demand.
+* A conference cannot control consumer confidence.
+* A cloud provider cannot control GPU prices.
+* A manufacturer cannot control freight costs.
+* A data center cannot control electricity prices.
+Each of these variables has a direct, measurable impact on profitability. Yet when a business wants to protect itself against an adverse move, it has only three options:
+1. Absorb the risk. Carry the exposure on the balance sheet and accept the volatility.
+2. Purchase insurance, where a product even exists for the exposure.
+3. Negotiate a customized hedge with a bank or dealer, through a bespoke OTC contract.
+For most businesses, only the first option is realistically available.
+Insurance is designed for catastrophic, binary events such as a fire, a flood, or a total loss. It is not designed for the continuous, ongoing volatility that actually erodes margins. It pays out on a claim, not on a gradual, quantitative move in an economic variable.
+OTC derivatives, meanwhile, require specialized legal agreements (ISDA documentation), institutional relationships, large minimum transaction sizes, and credit underwriting. These requirements exclude nearly every small and mid sized business, and even many large ones, from hedging anything outside a handful of standardized markets.
+The result is that enormous amounts of economic risk remain unmanaged, not because businesses do not want to hedge, but because the infrastructure to do so does not exist.
+
+
+2. Why Existing Markets Stop Short
+Financial markets have successfully standardized only a small subset of commercial risks. Today a business can readily hedge:
+* Oil and natural gas
+* Interest rates
+* Foreign exchange
+* Equity indices
+* A small set of agricultural and metals commodities
+A few specialized risks, such as weather derivatives, exist, but almost entirely inside illiquid OTC markets accessible only to large players.
+Beyond that thin frontier, thousands of economically significant variables remain untradeable, despite being objectively measurable and published by credible institutions:
+* National air travel demand
+* Consumer confidence
+* Public health and disease surveillance indicators
+* Freight congestion and port throughput
+* GPU availability and pricing
+* Data center utilization
+* Electricity and grid load
+These variables influence billions of dollars of business activity every year. Authoritative data on each is published regularly by trusted sources. And yet no standardized market exists to transfer the risk, because the cost of building, listing, and operating a conventional exchange traded product for each one is prohibitive.
+The reason is structural. Traditional markets standardize a risk only when the expected volume justifies the fixed cost of regulatory approval, clearing infrastructure, and market maker incentives. Everything below that threshold, which is to say almost everything, defaults to private negotiation or goes unhedged entirely.
+
+
+3. The Opportunity
+Historically, commercial hedging required intermediaries because coordinating a market is expensive. Someone has to define the contract, list it, clear it, hold collateral, discover the price, and adjudicate settlement. Each of those functions carried a cost that only large, standardized markets could amortize.
+Blockchain collapses those coordination costs.
+A decentralized, on-chain marketplace for risk makes it economically feasible to stand up markets that were previously too small, too fragmented, or too expensive to support. Specifically, it enables:
+* Continuous trading. Markets that price risk in real time, not at the pace of quarterly renegotiation.
+* Transparent pricing. A public orderbook where every participant sees the same bid and ask.
+* Objective settlement. Contracts that resolve against published, verifiable data rather than a counterparty's discretion.
+* Global participation. Access defined by an internet connection and collateral, not geography or institutional standing.
+* Programmable collateral. Margin and payouts enforced by code, not by credit departments.
+* Reduced counterparty risk. Collateral held in a non-custodial vault, not on a dealer's balance sheet.
+Instead of negotiating a bespoke contract with a bank, a business can access a standardized market built around publicly verifiable economic data. This is the new financial primitive: open commercial risk markets, where the barrier to hedging a risk is no longer "will an institution build this for me?" but simply "does credible public data measure it?"
+
+
+4. The Protocol
+Dexetera is the infrastructure that makes an on-chain marketplace for risk real. It is a permissionless protocol that lets anyone turn a measurable economic variable into a scalar futures market, a position on a continuous number, and lets anyone trade it, with settlement secured trustlessly by public evidence and UMA's Optimistic Oracle.
+The protocol is three tightly linked systems that carry a real world risk from *idea* to *tradable market* to *final, verified payout.*
+4.1 Permissionless Market Creation
+Anyone can deploy a new risk market. There is no listing committee and no exchange approval.
+* Creation runs through a guided Market Creation Wizard (metric, then trading configuration, then settlement and oracle configuration, then review and deploy), with an AI assistant that validates the metric and suggests a fair starting price.
+* Each market is deployed as its own on-chain Diamond (EIP-2535) proxy with isolated per market storage, so a problem in one market can never affect another.
+* All markets share a single global `FacetRegistry`, so trading and settlement logic can be improved atomically across every market at once, without touching any individual market's funds or positions.
+* A creator defines the metric, its canonical public data source (URL), a settlement date (from one day to one year out), a starting price, and descriptive tags. A creation fee and a refundable creator bond keep spam out, and creators can earn a share of the trading fees their market generates.
+* Creation can be gasless. The creator signs an EIP-712 message and a relayer submits the transaction.
+Markets are scalar futures, not binary bets. A business does not wager on whether an event happens. It takes a continuous position on *how high or how low* a real economic variable will settle, which is exactly the shape of a genuine hedge.
+4.2 Market Selection Framework
+Not every number makes a good risk market. To function as durable commercial infrastructure rather than a novelty, a listed market should satisfy four requirements.
+1. Publicly Verifiable.
+The settlement value must be published by an independent, trusted source that can be archived and audited after the fact. Examples:
+* TSA passenger throughput
+* CDC surveillance data
+* Bureau of Labor Statistics releases
+* Energy Information Administration (EIA) data
+* NOAA weather and climate data
+* The Conference Board (consumer confidence)
+2. Commercial Relevance.
+The metric must materially affect business profitability. A market exists to transfer real exposure, not to manufacture it.
+3. Natural Two Sided Demand.
+One industry's cost exposure should correspond to another industry's revenue or economic exposure. When a rise in a variable helps one business and hurts another, both have a reason to trade, creating sustainable commercial participation beyond speculation.
+4. Standardization.
+Every participant trades the *same* contract. This lets liquidity concentrate in one deep market rather than fragmenting across countless bespoke agreements, the core efficiency that OTC markets can never achieve.
+The best markets track a number that is continuously observable (it moves on its own, so there is always a reason for longs and shorts to disagree) and settles from a credible, public, archivable source. Metrics that sit frozen until a single reveal event trade poorly and make weak hedges. Variables that tick week to week make strong ones.
+4.3 On-Chain Orderbook Trading
+Unlike AMM or pool based platforms, Dexetera runs a true on-chain orderbook, the market structure institutions actually recognize as a market.
+* Traders deposit USDC into a shared, non-custodial `CoreVault` that holds collateral, positions, and margin.
+* They open long or short positions using limit and market orders (with slippage protection), matched by an on-chain matching engine with real bid and ask price discovery.
+* A mark price derived from market activity drives unrealized PnL and liquidation thresholds. Keeper callable liquidation protects protocol solvency.
+* Every order, fill, and cancellation is recorded on-chain. Gasless (meta) trading is supported via signed sessions and relayers.
+For a hedger, this means a festival can *short* a travel demand market to offset weak attendance, while an airline or hotel chain, whose revenue rises with the same variable, takes the natural *long*. Their opposing commercial exposures meet in a transparent, continuously priced market.
+4.4 Metric Tracking and Trustless Settlement
+This is what makes "any measurable risk" both real and safe to settle.
+* Metric tracking. Each market carries its own defined data source. An AI metric worker reads and analyzes the source at creation and near settlement, proposing values with confidence and reasoning, and feeds a time series for charting.
+* Settlement lifecycle. Markets move through the states Unsettled, Rollover, ChallengeWindow, and Settled, automated by scheduled jobs:
+4. At the settlement date, trading pauses and a challenge window opens.
+5. Anyone can propose the final settlement value, with on-chain evidence (for example a screenshot and a Wayback Machine archive of the source, hashed on-chain for immutability).
+6. Anyone can challenge the proposal by posting a bond.
+7. Disputes escalate to UMA's Optimistic Oracle and DVM, where the correct answer is decided by tokenholder vote.
+8. Once resolved, positions close at the oracle verified settlement price (not the mark price), and the vault pays out PnL, with bad debt haircuts and batch settlement for very large markets.
+Settlement is optimistic. A proposal is assumed correct unless it is economically worth challenging. Honest settlement therefore happens without constant oracle intervention, while the bond mechanics make dishonest settlement unprofitable. The evidence chain means that even months later, anyone can independently verify that a market resolved correctly.
+4.5 How the Pieces Fit Together
+The lifecycle of a market runs end to end as follows:
+9. A creator defines a metric in the Market Creation Wizard, assisted by AI, and deploys it through the FuturesMarketFactoryV2 as its own Diamond market proxy.
+10. Every market proxy shares global trading and settlement logic through the FacetRegistry, while keeping its own orderbook and storage.
+11. A hedger or counterparty deposits USDC into the CoreVault and places limit or market orders.
+12. The on-chain matching engine fills orders and records positions and margin in the CoreVault.
+13. When the settlement date is reached, trading pauses and anyone may propose the final value.
+14. If the proposal is challenged, the dispute escalates to UMA's Optimistic Oracle and DVM.
+15. The SettlementManager closes positions at the verified price, and the vault pays out.
+
+
+5. The Customer Model
+An on-chain marketplace for risk works because it brings together three participant groups whose interests naturally complement one another.
+5.1 Commercial Hedgers
+Businesses seeking predictable financial outcomes. They come to the market to *reduce* risk. Examples:
+* Festivals, sporting events, and conferences hedging attendance and travel demand
+* Data centers hedging electricity and GPU prices
+* Manufacturers hedging commodity and input costs
+* Logistics companies hedging fuel and freight costs
+Their objective is not profit from the market itself. It is to convert an uncertain future cost or revenue into a known one.
+5.2 Natural Counterparties
+Businesses whose economics move in the opposite direction to a given hedger. When one company's costs rise with a variable and another's revenue rises with the same variable, they are natural counterparties.
+A festival fears *low* travel demand, while an airline benefits from *high* travel demand. A data center fears *high* electricity prices, while a power producer benefits from them. When these participants trade against each other, they offset commercial risk *and* sharpen price discovery, turning what would otherwise be a zero sum speculation into genuine risk transfer between real economic actors.
+5.3 Liquidity Providers
+Institutional and individual capital providers who earn returns by supplying liquidity to markets where natural buyers and sellers are temporarily imbalanced. They bridge the timing gaps between hedgers and their natural counterparties, tighten spreads, and are compensated for warehousing risk.
+For liquidity providers, an on-chain marketplace for risk is a new asset class: a source of returns uncorrelated with traditional markets, accessible without the institutional infrastructure that gates OTC derivatives desks today.
+
+
+6. Why On-Chain Markets Matter
+Moving commercial risk on-chain is not about replacing existing exchanges. It is about expanding the universe of hedgeable risks.
+Today, only a small number of economic variables generate enough volume to justify a conventional exchange traded market. Everything else defaults to private negotiation, or simply goes unhedged.
+Blockchain changes the economics. When market creation is permissionless, collateral is programmable, settlement is objective, and infrastructure is shared across every market via a common registry, the fixed cost of standing up a new market collapses toward zero. Markets that were previously too small, too fragmented, or too expensive to support suddenly become viable.
+This lowers the barrier to entry for businesses while increasing transparency and competition in commercial risk transfer. A protocol level comparison makes the shift concrete:
+Dimension
+	CEX Futures
+	Most Perp DEXs
+	OTC / Insurance
+	Dexetera
+	Who can list a market
+	Exchange only
+	Team / governance
+	Dealer / underwriter
+	Anyone
+	What you can hedge
+	A handful of products
+	Mostly crypto
+	Bespoke, negotiated
+	Any measurable metric
+	Trading model
+	Orderbook
+	AMM / mark price
+	Private negotiation
+	On-chain orderbook
+	Access
+	Institutional
+	Retail crypto
+	Relationship gated
+	Open, global
+	Custody
+	Custodial
+	Non-custodial
+	Counterparty balance sheet
+	Non-custodial (USDC in CoreVault)
+	Settlement
+	Centralized
+	Mark price / funding
+	Counterparty discretion
+	Optimistic proposal plus UMA DVM
+	
+
+
+
+7. Long Term Vision
+The long term vision is a world where businesses no longer need bespoke financial products to manage ordinary commercial uncertainty.
+Any objectively measurable economic variable, from air travel demand to GPU pricing to port throughput, can become a standardized, continuously traded financial market. Businesses gain access to transparent, on demand risk transfer. Liquidity providers gain access to a new asset class. And the economy as a whole becomes more efficient at distributing uncertainty to the participants best able to bear it.
+Commercial risk becomes as accessible to hedge as foreign exchange or commodities are today.
+The infrastructure to build this already exists. If a risk can be measured, it can be traded. The question is no longer *"who will let me hedge this?"* but simply *"what risk do I want to transfer?"*
+
+
+Links
+* Website: www.dexetera.xyz
+* Application: app.dexetera.xyz
+* Documentation: doc.dexetera.xyz
+* Twitter: @dexeteralabs
+
+
+This document is for informational purposes only and does not constitute financial or investment advice. Trading derivatives involves significant risk of loss.

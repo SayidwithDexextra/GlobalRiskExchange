@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team | Dexetera</title>
+<script>
+/* Put this in <head> BEFORE the stylesheet renders to avoid a flash. Shared key across all Dexetera pages. */
+(function(){
+  try{var t=localStorage.getItem('dx-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}
+  window.dxToggleTheme=function(){
+    var h=document.documentElement,n=h.getAttribute('data-theme')==='light'?'dark':'light';
+    h.classList.add('theme-anim');h.setAttribute('data-theme',n);
+    try{localStorage.setItem('dx-theme',n)}catch(e){}
+    setTimeout(function(){h.classList.remove('theme-anim')},350);
+    document.querySelectorAll('.theme-toggle').forEach(function(b){b.setAttribute('aria-label',n==='light'?'Switch to dark mode':'Switch to light mode')});
+  };
+})();
+</script>
+<style>
+/* Dexetera theme tokens. Dark is the default (brand). Light applies with <html data-theme="light">. */
+:root{
+  --bg:#0A0A0B; --bg-deep:#000; --card:#0F0F0F; --card2:#141414; --card3:#1A1A1A;
+  --line:#222; --line2:#2A2A2A; --line3:#333; --line4:#404040; --hair:#1A1A1A; --row:#161616;
+  --t1:#FFFFFF; --t2:#A1A1A1; --t3:#808080; --t4:#606060; --t5:#5C5C5C;
+  --green:#4ADE80; --red:#F87171; --amber:#FACC15; --violet:#8B5CF6; --blue:#3B82F6;
+  --hero-a:#232323; --hero-b:#121212;
+  --hdr-glass:rgba(10,10,11,.78);
+  --btn-p-bg:#FFFFFF; --btn-p-fg:#000; --btn-p-hover:#E5E5E5;
+  --btn-s-bg:#141414; --btn-s-fg:#FFFFFF; --btn-s-line:#2A2A2A; --btn-s-hover:#404040;
+  --progress:rgba(255,255,255,.8);
+  --shadow:0 40px 120px rgba(0,0,0,.8); --highlight:inset 0 1px 0 rgba(255,255,255,.06);
+  --grain:.07; --rock-filter:none; --sel-bg:#fff; --sel-fg:#000;
+  color-scheme:dark;
+}
+[data-theme="light"]{
+  --bg:#FAFAFA; --bg-deep:#FFFFFF; --card:#FFFFFF; --card2:#F4F4F5; --card3:#EDEDED;
+  --line:#E5E5E5; --line2:#DADADA; --line3:#D4D4D4; --line4:#A3A3A3; --hair:#EBEBEB; --row:#EFEFEF;
+  --t1:#0A0A0B; --t2:#404040; --t3:#595959; --t4:#737373; --t5:#A3A3A3;
+  --green:#16A34A; --red:#DC2626; --amber:#CA8A04; --violet:#7C3AED; --blue:#2563EB;
+  --hero-a:#FFFFFF; --hero-b:#F2F2F2;
+  --hdr-glass:rgba(250,250,250,.82);
+  --btn-p-bg:#0A0A0B; --btn-p-fg:#FFFFFF; --btn-p-hover:#262626;
+  --btn-s-bg:#FFFFFF; --btn-s-fg:#0A0A0B; --btn-s-line:#DADADA; --btn-s-hover:#A3A3A3;
+  --progress:rgba(10,10,11,.8);
+  --shadow:0 30px 80px rgba(0,0,0,.08); --highlight:inset 0 1px 0 rgba(255,255,255,.9);
+  --grain:.035; --rock-filter:saturate(.9) brightness(1.08); --sel-bg:#0A0A0B; --sel-fg:#fff;
+  color-scheme:light;
+}
+/* smooth switch */
+html.theme-anim *{transition:background-color .3s,border-color .3s,color .3s,fill .3s,stroke .3s!important}
+
+/* toggle button (sits in the header, left of "Create a market") */
+.theme-toggle{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--btn-s-bg);border:1px solid var(--btn-s-line);color:var(--t2);cursor:pointer;transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--btn-s-hover);color:var(--t1)}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+
+/* inline SVG diagrams drawn with dark hex values: remap in light mode */
+[data-theme="light"] svg [fill="#0F0F0F"],[data-theme="light"] svg [fill="#0A0A0B"]{fill:#FFFFFF}
+[data-theme="light"] svg [fill="#141414"],[data-theme="light"] svg [fill="#1A1A1A"]{fill:#F4F4F5}
+[data-theme="light"] svg [stroke="#222"],[data-theme="light"] svg [stroke="#222222"]{stroke:#E5E5E5}
+[data-theme="light"] svg [stroke="#333"],[data-theme="light"] svg [stroke="#333333"]{stroke:#C9C9C9}
+[data-theme="light"] svg [stroke="#A1A1A1"]{stroke:#737373}
+[data-theme="light"] svg [fill="#fff"],[data-theme="light"] svg [fill="#FFF"],[data-theme="light"] svg [fill="#FFFFFF"]{fill:#0A0A0B}
+[data-theme="light"] svg [fill="#A1A1A1"]{fill:#404040}
+[data-theme="light"] svg [fill="#808080"]{fill:#595959}
+[data-theme="light"] svg [fill="#606060"]{fill:#737373}
+[data-theme="light"] svg [fill="#4ADE80"]{fill:#16A34A}
+[data-theme="light"] svg [fill="#F87171"]{fill:#DC2626}
+[data-theme="light"] svg [fill="#FACC15"],[data-theme="light"] svg [stroke="#FACC15"]{fill:#CA8A04;stroke:#CA8A04}
+[data-theme="light"] svg rect[fill="#FACC15"]{fill:#CA8A04}
+[data-theme="light"] svg [fill="#8B5CF6"]{fill:#7C3AED}
+[data-theme="light"] svg stop[stop-color="#fff"]{stop-color:#000}
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{--sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--serif:Georgia,'Times New Roman',serif;--max:1344px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t2);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+.hdr{position:fixed;top:0;left:0;right:0;height:72px;z-index:50;border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+.hdr.scrolled{background:var(--hdr-glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--hair)}
+.hdr-in{max-width:var(--max);margin:0 auto;height:100%;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand span{font-family:var(--serif);font-size:12px;letter-spacing:.18em;color:var(--t1)}
+.nav{display:flex;gap:28px}
+.nav a{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);transition:color .2s}
+.nav a:hover,.nav a.on{color:var(--t1)}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.lang{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);padding:0 8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 13px/1 var(--sans);cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.btn-p{background:var(--btn-p-bg);color:var(--btn-p-fg);border:1px solid var(--btn-p-bg)}
+.btn-p:hover{background:var(--btn-p-hover);border-color:var(--btn-p-hover)}
+.btn-s{background:var(--btn-s-bg);color:var(--btn-s-fg);border:1px solid var(--btn-s-line)}
+.btn-s:hover{border-color:var(--btn-s-hover)}
+.btn-h{height:34px;padding:0 14px}
+.btn-app{height:34px;padding:0 14px 0 5px}
+.btn-app .ic{width:24px;height:24px;border-radius:50%;background:var(--btn-p-fg);color:var(--btn-p-bg);display:grid;place-items:center}
+
+.hero{position:relative;overflow:hidden;min-height:100vh;background:radial-gradient(120% 70% at 50% 0%,var(--hero-a) 0%,var(--hero-b) 45%,var(--bg) 75%)}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,transparent,var(--bg));z-index:1;pointer-events:none}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:var(--grain);mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.rock{position:absolute;bottom:0;pointer-events:none;will-change:transform}
+.rock i{display:block;width:100%;height:100%;background-image:var(--rocks);background-repeat:no-repeat;background-position:0 0;filter:var(--rock-filter);transform:scale(1.08);transition:transform 1200ms cubic-bezier(.2,.7,.2,1)}
+.rock.l{left:0;transform-origin:left bottom}.rock.l i{transform-origin:left bottom}
+.rock.r{right:0;transform-origin:right bottom}.rock.r i{transform-origin:right bottom}
+.hero.in .rock i{transform:scale(1)}
+.hero-in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:168px 32px 320px;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;background:var(--card2);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--t1);opacity:.7}
+h1{font-size:76px;line-height:1.02;font-weight:600;letter-spacing:-.04em;color:var(--t1);margin:22px auto 0}
+h1 .g,h2 .g{color:var(--t5);display:block}
+.lede{max-width:580px;margin:24px auto 0;font-size:17px;line-height:1.6;color:var(--t3)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.contact{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;margin-top:calc(-100vh + 520px);position:relative;z-index:3}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .2s}
+.formcard{border-radius:16px;box-shadow:var(--highlight),var(--shadow);padding:32px}
+.k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--t4)}
+.formcard h2{font-size:30px;line-height:1.1;font-weight:600;letter-spacing:-.03em;color:var(--t1);margin:10px 0 24px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.field label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+.field label em{font-style:normal;color:var(--t5);text-transform:none;letter-spacing:0}
+
+
+.side{display:flex;flex-direction:column;gap:12px}
+.chan{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px}
+.chan:hover{border-color:var(--line3)}
+.chan .v{color:var(--t1);font-size:15px;font-weight:600;margin-top:4px;letter-spacing:-.01em}
+.chan .d{font-size:13px;color:var(--t3);margin-top:2px}
+.chan .go{width:32px;height:32px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--t2);flex:none}
+.chan:hover .go{color:var(--t1);border-color:var(--line4)}
+.next{padding:22px}
+.next ol{list-style:none;counter-reset:s;margin-top:12px}
+.next li{counter-increment:s;position:relative;padding:10px 0 10px 36px;border-top:1px solid var(--row);font-size:14px;color:var(--t2)}
+.next li:first-child{border-top:0}
+.next li:before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:11px;color:var(--t4)}
+
+.sec{padding:88px 0 56px}
+.sec-h{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+h2.big{font-size:44px;line-height:1.08;font-weight:600;letter-spacing:-.035em;color:var(--t1);margin-top:14px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;color:var(--t1);font-size:16px;font-weight:600;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary span{font-family:var(--mono);color:var(--t4);font-size:16px;transition:transform .2s}
+.faq details[open] summary span{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--t3);max-width:640px}
+
+footer{border-top:1px solid var(--hair);background:var(--bg);margin-top:32px}
+.ft{max-width:var(--max);margin:0 auto;padding:56px 32px 32px;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+.ft p{font-size:13px;color:var(--t4);margin-top:14px;max-width:280px}
+.ft h5{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:14px}
+.ft a{display:block;font-size:13px;color:var(--t2);padding:4px 0}
+.ft a:hover{color:var(--t1)}
+.ft a.brand{display:flex;padding:0}
+.fb{max-width:var(--max);margin:0 auto;padding:20px 32px 32px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+
+.mnav-btn,.mnav{display:none}@media (max-width:1100px){.mnav-btn{display:flex}.mnav.open{display:flex}}
+@media (max-width:1100px){h1{font-size:60px}.nav,.lang{display:none}.contact,.sec-h{grid-template-columns:1fr}}
+@media (max-width:720px){h1{font-size:44px}h2.big{font-size:30px}.row2,.ft{grid-template-columns:1fr}.hdr-in,.hero-in,.wrap{padding-left:16px;padding-right:16px}.formcard{padding:22px}.submit{flex-direction:column;align-items:stretch}.btn-h{display:none}}
+[data-theme=light] .hero h1,[data-theme=light] .hero .lede{text-shadow:0 0 24px #FAFAFA,0 0 48px #FAFAFA}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rock{transform:none!important}.rock i{transition:none}}
+
+.hero.compact{min-height:0}
+.hero.compact:after{height:120px}
+.hero.compact .hero-in{padding:136px 32px 64px}
+.team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;position:relative;z-index:3}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:24px;transition:border-color .2s,transform .2s}
+.pc:hover{border-color:var(--line2);transform:translateY(-2px)}
+.pc-top{display:flex;align-items:center;gap:20px}
+.ph{width:96px;height:96px;flex:none;border-radius:20px;background:var(--card2);box-shadow:inset 0 0 0 1px var(--line2);display:grid;place-items:center;overflow:hidden;font:600 28px/1 var(--sans);letter-spacing:-.02em;color:var(--t1)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pc h2{font-size:26px;line-height:1.15;font-weight:600;letter-spacing:-.025em;color:var(--t1)}
+.role{display:block;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--t4)}
+.bio{font-size:15px;line-height:1.65;color:var(--t3);max-width:520px;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-flex;align-items:center;height:28px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;font:500 12px/1 var(--sans);color:var(--t2)}
+.soc{display:flex;gap:8px;padding-top:24px;border-top:1px solid var(--hair)}
+.soc a{width:36px;height:36px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--t2);transition:border-color .2s,color .2s}
+.soc a:hover{border-color:var(--line4);color:var(--t1)}
+.strip{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.strip h3{font-size:18px;font-weight:600;letter-spacing:-.015em;color:var(--t1);line-height:1.3}
+.strip p{font-size:14px;color:var(--t3);margin-top:4px;line-height:1.5}
+.strip .acts{display:flex;gap:10px;flex-wrap:wrap}
+.tsec{padding:8px 0 56px}
+@media (max-width:800px){.team{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){.hero.compact .hero-in{padding:120px 16px 48px}.pc{padding:24px}.strip{padding:24px}.strip .acts,.strip .acts .btn{width:100%}.pc-top{gap:16px}.ph{width:72px;height:72px;font-size:22px;border-radius:16px}}
+</style>
+</head>
+<body style="--rocks:url('assets/hero_rocks.webp')">
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="Dexetera Landing v2.dc.html"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiB2aWV3Qm94PSIwIDAgMTM0MCAxMzQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiByeD0iMzAwIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNNjcwIDIyMEM3ODkuMzQ3IDIyMCA5MDMuODA3IDI2Ny40MSA5ODguMTk4IDM1MS44MDJDMTA3Mi41OSA0MzYuMTkzIDExMjAgNTUwLjY1MyAxMTIwIDY3MEMxMTIwIDc4OS4zNDcgMTA3Mi41OSA5MDMuODA3IDk4OC4xOTggOTg4LjE5OEM5MDMuODA3IDEwNzIuNTkgNzg5LjM0NyAxMTIwIDY3MCAxMTIwVjExMTkuOTlDNjY5LjY2NyAxMTIwIDY2OS4zMzQgMTEyMCA2NjkgMTEyMEM2MzUuODYzIDExMjAgNjA5IDEwOTMuMTQgNjA5IDEwNjBWODY1QzYwOSA4MzEuODYzIDYzNS44NjMgODA1IDY2OSA4MDVDNzAyLjEzNyA4MDUgNzI5IDgzMS44NjMgNzI5IDg2NVY5OTQuNjg0Qzc5NC41OTcgOTgyLjc2MyA4NTUuNTQ4IDk1MS4xNDQgOTAzLjM0NiA5MDMuMzQ2Qzk2NS4yMzMgODQxLjQ1OSAxMDAwIDc1Ny41MjIgMTAwMCA2NzBDMTAwMCA1ODIuNDc4IDk2NS4yMzMgNDk4LjU0MSA5MDMuMzQ2IDQzNi42NTRDODU1Ljc5MSAzODkuMDk5IDc5NS4yMTYgMzU3LjU1OSA3MzAgMzQ1LjVWNDc1QzczMCA1MDguMTM3IDcwMy4xMzcgNTM1IDY3MCA1MzVDNjM2Ljg2MyA1MzUgNjEwIDUwOC4xMzcgNjEwIDQ3NVYyODBDNjEwIDI0Ni44NjMgNjM2Ljg2MyAyMjAgNjcwIDIyMFpNMjgwIDYxMEMzMTMuMTM3IDYxMCAzNDAgNjM2Ljg2MyAzNDAgNjcwQzM0MCA3MDMuMTM3IDMxMy4xMzcgNzMwIDI4MCA3MzBDMjQ2Ljg2MyA3MzAgMjIwIDcwMy4xMzcgMjIwIDY3MEMyMjAgNjM2Ljg2MyAyNDYuODYzIDYxMCAyODAgNjEwWk00NzUgNjEwQzUwOC4xMzcgNjEwIDUzNSA2MzYuODYzIDUzNSA2NzBDNTM1IDcwMy4xMzcgNTA4LjEzNyA3MzAgNDc1IDczMEM0NDEuODYzIDczMCA0MTUgNzAzLjEzNyA0MTUgNjcwQzQxNSA2MzYuODYzIDQ0MS44NjMgNjEwIDQ3NSA2MTBaTTY3MCA2MTBDNzAzLjEzNyA2MTAgNzMwIDYzNi44NjMgNzMwIDY3MEM3MzAgNzAzLjEzNyA3MDMuMTM3IDczMCA2NzAgNzMwQzYzNi44NjMgNzMwIDYxMCA3MDMuMTM3IDYxMCA2NzBDNjEwIDYzNi44NjMgNjM2Ljg2MyA2MTAgNjcwIDYxMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt=""><span>DEXETERA</span></a>
+    <nav class="nav">
+      <a href="Dexetera Landing v2.dc.html#markets">Markets</a>
+      <a href="Dexetera Landing v2.dc.html#how">How it works</a>
+      <a href="Dexetera Landing v2.dc.html#product">Product</a>
+      <a href="Whitepaper.dc.html">Whitepaper</a>
+      <a href="Team.dc.html" class="on" aria-current="page">Team</a>
+      <a href="Contact.dc.html">Contact</a>
+    </nav>
+    <div class="hdr-r">
+      <span class="lang"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor"/><path d="M1.5 8h13M8 1.5c2 2 2.6 4 2.6 6.5S10 12.5 8 14.5C6 12.5 5.4 10.5 5.4 8S6 3.5 8 1.5z" stroke="currentColor"/></svg>English</span>
+      <button class="theme-toggle" type="button" onclick="dxToggleTheme()" aria-label="Switch to light mode">
+        <svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+      <a class="btn btn-s btn-h" href="https://dexetera.xyz/new-market">Create a market</a>
+      <a class="btn btn-p btn-app" href="https://dexetera.xyz"><span class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Launch app</a>
+      <button class="mnav-btn" type="button" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')" style="width:34px;height:34px;border-radius:100px;border:1px solid var(--line2);background:var(--card2);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:0"><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span></button>
+    </div>
+  </div>
+  <div id="mnav" class="mnav" onclick="this.classList.remove('open')" style="position:absolute;top:72px;left:0;right:0;background:var(--card2);border-bottom:1px solid var(--line);padding:8px clamp(16px,3vw,32px) 16px;flex-direction:column;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t2)"><a href="Dexetera Landing v2.dc.html#markets" style="padding:14px 0;border-bottom:1px solid var(--hair)">Markets</a><a href="Dexetera Landing v2.dc.html#how" style="padding:14px 0;border-bottom:1px solid var(--hair)">How it works</a><a href="Dexetera Landing v2.dc.html#product" style="padding:14px 0;border-bottom:1px solid var(--hair)">Product</a><a href="Whitepaper.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Whitepaper</a><a href="Team.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair);color:var(--t1)">Team</a><a href="Contact.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Contact</a><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><a href="https://dexetera.xyz/new-market" style="padding:14px 0;color:var(--t1)">Create a market</a><button class="theme-toggle" type="button" onclick="event.stopPropagation();dxToggleTheme()" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button></div></div>
+</header>
+
+<section class="hero compact" id="top">
+  <div class="rock l" id="rockL"><i></i></div>
+  <div class="rock r" id="rockR"><i></i></div>
+  <div class="grain"></div>
+  <div class="hero-in">
+    <span class="chip"><i></i>Team</span>
+    <h1>The people building Dexetera.</h1>
+    <p class="lede">A small team shipping a live exchange for real-world markets.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="tsec">
+  <div class="team">
+    <article class="pc">
+      <div class="pc-top">
+        <div class="ph" aria-hidden="true">SM<!-- replace with <img src="" alt=""> --></div>
+        <div><h2>Sayid M.</h2><span class="role">FOUNDER, CEO &amp; CTO</span></div>
+      </div>
+      <p class="bio">Designed and shipped the full Dexetera protocol himself: the order book, smart contracts, settlement and the trading app, now live on mainnet.</p>
+      <div class="tags"><span class="tag">Protocol</span><span class="tag">Order book</span><span class="tag">Smart contracts</span><span class="tag">Settlement</span></div>
+      <div class="soc"><a href="https://www.linkedin.com/in/sayiddexetera" aria-label="Sayid M. on LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a><a href="https://x.com/dexeteralabs" aria-label="Dexetera on X"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78zm-1.08 16.2h1.7L7.4 4.73H5.58z"/></svg></a></div>
+    </article>
+    <article class="pc">
+      <div class="pc-top">
+        <div class="ph" aria-hidden="true">MB<!-- replace with <img src="" alt=""> --></div>
+        <div><h2>Marc Billings</h2><span class="role">ADVISOR</span></div>
+      </div>
+      <p class="bio">Miami technology founder. Founder and CEO of Blackdove and Media Distribution Exchange. Previously founded Boatsetter, Itopia and the Incubate Miami accelerator.</p>
+      <div class="tags"><span class="tag">Blackdove</span><span class="tag">MDX</span><span class="tag">Boatsetter</span><span class="tag">Incubate Miami</span></div>
+      <div class="soc"><a href="https://www.linkedin.com/in/marcbillings" aria-label="Marc Billings on LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a></div>
+    </article>
+  </div>
+  <div class="strip">
+    <div><h3>Want to build with us?</h3><p>Market creators, market makers and builders welcome.</p></div>
+    <div class="acts"><a class="btn btn-p" href="Contact.dc.html">Get in touch</a><a class="btn btn-s" href="Whitepaper.dc.html">Read the whitepaper</a></div>
+  </div>
+  </section>
+</div>
+
+<footer>
+  <div class="ft">
+    <div>
+      <a class="brand" href="Dexetera Landing v2.dc.html"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiB2aWV3Qm94PSIwIDAgMTM0MCAxMzQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiByeD0iMzAwIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNNjcwIDIyMEM3ODkuMzQ3IDIyMCA5MDMuODA3IDI2Ny40MSA5ODguMTk4IDM1MS44MDJDMTA3Mi41OSA0MzYuMTkzIDExMjAgNTUwLjY1MyAxMTIwIDY3MEMxMTIwIDc4OS4zNDcgMTA3Mi41OSA5MDMuODA3IDk4OC4xOTggOTg4LjE5OEM5MDMuODA3IDEwNzIuNTkgNzg5LjM0NyAxMTIwIDY3MCAxMTIwVjExMTkuOTlDNjY5LjY2NyAxMTIwIDY2OS4zMzQgMTEyMCA2NjkgMTEyMEM2MzUuODYzIDExMjAgNjA5IDEwOTMuMTQgNjA5IDEwNjBWODY1QzYwOSA4MzEuODYzIDYzNS44NjMgODA1IDY2OSA4MDVDNzAyLjEzNyA4MDUgNzI5IDgzMS44NjMgNzI5IDg2NVY5OTQuNjg0Qzc5NC41OTcgOTgyLjc2MyA4NTUuNTQ4IDk1MS4xNDQgOTAzLjM0NiA5MDMuMzQ2Qzk2NS4yMzMgODQxLjQ1OSAxMDAwIDc1Ny41MjIgMTAwMCA2NzBDMTAwMCA1ODIuNDc4IDk2NS4yMzMgNDk4LjU0MSA5MDMuMzQ2IDQzNi42NTRDODU1Ljc5MSAzODkuMDk5IDc5NS4yMTYgMzU3LjU1OSA3MzAgMzQ1LjVWNDc1QzczMCA1MDguMTM3IDcwMy4xMzcgNTM1IDY3MCA1MzVDNjM2Ljg2MyA1MzUgNjEwIDUwOC4xMzcgNjEwIDQ3NVYyODBDNjEwIDI0Ni44NjMgNjM2Ljg2MyAyMjAgNjcwIDIyMFpNMjgwIDYxMEMzMTMuMTM3IDYxMCAzNDAgNjM2Ljg2MyAzNDAgNjcwQzM0MCA3MDMuMTM3IDMxMy4xMzcgNzMwIDI4MCA3MzBDMjQ2Ljg2MyA3MzAgMjIwIDcwMy4xMzcgMjIwIDY3MEMyMjAgNjM2Ljg2MyAyNDYuODYzIDYxMCAyODAgNjEwWk00NzUgNjEwQzUwOC4xMzcgNjEwIDUzNSA2MzYuODYzIDUzNSA2NzBDNTM1IDcwMy4xMzcgNTA4LjEzNyA3MzAgNDc1IDczMEM0NDEuODYzIDczMCA0MTUgNzAzLjEzNyA0MTUgNjcwQzQxNSA2MzYuODYzIDQ0MS44NjMgNjEwIDQ3NSA2MTBaTTY3MCA2MTBDNzAzLjEzNyA2MTAgNzMwIDYzNi44NjMgNzMwIDY3MEM3MzAgNzAzLjEzNyA3MDMuMTM3IDczMCA2NzAgNzMwQzYzNi44NjMgNzMwIDYxMCA3MDMuMTM3IDYxMCA2NzBDNjEwIDYzNi44NjMgNjM2Ljg2MyA2MTAgNjcwIDYxMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt=""><span>DEXETERA</span></a>
+      <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
+    </div>
+    <div><h5>Product</h5><a href="Dexetera Landing v2.dc.html#markets">Markets</a><a href="https://dexetera.xyz">Launch app</a><a href="https://dexetera.xyz/new-market">Create a market</a></div>
+    <div><h5>Learn</h5><a href="Dexetera Landing v2.dc.html#how">How it works</a><a href="Whitepaper.dc.html">Whitepaper</a></div>
+    <div><h5>Company</h5><a href="#top">Team</a><a href="Contact.dc.html">Contact</a><a href="https://x.com/dexeteralabs">X / Twitter</a><a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a></div>
+  </div>
+  <div class="fb"><span>© 2026 Dexetera</span><span>Settled by public data</span></div>
+</footer>
+
+<script>
+(function(){
+  var hdr=document.getElementById('hdr'),L=document.getElementById('rockL'),R=document.getElementById('rockR'),hero=document.getElementById('top');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){var w=innerWidth,D=w>1024,T=w>768,dashW=D?Math.min(880,w*.72):T?w*.86:w-32,m=(w-dashW)/2,ov=T?70:20,sc=Math.max((m+ov)/515,D?0:w*.22/515);
+    L.style.width=(530*sc).toFixed(1)+'px';R.style.width=(m+ov+10*sc).toFixed(1)+'px';L.style.height=R.style.height=(1080*sc).toFixed(1)+'px';
+    var bs=(1920*sc).toFixed(1)+'px '+(1080*sc).toFixed(1)+'px';L.firstChild.style.backgroundSize=R.firstChild.style.backgroundSize=bs;R.firstChild.style.backgroundPosition=(-1300*sc).toFixed(1)+'px 0px';}
+  function s(){var y=scrollY;hdr.classList.toggle('scrolled',y>24);
+    if(reduce||innerWidth<=768){L.style.transform=R.style.transform='';return}
+    var p=Math.min(1,Math.max(0,y/(innerHeight*.8))),s2=1+.12*p;L.style.transform='translateX('+(-28*p).toFixed(2)+'%) scale('+s2+')';R.style.transform='translateX('+(28*p).toFixed(2)+'%) scale('+s2+')';}
+  addEventListener('resize',function(){size();s()});addEventListener('scroll',s,{passive:true});size();s();
+  if(reduce)hero.classList.add('in');else requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('in')})});
+})();
+</script>
+</body>
+</html>

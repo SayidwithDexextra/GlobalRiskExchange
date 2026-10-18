@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"><head>
+<!-- STATIC SNAPSHOT of the rendered page (dark, 1440px, scrolled to top). Read for exact markup, classes, inline styles and copy. Behaviour lives in ../source/*.dc.html. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whitepaper | Dexetera</title>
+<script>
+/* Put this in <head> BEFORE the stylesheet renders to avoid a flash. Shared key across all Dexetera pages. */
+(function(){
+  try{var t=localStorage.getItem('dx-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}
+  window.dxToggleTheme=function(){
+    var h=document.documentElement,n=h.getAttribute('data-theme')==='light'?'dark':'light';
+    h.classList.add('theme-anim');h.setAttribute('data-theme',n);
+    try{localStorage.setItem('dx-theme',n)}catch(e){}
+    setTimeout(function(){h.classList.remove('theme-anim')},350);
+    document.querySelectorAll('.theme-toggle').forEach(function(b){b.setAttribute('aria-label',n==='light'?'Switch to dark mode':'Switch to light mode')});
+  };
+})();
+</script>
+<style>
+/* Dexetera theme tokens. Dark is the default (brand). Light applies with <html data-theme="light">. */
+:root{
+  --bg:#0A0A0B; --bg-deep:#000; --card:#0F0F0F; --card2:#141414; --card3:#1A1A1A;
+  --line:#222; --line2:#2A2A2A; --line3:#333; --line4:#404040; --hair:#1A1A1A; --row:#161616;
+  --t1:#FFFFFF; --t2:#A1A1A1; --t3:#808080; --t4:#606060; --t5:#5C5C5C;
+  --green:#4ADE80; --red:#F87171; --amber:#FACC15; --violet:#8B5CF6; --blue:#3B82F6;
+  --hero-a:#232323; --hero-b:#121212;
+  --hdr-glass:rgba(10,10,11,.78);
+  --btn-p-bg:#FFFFFF; --btn-p-fg:#000; --btn-p-hover:#E5E5E5;
+  --btn-s-bg:#141414; --btn-s-fg:#FFFFFF; --btn-s-line:#2A2A2A; --btn-s-hover:#404040;
+  --progress:rgba(255,255,255,.8);
+  --shadow:0 40px 120px rgba(0,0,0,.8); --highlight:inset 0 1px 0 rgba(255,255,255,.06);
+  --grain:.07; --rock-filter:none; --sel-bg:#fff; --sel-fg:#000;
+  color-scheme:dark;
+}
+[data-theme="light"]{
+  --bg:#FAFAFA; --bg-deep:#FFFFFF; --card:#FFFFFF; --card2:#F4F4F5; --card3:#EDEDED;
+  --line:#E5E5E5; --line2:#DADADA; --line3:#D4D4D4; --line4:#A3A3A3; --hair:#EBEBEB; --row:#EFEFEF;
+  --t1:#0A0A0B; --t2:#404040; --t3:#595959; --t4:#737373; --t5:#A3A3A3;
+  --green:#16A34A; --red:#DC2626; --amber:#CA8A04; --violet:#7C3AED; --blue:#2563EB;
+  --hero-a:#FFFFFF; --hero-b:#F2F2F2;
+  --hdr-glass:rgba(250,250,250,.82);
+  --btn-p-bg:#0A0A0B; --btn-p-fg:#FFFFFF; --btn-p-hover:#262626;
+  --btn-s-bg:#FFFFFF; --btn-s-fg:#0A0A0B; --btn-s-line:#DADADA; --btn-s-hover:#A3A3A3;
+  --progress:rgba(10,10,11,.8);
+  --shadow:0 30px 80px rgba(0,0,0,.08); --highlight:inset 0 1px 0 rgba(255,255,255,.9);
+  --grain:.035; --rock-filter:saturate(.9) brightness(1.08); --sel-bg:#0A0A0B; --sel-fg:#fff;
+  color-scheme:light;
+}
+/* smooth switch */
+html.theme-anim *{transition:background-color .3s,border-color .3s,color .3s,fill .3s,stroke .3s!important}
+
+/* toggle button (sits in the header, left of "Create a market") */
+.theme-toggle{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--btn-s-bg);border:1px solid var(--btn-s-line);color:var(--t2);cursor:pointer;transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--btn-s-hover);color:var(--t1)}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+
+/* inline SVG diagrams drawn with dark hex values: remap in light mode */
+[data-theme="light"] svg [fill="#0F0F0F"],[data-theme="light"] svg [fill="#0A0A0B"]{fill:#FFFFFF}
+[data-theme="light"] svg [fill="#141414"],[data-theme="light"] svg [fill="#1A1A1A"]{fill:#F4F4F5}
+[data-theme="light"] svg [stroke="#222"],[data-theme="light"] svg [stroke="#222222"]{stroke:#E5E5E5}
+[data-theme="light"] svg [stroke="#333"],[data-theme="light"] svg [stroke="#333333"]{stroke:#C9C9C9}
+[data-theme="light"] svg [stroke="#A1A1A1"]{stroke:#737373}
+[data-theme="light"] svg [fill="#fff"],[data-theme="light"] svg [fill="#FFF"],[data-theme="light"] svg [fill="#FFFFFF"]{fill:#0A0A0B}
+[data-theme="light"] svg [fill="#A1A1A1"]{fill:#404040}
+[data-theme="light"] svg [fill="#808080"]{fill:#595959}
+[data-theme="light"] svg [fill="#606060"]{fill:#737373}
+[data-theme="light"] svg [fill="#4ADE80"]{fill:#16A34A}
+[data-theme="light"] svg [fill="#F87171"]{fill:#DC2626}
+[data-theme="light"] svg [fill="#FACC15"],[data-theme="light"] svg [stroke="#FACC15"]{fill:#CA8A04;stroke:#CA8A04}
+[data-theme="light"] svg rect[fill="#FACC15"]{fill:#CA8A04}
+[data-theme="light"] svg [fill="#8B5CF6"]{fill:#7C3AED}
+[data-theme="light"] svg stop[stop-color="#fff"]{stop-color:#000}
+[data-theme="light"] svg text[fill="#FACC15"]{stroke:none}
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+:root{
+  --sans:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:Georgia,'Times New Roman',serif;
+  --max:1344px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--t2);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--sel-bg);color:var(--sel-fg)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--progress);z-index:60}
+
+/* header: identical to landing */
+.hdr{position:fixed;top:0;left:0;right:0;height:72px;z-index:50;transition:background .25s,border-color .25s,backdrop-filter .25s;border-bottom:1px solid transparent}
+.hdr.scrolled{background:var(--hdr-glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--hair)}
+.hdr-in{max-width:var(--max);margin:0 auto;height:100%;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand span{font-family:var(--serif);font-size:12px;letter-spacing:.18em;color:var(--t1)}
+.nav{display:flex;gap:28px}
+.nav a{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);transition:color .2s}
+.nav a:hover,.nav a.on{color:var(--t1)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 20px;border-radius:999px;font:600 13px/1 var(--sans);transition:background .2s,border-color .2s;cursor:pointer;white-space:nowrap}
+.btn-w{background:var(--btn-p-bg);color:var(--btn-p-fg);border:1px solid var(--btn-p-bg)}
+.btn-w:hover{background:var(--btn-p-hover);border-color:var(--btn-p-hover)}
+.btn-d{background:var(--btn-s-bg);color:var(--btn-s-fg);border:1px solid var(--btn-s-line)}
+.btn-d:hover{border-color:var(--btn-s-hover)}
+.btn-sm{height:34px;padding:0 6px 0 6px;gap:8px}
+.btn-sm .ic{width:24px;height:24px;border-radius:50%;background:var(--btn-p-fg);color:var(--btn-p-bg);display:grid;place-items:center}
+.btn-sm b{font-weight:600;padding-right:10px}
+
+/* hero: identical treatment */
+.hero{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(120% 70% at 50% 0%,var(--hero-a) 0%,var(--hero-b) 45%,var(--bg) 75%)}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:var(--grain);mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.rock{position:absolute;bottom:0;width:50%;height:100%;background-image:var(--rocks);background-repeat:no-repeat;background-size:100vw auto;pointer-events:none;will-change:transform}
+.rock.l{left:0;background-position:left bottom;transform-origin:left bottom}
+.rock.r{right:0;background-position:right bottom;transform-origin:right bottom}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,transparent,var(--bg));z-index:1;pointer-events:none}
+.hero-in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:168px 32px 96px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--t4)}
+.chip{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;background:color-mix(in srgb,var(--card2) 60%,transparent);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--t1);opacity:.7}
+h1{font-size:76px;line-height:1.02;font-weight:600;letter-spacing:-.04em;color:var(--t1);margin:22px auto 0}
+h1 .g,h2 .g{color:var(--t5);display:block}
+.lede{max-width:560px;margin:24px auto 0;font-size:17px;line-height:1.6;color:var(--t3)}
+.cta{display:flex;gap:12px;justify-content:center;margin-top:36px}
+.cover{position:relative;max-width:880px;margin:64px auto 0;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--highlight),var(--shadow);text-align:left;display:grid;grid-template-columns:1.2fr 1fr;overflow:hidden}
+.cover .l{padding:28px 32px;border-right:1px solid var(--line)}
+.cover .r{padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:20px 16px;align-content:start}
+.k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--t4)}
+.v{font-family:var(--mono);font-size:13px;color:var(--t1);margin-top:4px}
+.cover h3{color:var(--t1);font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-top:10px}
+.cover p{font-size:14px;color:var(--t3);margin-top:10px}
+.scrollhint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:8px;height:30px;padding:0 14px;border:1px solid var(--line2);border-radius:999px;background:color-mix(in srgb,var(--card) 80%,transparent);font-size:12px;color:var(--t2)}
+
+/* doc layout */
+.doc{max-width:var(--max);margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:72px;position:relative}
+.toc{position:sticky;top:104px;align-self:start;max-height:calc(100vh - 128px);overflow:auto}
+.toc .eyebrow{display:block;margin-bottom:16px}
+.toc a{display:flex;gap:12px;padding:7px 0 7px 14px;border-left:1px solid var(--line);font-size:13px;color:var(--t4);transition:color .2s,border-color .2s}
+.toc a span{font-family:var(--mono);font-size:11px;color:var(--t4);min-width:20px}
+.toc a:hover{color:var(--t2)}
+.toc a.on{color:var(--t1);border-left-color:var(--t1)}
+.toc a.on span{color:var(--t2)}
+.toc .meta{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.body{max-width:760px}
+section.ch{padding:56px 0;border-top:1px solid var(--hair)}
+section.ch:first-child{border-top:0;padding-top:0}
+.num{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--t4)}
+h2{font-size:44px;line-height:1.08;font-weight:600;letter-spacing:-.035em;color:var(--t1);margin:14px 0 24px}
+h3.sub{font-size:20px;font-weight:600;letter-spacing:-.015em;color:var(--t1);margin:40px 0 12px;display:flex;gap:12px;align-items:baseline}
+h3.sub span{font-family:var(--mono);font-size:12px;color:var(--t4);font-weight:400}
+.body p{margin:0 0 16px;color:var(--t2)}
+.body p.intro{font-size:17px;color:var(--t3)}
+.body strong{color:var(--t1);font-weight:600}
+.body em{color:var(--t1);font-style:normal}
+code{font-family:var(--mono);font-size:12.5px;color:var(--t1);background:var(--card2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+ul.list{list-style:none;margin:8px 0 20px}
+ul.list li{position:relative;padding:9px 0 9px 22px;border-bottom:1px solid var(--row);color:var(--t2)}
+ul.list li:before{content:"";position:absolute;left:2px;top:19px;width:6px;height:1px;background:var(--t3)}
+ol.steps{list-style:none;counter-reset:s;margin:8px 0 20px}
+ol.steps li{counter-increment:s;position:relative;padding:12px 0 12px 44px;border-bottom:1px solid var(--row)}
+ol.steps li:before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:13px;font-family:var(--mono);font-size:11px;color:var(--t4)}
+.pull{margin:28px 0;padding:24px 28px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:20px;line-height:1.45;font-weight:500;letter-spacing:-.015em;color:var(--t1)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .2s}
+.card:hover{border-color:var(--line3)}
+.card h4{color:var(--t1);font-size:15px;font-weight:600;margin:10px 0 6px;letter-spacing:-.01em}
+.card p{font-size:13.5px;line-height:1.6;color:var(--t3);margin:0}
+.fig{margin:28px 0 32px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fig-h{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
+.fig svg{display:block;width:100%;height:auto}
+.fig-c{padding:12px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--t4)}
+table.cmp{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:13px}
+table.cmp th,table.cmp td{padding:13px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+table.cmp td:first-child{color:var(--t3);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+table.cmp td{color:var(--t2)}
+table.cmp .dx{background:var(--card2);color:var(--t1)}
+table.cmp th.dx{color:var(--t1)}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:auto;margin:20px 0 28px}
+.tbl table{margin:0}
+.tbl tr:last-child td{border-bottom:0}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.links a{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--t1);font-size:14px}
+.links a:hover{border-color:var(--line3)}
+.links a span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+.disc{font-size:12.5px;color:var(--t4);margin-top:28px}
+
+/* footer: landing */
+footer{border-top:1px solid var(--hair);background:var(--bg)}
+.ft{max-width:var(--max);margin:0 auto;padding:56px 32px 32px;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+.ft p{font-size:13px;color:var(--t4);margin-top:14px;max-width:280px}
+.ft h5{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:14px}
+.ft a{display:block;font-size:13px;color:var(--t2);padding:4px 0}
+.ft a:hover{color:var(--t1)}
+.ft a.brand{display:flex;padding:0}
+.fb{max-width:var(--max);margin:0 auto;padding:20px 32px 32px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+
+.mnav-btn,.mnav{display:none}@media (max-width:1100px){.mnav-btn{display:flex}.mnav.open{display:flex}}
+@media (max-width:1100px){h1{font-size:60px}.doc{grid-template-columns:minmax(0,1fr);gap:0}.body{min-width:0;max-width:100%}.body .tbl,.body .fig,.body pre{max-width:100%;overflow-x:auto}.toc{display:none}.nav{display:none}}
+@media (max-width:720px){h1{font-size:44px}h2{font-size:30px}.cover{grid-template-columns:1fr}.cover .l{border-right:0;border-bottom:1px solid var(--line)}.grid2,.grid3,.links,.ft{grid-template-columns:1fr}.hdr-in,.hero-in,.doc{padding-left:16px;padding-right:16px}.cta{flex-direction:column;align-items:center}}
+.rk{filter:var(--rock-filter)}
+[data-theme=light] .hero h1,[data-theme=light] .hero .lede{text-shadow:0 0 24px #FAFAFA,0 0 48px #FAFAFA}
+[data-theme=light] .ic-arrow{filter:none!important}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rock{transform:none!important}}
+</style>
+</head>
+<body style="--rocks:url('assets/hero_rocks.webp')">
+<div class="progress" id="progress" style="width: 0%;"></div>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="Dexetera Landing v2.dc.html" style="gap:10px;color:var(--t1)"><img style="width:32px;height:32px;border-radius:6px;display:block;flex:none" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiB2aWV3Qm94PSIwIDAgMTM0MCAxMzQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiByeD0iMzAwIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNNjcwIDIyMEM3ODkuMzQ3IDIyMCA5MDMuODA3IDI2Ny40MSA5ODguMTk4IDM1MS44MDJDMTA3Mi41OSA0MzYuMTkzIDExMjAgNTUwLjY1MyAxMTIwIDY3MEMxMTIwIDc4OS4zNDcgMTA3Mi41OSA5MDMuODA3IDk4OC4xOTggOTg4LjE5OEM5MDMuODA3IDEwNzIuNTkgNzg5LjM0NyAxMTIwIDY3MCAxMTIwVjExMTkuOTlDNjY5LjY2NyAxMTIwIDY2OS4zMzQgMTEyMCA2NjkgMTEyMEM2MzUuODYzIDExMjAgNjA5IDEwOTMuMTQgNjA5IDEwNjBWODY1QzYwOSA4MzEuODYzIDYzNS44NjMgODA1IDY2OSA4MDVDNzAyLjEzNyA4MDUgNzI5IDgzMS44NjMgNzI5IDg2NVY5OTQuNjg0Qzc5NC41OTcgOTgyLjc2MyA4NTUuNTQ4IDk1MS4xNDQgOTAzLjM0NiA5MDMuMzQ2Qzk2NS4yMzMgODQxLjQ1OSAxMDAwIDc1Ny41MjIgMTAwMCA2NzBDMTAwMCA1ODIuNDc4IDk2NS4yMzMgNDk4LjU0MSA5MDMuMzQ2IDQzNi42NTRDODU1Ljc5MSAzODkuMDk5IDc5NS4yMTYgMzU3LjU1OSA3MzAgMzQ1LjVWNDc1QzczMCA1MDguMTM3IDcwMy4xMzcgNTM1IDY3MCA1MzVDNjM2Ljg2MyA1MzUgNjEwIDUwOC4xMzcgNjEwIDQ3NVYyODBDNjEwIDI0Ni44NjMgNjM2Ljg2MyAyMjAgNjcwIDIyMFpNMjgwIDYxMEMzMTMuMTM3IDYxMCAzNDAgNjM2Ljg2MyAzNDAgNjcwQzM0MCA3MDMuMTM3IDMxMy4xMzcgNzMwIDI4MCA3MzBDMjQ2Ljg2MyA3MzAgMjIwIDcwMy4xMzcgMjIwIDY3MEMyMjAgNjM2Ljg2MyAyNDYuODYzIDYxMCAyODAgNjEwWk00NzUgNjEwQzUwOC4xMzcgNjEwIDUzNSA2MzYuODYzIDUzNSA2NzBDNTM1IDcwMy4xMzcgNTA4LjEzNyA3MzAgNDc1IDczMEM0NDEuODYzIDczMCA0MTUgNzAzLjEzNyA0MTUgNjcwQzQxNSA2MzYuODYzIDQ0MS44NjMgNjEwIDQ3NSA2MTBaTTY3MCA2MTBDNzAzLjEzNyA2MTAgNzMwIDYzNi44NjMgNzMwIDY3MEM3MzAgNzAzLjEzNyA3MDMuMTM3IDczMCA2NzAgNzMwQzYzNi44NjMgNzMwIDYxMCA3MDMuMTM3IDYxMCA2NzBDNjEwIDYzNi44NjMgNjM2Ljg2MyA2MTAgNjcwIDYxMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt=""><span style="font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--t1)">Dexetera</span></a>
+    <nav class="nav">
+      <a href="Dexetera Landing v2.dc.html#markets">Markets</a>
+      <a href="Dexetera Landing v2.dc.html#how">How it works</a>
+      <a href="Dexetera Landing v2.dc.html#product">Product</a>
+      <a href="#" class="on" aria-current="page">Whitepaper</a>
+      <a href="Contact.dc.html">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="hdrLang" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);cursor:pointer"><img src="https://unpkg.com/lucide-static@0.460.0/icons/globe.svg" alt="" style="width:14px;height:14px;filter:invert(0.65)">English</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="theme-toggle" type="button" onclick="dxToggleTheme()" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg><svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></button>
+        <a id="hdrCreate" href="https://dexetera.xyz/new-market" style="height:34px;padding:0 16px;display:flex;align-items:center;background:var(--btn-s-bg);border:1px solid var(--btn-s-line);border-radius:100px;color:var(--btn-s-fg);font-size:12px;font-weight:600;transition:border-color .15s" onmouseover="this.style.borderColor='var(--btn-s-hover)'" onmouseout="this.style.borderColor='var(--btn-s-line)'">Create a market</a>
+        <a href="https://dexetera.xyz" style="height:34px;padding:0 16px 0 6px;display:flex;align-items:center;gap:8px;background:var(--btn-p-bg);border-radius:100px;color:var(--btn-p-fg);font-size:12px;font-weight:600" onmouseover="this.style.background='var(--btn-p-hover)'" onmouseout="this.style.background='var(--btn-p-bg)'"><span style="width:22px;height:22px;border-radius:50%;background:var(--btn-p-fg);display:flex;align-items:center;justify-content:center;flex:none"><img src="https://unpkg.com/lucide-static@0.460.0/icons/arrow-up-right.svg" alt="" class="ic-arrow" style="width:12px;height:12px;filter:invert(1)"></span>Launch app</a>
+        <button class="mnav-btn" type="button" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')" style="width:34px;height:34px;border-radius:100px;border:1px solid var(--line2);background:var(--card2);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:0"><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span></button>
+      </div>
+    </div>
+  </div>
+  <div id="mnav" class="mnav" onclick="this.classList.remove('open')" style="position:absolute;top:72px;left:0;right:0;background:var(--card2);border-bottom:1px solid var(--line);padding:8px clamp(16px,3vw,32px) 16px;flex-direction:column;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t2)"><a href="Dexetera Landing v2.dc.html#markets" style="padding:14px 0;border-bottom:1px solid var(--hair)">Markets</a><a href="Dexetera Landing v2.dc.html#how" style="padding:14px 0;border-bottom:1px solid var(--hair)">How it works</a><a href="Dexetera Landing v2.dc.html#product" style="padding:14px 0;border-bottom:1px solid var(--hair)">Product</a><a href="Whitepaper.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Whitepaper</a><a href="Contact.dc.html" style="padding:14px 0;border-bottom:1px solid var(--hair)">Contact</a><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><a href="https://dexetera.xyz/new-market" style="padding:14px 0;color:var(--t1)">Create a market</a><button class="theme-toggle" type="button" onclick="event.stopPropagation();dxToggleTheme()" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg><svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg></button></div></div>
+</header>
+
+<section class="hero" id="top">
+  <div aria-hidden="true" id="rocks" style="position: absolute; inset: 0px; pointer-events: none; mask-image: linear-gradient(rgb(0, 0, 0) calc(100% - 220px), transparent); z-index: 3;">
+    <div id="rockL" style="position: absolute; left: 0px; bottom: 0px; transform-origin: left bottom; will-change: transform; width: 360.2px; height: 734px; transform: translateX(0%) scale(1);"><div class="rk" style="width: 100%; height: 100%; background-image: var(--rocks); background-repeat: no-repeat; background-position: 0px 0px; transform: scale(1); transform-origin: left bottom; transition: transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1); background-size: 1304.9px 734px;"></div></div>
+    <div id="rockR" style="position: absolute; right: 0px; bottom: 0px; transform-origin: right bottom; will-change: transform; width: 356.8px; height: 734px; transform: translateX(0%) scale(1);"><div class="rk" style="width: 100%; height: 100%; background-image: var(--rocks); background-repeat: no-repeat; transform: scale(1); transform-origin: right bottom; transition: transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1); background-size: 1304.9px 734px; background-position: -883.5px 0px;"></div></div>
+  </div>
+  <div class="grain"></div>
+  <div class="hero-in">
+    <span class="chip"><i></i>Whitepaper</span>
+    <h1><span class="g">Commercial risk,</span>made tradable.</h1>
+    <p class="lede">Bringing business risk on-chain. An on-chain marketplace for risk, built on Dexetera.</p>
+    <div class="cta">
+      <a class="btn btn-w" href="#summary">Start reading <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+      <a class="btn btn-d" href="https://dexetera.xyz">Launch app</a>
+    </div>
+    <div class="cover">
+      <div class="l">
+        <div class="k">Commercial Risk Markets</div>
+        <h3>If a risk can be measured, it can be traded.</h3>
+        <p>How any objectively measurable economic variable becomes a standardized, continuously traded market that settles against public data.</p>
+      </div>
+      <div class="r">
+        <div><div class="k">Chapters</div><div class="v">07</div></div>
+        <div><div class="k">Reading time</div><div class="v">14 min</div></div>
+        <div><div class="k">Collateral</div><div class="v">USDC</div></div>
+        <div><div class="k">Settlement</div><div class="v">UMA Optimistic Oracle</div></div>
+        <div><div class="k">Market type</div><div class="v">Scalar futures</div></div>
+        <div><div class="k">Trading</div><div class="v">On-chain orderbook</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollhint"><svg width="12" height="14" viewBox="0 0 12 14" fill="none"><rect x="1" y="1" width="10" height="12" rx="5" stroke="currentColor"></rect><path d="M6 4v2" stroke="currentColor" stroke-linecap="round"></path></svg>Scroll to read</div>
+</section>
+
+<div class="doc">
+  <aside class="toc">
+    <span class="eyebrow">Contents</span>
+    <a href="#summary" class="on"><span>00</span>Executive Summary</a>
+    <a href="#problem"><span>01</span>The Problem</a>
+    <a href="#existing"><span>02</span>Why Existing Markets Stop Short</a>
+    <a href="#opportunity"><span>03</span>The Opportunity</a>
+    <a href="#protocol"><span>04</span>The Protocol</a>
+    <a href="#customers"><span>05</span>The Customer Model</a>
+    <a href="#onchain"><span>06</span>Why On-Chain Markets Matter</a>
+    <a href="#vision"><span>07</span>Long Term Vision</a>
+    <a href="#links"><span>08</span>Links</a>
+    <div class="meta">
+      <span class="eyebrow">Reading</span>
+      <div class="v" id="pct">0%</div>
+    </div>
+  </aside>
+  <main class="body">
+
+<section class="ch" id="summary">
+  <div class="num">00 / Executive Summary</div>
+  <h2><span class="g">Every business decides</span>under uncertainty.</h2>
+  <p class="intro">Every business makes decisions under uncertainty. A festival operator worries about attendance. A data center worries about the price of electricity and GPUs. A manufacturer worries about commodity and freight costs. A conference organizer worries about consumer confidence and travel demand.</p>
+  <p>These exposures are not abstract. They determine whether a season is profitable or ruinous, whether a facility is built, whether a product ships. Collectively they represent trillions of dollars of economic risk, and yet only a small fraction of it can be efficiently hedged through today's financial system.</p>
+  <p>Commercial risk transfer is still dominated by private negotiations between banks, brokers, insurers, and large corporations. These over the counter (OTC) markets are opaque, expensive, relationship gated, and inaccessible to the vast majority of businesses. For most companies, the only realistic option is to absorb the risk and hope.</p>
+  <p>This paper proposes a new category of financial infrastructure: <strong>an on-chain marketplace for risk.</strong> These are decentralized commercial risk markets that settle against existing, authoritative public data sources. By turning any objectively measurable economic variable into a standardized, continuously traded market, businesses can hedge real world exposures transparently, without brokers, minimum ticket sizes, or institutional relationships.</p>
+  <p>The objective is not to replace insurance or traditional derivatives. It is to make commercial risk transfer more accessible, more liquid, and more efficient, and to expand the universe of risks that can be hedged at all.</p>
+  <p>The protocol described here, Dexetera, already exists as working infrastructure. It is a permissionless system where anyone can create a market on any measurable metric, anyone can trade it on a true on-chain orderbook with USDC collateral, and settlement is decided by verifiable public evidence secured by UMA's Optimistic Oracle.</p>
+  <div class="pull">No exchange. No gatekeeper. No one who controls the outcome.</div>
+</section>
+
+<section class="ch" id="problem">
+  <div class="num">01 / The Problem</div>
+  <h2><span class="g">Every business is exposed</span>to risks it cannot control.</h2>
+  <ul class="list">
+    <li>A festival cannot control national travel demand.</li>
+    <li>A conference cannot control consumer confidence.</li>
+    <li>A cloud provider cannot control GPU prices.</li>
+    <li>A manufacturer cannot control freight costs.</li>
+    <li>A data center cannot control electricity prices.</li>
+  </ul>
+  <p>Each of these variables has a direct, measurable impact on profitability. Yet when a business wants to protect itself against an adverse move, it has only three options:</p>
+  <div class="grid3">
+    <div class="card"><div class="k">Option 01</div><h4>Absorb the risk</h4><p>Carry the exposure on the balance sheet and accept the volatility.</p></div>
+    <div class="card"><div class="k">Option 02</div><h4>Purchase insurance</h4><p>Where a product even exists for the exposure.</p></div>
+    <div class="card"><div class="k">Option 03</div><h4>Negotiate a hedge</h4><p>A customized hedge with a bank or dealer, through a bespoke OTC contract.</p></div>
+  </div>
+  <p>For most businesses, only the first option is realistically available.</p>
+  <p>Insurance is designed for catastrophic, binary events such as a fire, a flood, or a total loss. It is not designed for the continuous, ongoing volatility that actually erodes margins. It pays out on a claim, not on a gradual, quantitative move in an economic variable.</p>
+  <p>OTC derivatives, meanwhile, require specialized legal agreements (ISDA documentation), institutional relationships, large minimum transaction sizes, and credit underwriting. These requirements exclude nearly every small and mid sized business, and even many large ones, from hedging anything outside a handful of standardized markets.</p>
+  <p>The result is that enormous amounts of economic risk remain unmanaged, not because businesses do not want to hedge, but because the infrastructure to do so does not exist.</p>
+</section>
+
+<section class="ch" id="existing">
+  <div class="num">02 / Why Existing Markets Stop Short</div>
+  <h2><span class="g">Markets standardized</span>only a thin frontier.</h2>
+  <p class="intro">Financial markets have successfully standardized only a small subset of commercial risks.</p>
+  <div class="fig">
+    <div class="fig-h"><span class="k">Fig. 1 &nbsp;Hedgeable today vs. measurable but untradeable</span><span class="k">Illustrative</span></div>
+    <svg viewBox="0 0 760 300" fill="none" font-family="JetBrains Mono, monospace">
+      <circle cx="380" cy="150" r="128" stroke="#222" stroke-dasharray="2 5"></circle>
+      <circle cx="380" cy="150" r="62" fill="#141414" stroke="#333"></circle>
+      <text x="380" y="138" fill="#fff" font-size="10" text-anchor="middle" letter-spacing="1.2">HEDGEABLE</text>
+      <text x="380" y="154" fill="#808080" font-size="9" text-anchor="middle">oil · gas · rates</text>
+      <text x="380" y="168" fill="#808080" font-size="9" text-anchor="middle">FX · equities · ags</text>
+      <g font-size="9.5" fill="#A1A1A1">
+        <g><rect x="40" y="34" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="54" y="52">Air travel demand</text></g>
+        <g><rect x="40" y="96" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="54" y="114">Consumer confidence</text></g>
+        <g><rect x="40" y="158" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="54" y="176">Disease surveillance</text></g>
+        <g><rect x="40" y="220" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="54" y="238">Port throughput</text></g>
+        <g><rect x="552" y="52" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="566" y="70">GPU pricing</text></g>
+        <g><rect x="552" y="128" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="566" y="146">Data center utilization</text></g>
+        <g><rect x="552" y="204" width="168" height="28" rx="6" fill="#0F0F0F" stroke="#222"></rect><text x="566" y="222">Electricity, grid load</text></g>
+      </g>
+      <g stroke="#333"><path d="M208 48 C270 48 290 110 318 130"></path><path d="M208 110 C260 110 290 138 318 146"></path><path d="M208 172 C260 172 290 160 318 156"></path><path d="M208 234 C270 234 290 190 320 172"></path><path d="M552 66 C490 66 470 120 442 134"></path><path d="M552 142 C500 142 470 148 442 150"></path><path d="M552 218 C490 218 470 180 440 168"></path></g>
+      <g fill="#606060" font-size="8.5" letter-spacing="1"><text x="40" y="22">MEASURABLE, NO MARKET</text><text x="720" y="40" text-anchor="end">MEASURABLE, NO MARKET</text></g>
+    </svg>
+    <div class="fig-c">Thousands of variables are published by credible institutions, yet sit outside the small circle of risks with a standardized market.</div>
+  </div>
+  <p>Today a business can readily hedge:</p>
+  <ul class="list">
+    <li>Oil and natural gas</li><li>Interest rates</li><li>Foreign exchange</li><li>Equity indices</li><li>A small set of agricultural and metals commodities</li>
+  </ul>
+  <p>A few specialized risks, such as weather derivatives, exist, but almost entirely inside illiquid OTC markets accessible only to large players.</p>
+  <p>Beyond that thin frontier, thousands of economically significant variables remain untradeable, despite being objectively measurable and published by credible institutions:</p>
+  <ul class="list">
+    <li>National air travel demand</li><li>Consumer confidence</li><li>Public health and disease surveillance indicators</li><li>Freight congestion and port throughput</li><li>GPU availability and pricing</li><li>Data center utilization</li><li>Electricity and grid load</li>
+  </ul>
+  <p>These variables influence billions of dollars of business activity every year. Authoritative data on each is published regularly by trusted sources. And yet no standardized market exists to transfer the risk, because the cost of building, listing, and operating a conventional exchange traded product for each one is prohibitive.</p>
+  <p>The reason is structural. Traditional markets standardize a risk only when the expected volume justifies the fixed cost of regulatory approval, clearing infrastructure, and market maker incentives. Everything below that threshold, which is to say almost everything, defaults to private negotiation or goes unhedged entirely.</p>
+</section>
+
+<section class="ch" id="opportunity">
+  <div class="num">03 / The Opportunity</div>
+  <h2><span class="g">Blockchain collapses</span>coordination costs.</h2>
+  <p class="intro">Historically, commercial hedging required intermediaries because coordinating a market is expensive. Someone has to define the contract, list it, clear it, hold collateral, discover the price, and adjudicate settlement. Each of those functions carried a cost that only large, standardized markets could amortize.</p>
+  <p>A decentralized, on-chain marketplace for risk makes it economically feasible to stand up markets that were previously too small, too fragmented, or too expensive to support. Specifically, it enables:</p>
+  <div class="grid3">
+    <div class="card"><div class="k">01</div><h4>Continuous trading</h4><p>Markets that price risk in real time, not at the pace of quarterly renegotiation.</p></div>
+    <div class="card"><div class="k">02</div><h4>Transparent pricing</h4><p>A public orderbook where every participant sees the same bid and ask.</p></div>
+    <div class="card"><div class="k">03</div><h4>Objective settlement</h4><p>Contracts that resolve against published, verifiable data rather than a counterparty's discretion.</p></div>
+    <div class="card"><div class="k">04</div><h4>Global participation</h4><p>Access defined by an internet connection and collateral, not geography or institutional standing.</p></div>
+    <div class="card"><div class="k">05</div><h4>Programmable collateral</h4><p>Margin and payouts enforced by code, not by credit departments.</p></div>
+    <div class="card"><div class="k">06</div><h4>Reduced counterparty risk</h4><p>Collateral held in a non-custodial vault, not on a dealer's balance sheet.</p></div>
+  </div>
+  <p>Instead of negotiating a bespoke contract with a bank, a business can access a standardized market built around publicly verifiable economic data. This is the new financial primitive: open commercial risk markets, where the barrier to hedging a risk is no longer "will an institution build this for me?" but simply "does credible public data measure it?"</p>
+</section>
+
+<section class="ch" id="protocol">
+  <div class="num">04 / The Protocol</div>
+  <h2><span class="g">From idea to market</span>to verified payout.</h2>
+  <p class="intro">Dexetera is the infrastructure that makes an on-chain marketplace for risk real. It is a permissionless protocol that lets anyone turn a measurable economic variable into a scalar futures market, a position on a continuous number, and lets anyone trade it, with settlement secured trustlessly by public evidence and UMA's Optimistic Oracle.</p>
+  <p>The protocol is three tightly linked systems that carry a real world risk from <em>idea</em> to <em>tradable market</em> to <em>final, verified payout.</em></p>
+
+  <div class="fig">
+    <div class="fig-h"><span class="k">Fig. 2 &nbsp;Three linked systems</span><span class="k">Create · Trade · Settle</span></div>
+    <svg viewBox="0 0 760 220" fill="none" font-family="JetBrains Mono, monospace">
+      <defs><radialGradient id="wg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".10"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></radialGradient></defs>
+      <g>
+        <rect x="24" y="46" width="208" height="128" rx="12" fill="#141414" stroke="#222"></rect>
+        <circle cx="48" cy="72" r="4" fill="#8B5CF6"></circle><text x="60" y="76" fill="#fff" font-size="10.5" letter-spacing="1">CREATE</text>
+        <text x="40" y="104" fill="#A1A1A1" font-size="9.5">Market Creation Wizard</text>
+        <text x="40" y="122" fill="#808080" font-size="9">metric · source URL</text>
+        <text x="40" y="138" fill="#808080" font-size="9">settlement date · start price</text>
+        <text x="40" y="158" fill="#606060" font-size="8.5">Diamond proxy (EIP-2535)</text>
+      </g>
+      <g>
+        <ellipse cx="380" cy="110" rx="140" ry="90" fill="url(#wg)"></ellipse>
+        <rect x="276" y="46" width="208" height="128" rx="12" fill="#141414" stroke="#333"></rect>
+        <circle cx="300" cy="72" r="4" fill="#fff"></circle><text x="312" y="76" fill="#fff" font-size="10.5" letter-spacing="1">TRADE</text>
+        <text x="292" y="104" fill="#A1A1A1" font-size="9.5">On-chain orderbook</text>
+        <text x="292" y="124" fill="#4ADE80" font-size="9">BID  5,390   12</text>
+        <text x="292" y="140" fill="#F87171" font-size="9">ASK  5,410    8</text>
+        <text x="292" y="158" fill="#606060" font-size="8.5">USDC in CoreVault</text>
+      </g>
+      <g>
+        <rect x="528" y="46" width="208" height="128" rx="12" fill="#141414" stroke="#222"></rect>
+        <circle cx="552" cy="72" r="4" fill="#FACC15"></circle><text x="564" y="76" fill="#fff" font-size="10.5" letter-spacing="1">SETTLE</text>
+        <text x="544" y="104" fill="#A1A1A1" font-size="9.5">Propose · challenge</text>
+        <text x="544" y="122" fill="#808080" font-size="9">evidence hashed on-chain</text>
+        <text x="544" y="138" fill="#808080" font-size="9">UMA Optimistic Oracle</text>
+        <text x="544" y="158" fill="#606060" font-size="8.5">SettlementManager pays out</text>
+      </g>
+      <g stroke="#333"><path d="M232 110 H276"></path><path d="M484 110 H528"></path></g>
+      <circle r="2.5" fill="#fff"><animateMotion dur="2.4s" repeatCount="indefinite" path="M232 110 H276"></animateMotion></circle>
+      <circle r="2.5" fill="#fff"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M484 110 H528"></animateMotion></circle>
+      <text x="380" y="204" fill="#606060" font-size="8.5" text-anchor="middle" letter-spacing="1">ALL MARKETS SHARE ONE FACETREGISTRY</text>
+    </svg>
+  </div>
+
+  <h3 class="sub"><span>4.1</span>Permissionless Market Creation</h3>
+  <p>Anyone can deploy a new risk market. There is no listing committee and no exchange approval.</p>
+  <ul class="list">
+    <li>Creation runs through a guided Market Creation Wizard (metric, then trading configuration, then settlement and oracle configuration, then review and deploy), with an AI assistant that validates the metric and suggests a fair starting price.</li>
+    <li>Each market is deployed as its own on-chain Diamond (EIP-2535) proxy with isolated per market storage, so a problem in one market can never affect another.</li>
+    <li>All markets share a single global <code>FacetRegistry</code>, so trading and settlement logic can be improved atomically across every market at once, without touching any individual market's funds or positions.</li>
+    <li>A creator defines the metric, its canonical public data source (URL), a settlement date (from one day to one year out), a starting price, and descriptive tags. A creation fee and a refundable creator bond keep spam out, and creators can earn a share of the trading fees their market generates.</li>
+    <li>Creation can be gasless. The creator signs an EIP-712 message and a relayer submits the transaction.</li>
+  </ul>
+  <div class="pull">Markets are scalar futures, not binary bets. A business takes a continuous position on how high or how low a real economic variable will settle, which is exactly the shape of a genuine hedge.</div>
+
+  <h3 class="sub"><span>4.2</span>Market Selection Framework</h3>
+  <p>Not every number makes a good risk market. To function as durable commercial infrastructure rather than a novelty, a listed market should satisfy four requirements.</p>
+  <div class="grid2">
+    <div class="card"><div class="k">01</div><h4>Publicly Verifiable</h4><p>The settlement value must be published by an independent, trusted source that can be archived and audited after the fact. Examples: TSA passenger throughput, CDC surveillance data, Bureau of Labor Statistics releases, Energy Information Administration (EIA) data, NOAA weather and climate data, The Conference Board (consumer confidence).</p></div>
+    <div class="card"><div class="k">02</div><h4>Commercial Relevance</h4><p>The metric must materially affect business profitability. A market exists to transfer real exposure, not to manufacture it.</p></div>
+    <div class="card"><div class="k">03</div><h4>Natural Two Sided Demand</h4><p>One industry's cost exposure should correspond to another industry's revenue or economic exposure. When a rise in a variable helps one business and hurts another, both have a reason to trade, creating sustainable commercial participation beyond speculation.</p></div>
+    <div class="card"><div class="k">04</div><h4>Standardization</h4><p>Every participant trades the same contract. This lets liquidity concentrate in one deep market rather than fragmenting across countless bespoke agreements, the core efficiency that OTC markets can never achieve.</p></div>
+  </div>
+  <p>The best markets track a number that is continuously observable (it moves on its own, so there is always a reason for longs and shorts to disagree) and settles from a credible, public, archivable source. Metrics that sit frozen until a single reveal event trade poorly and make weak hedges. Variables that tick week to week make strong ones.</p>
+
+  <h3 class="sub"><span>4.3</span>On-Chain Orderbook Trading</h3>
+  <p>Unlike AMM or pool based platforms, Dexetera runs a true on-chain orderbook, the market structure institutions actually recognize as a market.</p>
+  <ul class="list">
+    <li>Traders deposit USDC into a shared, non-custodial <code>CoreVault</code> that holds collateral, positions, and margin.</li>
+    <li>They open long or short positions using limit and market orders (with slippage protection), matched by an on-chain matching engine with real bid and ask price discovery.</li>
+    <li>A mark price derived from market activity drives unrealized PnL and liquidation thresholds. Keeper callable liquidation protects protocol solvency.</li>
+    <li>Every order, fill, and cancellation is recorded on-chain. Gasless (meta) trading is supported via signed sessions and relayers.</li>
+  </ul>
+  <p>For a hedger, this means a festival can <em>short</em> a travel demand market to offset weak attendance, while an airline or hotel chain, whose revenue rises with the same variable, takes the natural <em>long</em>. Their opposing commercial exposures meet in a transparent, continuously priced market.</p>
+
+  <h3 class="sub"><span>4.4</span>Metric Tracking and Trustless Settlement</h3>
+  <p>This is what makes "any measurable risk" both real and safe to settle.</p>
+  <p><strong>Metric tracking.</strong> Each market carries its own defined data source. An AI metric worker reads and analyzes the source at creation and near settlement, proposing values with confidence and reasoning, and feeds a time series for charting.</p>
+  <p><strong>Settlement lifecycle.</strong> Markets move through the states Unsettled, Rollover, ChallengeWindow, and Settled, automated by scheduled jobs:</p>
+
+  <div class="fig">
+    <div class="fig-h"><span class="k">Fig. 3 &nbsp;Settlement lifecycle</span><span class="k">Optimistic</span></div>
+    <svg viewBox="0 0 760 170" fill="none" font-family="JetBrains Mono, monospace">
+      <path d="M60 70 H700" stroke="#333"></path>
+      <rect x="250" y="56" width="250" height="28" rx="14" fill="#FACC15" fill-opacity=".08" stroke="#FACC15" stroke-opacity=".5"></rect>
+      <text x="375" y="74" fill="#FACC15" font-size="9" text-anchor="middle" letter-spacing="1.2">CHALLENGE WINDOW</text>
+      <g font-size="9" letter-spacing="1">
+        <circle cx="60" cy="70" r="7" fill="#0F0F0F" stroke="#A1A1A1"></circle><text x="60" y="44" fill="#fff" text-anchor="middle">UNSETTLED</text><text x="60" y="104" fill="#808080" text-anchor="middle" letter-spacing="0">trading live</text>
+        <circle cx="170" cy="70" r="7" fill="#0F0F0F" stroke="#A1A1A1"></circle><text x="170" y="44" fill="#fff" text-anchor="middle">ROLLOVER</text><text x="170" y="104" fill="#808080" text-anchor="middle" letter-spacing="0">trading pauses</text>
+        <circle cx="290" cy="70" r="5" fill="#FACC15"></circle><text x="290" y="104" fill="#808080" text-anchor="middle" letter-spacing="0">propose value</text><text x="290" y="120" fill="#606060" text-anchor="middle" letter-spacing="0">+ evidence hash</text>
+        <circle cx="460" cy="70" r="5" fill="#FACC15"></circle><text x="460" y="104" fill="#808080" text-anchor="middle" letter-spacing="0">challenge with bond</text><text x="460" y="120" fill="#606060" text-anchor="middle" letter-spacing="0">→ UMA DVM vote</text>
+        <circle cx="700" cy="70" r="8" fill="#fff"></circle><text x="700" y="44" fill="#fff" text-anchor="middle">SETTLED</text><text x="700" y="104" fill="#808080" text-anchor="middle" letter-spacing="0">vault pays PnL</text>
+      </g>
+      <circle r="3" fill="#fff"><animateMotion dur="5s" repeatCount="indefinite" path="M60 70 H700"></animateMotion></circle>
+      <text x="380" y="156" fill="#606060" font-size="8.5" text-anchor="middle" letter-spacing="1">POSITIONS CLOSE AT THE ORACLE VERIFIED PRICE, NOT THE MARK PRICE</text>
+    </svg>
+  </div>
+
+  <ol class="steps">
+    <li>At the settlement date, trading pauses and a challenge window opens.</li>
+    <li>Anyone can propose the final settlement value, with on-chain evidence (for example a screenshot and a Wayback Machine archive of the source, hashed on-chain for immutability).</li>
+    <li>Anyone can challenge the proposal by posting a bond.</li>
+    <li>Disputes escalate to UMA's Optimistic Oracle and DVM, where the correct answer is decided by tokenholder vote.</li>
+    <li>Once resolved, positions close at the oracle verified settlement price (not the mark price), and the vault pays out PnL, with bad debt haircuts and batch settlement for very large markets.</li>
+  </ol>
+  <p>Settlement is optimistic. A proposal is assumed correct unless it is economically worth challenging. Honest settlement therefore happens without constant oracle intervention, while the bond mechanics make dishonest settlement unprofitable. The evidence chain means that even months later, anyone can independently verify that a market resolved correctly.</p>
+
+  <h3 class="sub"><span>4.5</span>How the Pieces Fit Together</h3>
+  <p>The lifecycle of a market runs end to end as follows:</p>
+  <ol class="steps">
+    <li>A creator defines a metric in the Market Creation Wizard, assisted by AI, and deploys it through the <code>FuturesMarketFactoryV2</code> as its own Diamond market proxy.</li>
+    <li>Every market proxy shares global trading and settlement logic through the <code>FacetRegistry</code>, while keeping its own orderbook and storage.</li>
+    <li>A hedger or counterparty deposits USDC into the <code>CoreVault</code> and places limit or market orders.</li>
+    <li>The on-chain matching engine fills orders and records positions and margin in the <code>CoreVault</code>.</li>
+    <li>When the settlement date is reached, trading pauses and anyone may propose the final value.</li>
+    <li>If the proposal is challenged, the dispute escalates to UMA's Optimistic Oracle and DVM.</li>
+    <li>The <code>SettlementManager</code> closes positions at the verified price, and the vault pays out.</li>
+  </ol>
+</section>
+
+<section class="ch" id="customers">
+  <div class="num">05 / The Customer Model</div>
+  <h2><span class="g">Three groups whose interests</span>complement one another.</h2>
+  <p class="intro">An on-chain marketplace for risk works because it brings together three participant groups whose interests naturally complement one another.</p>
+
+  <div class="fig">
+    <div class="fig-h"><span class="k">Fig. 4 &nbsp;Natural counterparties meet in one market</span><span class="k">Travel demand</span></div>
+    <svg viewBox="0 0 760 230" fill="none" font-family="JetBrains Mono, monospace">
+      <defs><radialGradient id="wg2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".09"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></radialGradient></defs>
+      <rect x="28" y="40" width="200" height="104" rx="12" fill="#141414" stroke="#222"></rect>
+      <text x="46" y="66" fill="#606060" font-size="8.5" letter-spacing="1.2">COMMERCIAL HEDGER</text>
+      <text x="46" y="90" fill="#fff" font-size="11">Festival</text>
+      <text x="46" y="110" fill="#808080" font-size="9">fears LOW travel demand</text>
+      <text x="46" y="130" fill="#F87171" font-size="9.5" letter-spacing="1">SHORT</text>
+      <rect x="532" y="40" width="200" height="104" rx="12" fill="#141414" stroke="#222"></rect>
+      <text x="550" y="66" fill="#606060" font-size="8.5" letter-spacing="1.2">NATURAL COUNTERPARTY</text>
+      <text x="550" y="90" fill="#fff" font-size="11">Airline · hotel chain</text>
+      <text x="550" y="110" fill="#808080" font-size="9">benefits from HIGH demand</text>
+      <text x="550" y="130" fill="#4ADE80" font-size="9.5" letter-spacing="1">LONG</text>
+      <ellipse cx="380" cy="92" rx="110" ry="70" fill="url(#wg2)"></ellipse>
+      <rect x="290" y="56" width="180" height="72" rx="12" fill="#0F0F0F" stroke="#333"></rect>
+      <text x="380" y="82" fill="#606060" font-size="8.5" text-anchor="middle" letter-spacing="1.2">ONE STANDARD MARKET</text>
+      <text x="380" y="106" fill="#fff" font-size="11" text-anchor="middle">TSA throughput</text>
+      <path d="M228 92 H290" stroke="#333"></path><path d="M470 92 H532" stroke="#333"></path>
+      <circle r="2.5" fill="#F87171"><animateMotion dur="2.2s" repeatCount="indefinite" path="M228 92 H290"></animateMotion></circle>
+      <circle r="2.5" fill="#4ADE80"><animateMotion dur="2.2s" repeatCount="indefinite" path="M532 92 H470"></animateMotion></circle>
+      <rect x="290" y="168" width="180" height="40" rx="12" fill="#141414" stroke="#222"></rect>
+      <text x="380" y="192" fill="#A1A1A1" font-size="9" text-anchor="middle" letter-spacing="1">LIQUIDITY PROVIDERS</text>
+      <path d="M380 168 V128" stroke="#333" stroke-dasharray="3 4"></path>
+      <text x="486" y="192" fill="#606060" font-size="8.5">bridge timing gaps, tighten spreads</text>
+    </svg>
+  </div>
+
+  <h3 class="sub"><span>5.1</span>Commercial Hedgers</h3>
+  <p>Businesses seeking predictable financial outcomes. They come to the market to <em>reduce</em> risk. Examples:</p>
+  <ul class="list">
+    <li>Festivals, sporting events, and conferences hedging attendance and travel demand</li>
+    <li>Data centers hedging electricity and GPU prices</li>
+    <li>Manufacturers hedging commodity and input costs</li>
+    <li>Logistics companies hedging fuel and freight costs</li>
+  </ul>
+  <p>Their objective is not profit from the market itself. It is to convert an uncertain future cost or revenue into a known one.</p>
+
+  <h3 class="sub"><span>5.2</span>Natural Counterparties</h3>
+  <p>Businesses whose economics move in the opposite direction to a given hedger. When one company's costs rise with a variable and another's revenue rises with the same variable, they are natural counterparties.</p>
+  <p>A festival fears <em>low</em> travel demand, while an airline benefits from <em>high</em> travel demand. A data center fears <em>high</em> electricity prices, while a power producer benefits from them. When these participants trade against each other, they offset commercial risk <em>and</em> sharpen price discovery, turning what would otherwise be a zero sum speculation into genuine risk transfer between real economic actors.</p>
+
+  <h3 class="sub"><span>5.3</span>Liquidity Providers</h3>
+  <p>Institutional and individual capital providers who earn returns by supplying liquidity to markets where natural buyers and sellers are temporarily imbalanced. They bridge the timing gaps between hedgers and their natural counterparties, tighten spreads, and are compensated for warehousing risk.</p>
+  <p>For liquidity providers, an on-chain marketplace for risk is a new asset class: a source of returns uncorrelated with traditional markets, accessible without the institutional infrastructure that gates OTC derivatives desks today.</p>
+</section>
+
+<section class="ch" id="onchain">
+  <div class="num">06 / Why On-Chain Markets Matter</div>
+  <h2><span class="g">Expanding the universe</span>of hedgeable risks.</h2>
+  <p class="intro">Moving commercial risk on-chain is not about replacing existing exchanges. It is about expanding the universe of hedgeable risks.</p>
+  <p>Today, only a small number of economic variables generate enough volume to justify a conventional exchange traded market. Everything else defaults to private negotiation, or simply goes unhedged.</p>
+  <p>Blockchain changes the economics. When market creation is permissionless, collateral is programmable, settlement is objective, and infrastructure is shared across every market via a common registry, the fixed cost of standing up a new market collapses toward zero. Markets that were previously too small, too fragmented, or too expensive to support suddenly become viable.</p>
+  <p>This lowers the barrier to entry for businesses while increasing transparency and competition in commercial risk transfer. A protocol level comparison makes the shift concrete:</p>
+  <div class="tbl">
+    <table class="cmp">
+      <thead><tr><th>Dimension</th><th>CEX Futures</th><th>Most Perp DEXs</th><th>OTC / Insurance</th><th class="dx">Dexetera</th></tr></thead>
+      <tbody>
+        <tr><td>Who can list</td><td>Exchange only</td><td>Team / governance</td><td>Dealer / underwriter</td><td class="dx">Anyone</td></tr>
+        <tr><td>What you can hedge</td><td>A handful of products</td><td>Mostly crypto</td><td>Bespoke, negotiated</td><td class="dx">Any measurable metric</td></tr>
+        <tr><td>Trading model</td><td>Orderbook</td><td>AMM / mark price</td><td>Private negotiation</td><td class="dx">On-chain orderbook</td></tr>
+        <tr><td>Access</td><td>Institutional</td><td>Retail crypto</td><td>Relationship gated</td><td class="dx">Open, global</td></tr>
+        <tr><td>Custody</td><td>Custodial</td><td>Non-custodial</td><td>Counterparty balance sheet</td><td class="dx">Non-custodial (USDC in CoreVault)</td></tr>
+        <tr><td>Settlement</td><td>Centralized</td><td>Mark price / funding</td><td>Counterparty discretion</td><td class="dx">Optimistic proposal plus UMA DVM</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ch" id="vision">
+  <div class="num">07 / Long Term Vision</div>
+  <h2><span class="g">If a risk can be measured,</span>it can be traded.</h2>
+  <p class="intro">The long term vision is a world where businesses no longer need bespoke financial products to manage ordinary commercial uncertainty.</p>
+  <p>Any objectively measurable economic variable, from air travel demand to GPU pricing to port throughput, can become a standardized, continuously traded financial market. Businesses gain access to transparent, on demand risk transfer. Liquidity providers gain access to a new asset class. And the economy as a whole becomes more efficient at distributing uncertainty to the participants best able to bear it.</p>
+  <p>Commercial risk becomes as accessible to hedge as foreign exchange or commodities are today.</p>
+  <div class="pull">The infrastructure to build this already exists. The question is no longer "who will let me hedge this?" but simply "what risk do I want to transfer?"</div>
+  <div class="cta" style="justify-content:flex-start;margin-top:28px">
+    <a class="btn btn-w" href="https://dexetera.xyz">Launch app</a>
+    <a class="btn btn-d" href="Dexetera Landing v2.dc.html#markets">Explore markets</a>
+  </div>
+</section>
+
+<section class="ch" id="links">
+  <div class="num">08 / Links</div>
+  <div class="links">
+    <a href="https://www.dexetera.xyz">www.dexetera.xyz<span>Website</span></a>
+    <a href="https://dexetera.xyz">dexetera.xyz<span>Application</span></a>
+    <a href="https://doc.dexetera.org">doc.dexetera.org<span>Documentation</span></a>
+    <a href="https://x.com/dexeteralabs">@dexeteralabs<span>Twitter</span></a>
+  </div>
+  <p class="disc">This document is for informational purposes only and does not constitute financial or investment advice. Trading derivatives involves significant risk of loss.</p>
+</section>
+  </main>
+</div>
+
+<footer>
+  <div class="ft">
+    <div>
+      <a class="brand" href="Dexetera Landing v2.dc.html"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiB2aWV3Qm94PSIwIDAgMTM0MCAxMzQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTM0MCIgaGVpZ2h0PSIxMzQwIiByeD0iMzAwIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNNjcwIDIyMEM3ODkuMzQ3IDIyMCA5MDMuODA3IDI2Ny40MSA5ODguMTk4IDM1MS44MDJDMTA3Mi41OSA0MzYuMTkzIDExMjAgNTUwLjY1MyAxMTIwIDY3MEMxMTIwIDc4OS4zNDcgMTA3Mi41OSA5MDMuODA3IDk4OC4xOTggOTg4LjE5OEM5MDMuODA3IDEwNzIuNTkgNzg5LjM0NyAxMTIwIDY3MCAxMTIwVjExMTkuOTlDNjY5LjY2NyAxMTIwIDY2OS4zMzQgMTEyMCA2NjkgMTEyMEM2MzUuODYzIDExMjAgNjA5IDEwOTMuMTQgNjA5IDEwNjBWODY1QzYwOSA4MzEuODYzIDYzNS44NjMgODA1IDY2OSA4MDVDNzAyLjEzNyA4MDUgNzI5IDgzMS44NjMgNzI5IDg2NVY5OTQuNjg0Qzc5NC41OTcgOTgyLjc2MyA4NTUuNTQ4IDk1MS4xNDQgOTAzLjM0NiA5MDMuMzQ2Qzk2NS4yMzMgODQxLjQ1OSAxMDAwIDc1Ny41MjIgMTAwMCA2NzBDMTAwMCA1ODIuNDc4IDk2NS4yMzMgNDk4LjU0MSA5MDMuMzQ2IDQzNi42NTRDODU1Ljc5MSAzODkuMDk5IDc5NS4yMTYgMzU3LjU1OSA3MzAgMzQ1LjVWNDc1QzczMCA1MDguMTM3IDcwMy4xMzcgNTM1IDY3MCA1MzVDNjM2Ljg2MyA1MzUgNjEwIDUwOC4xMzcgNjEwIDQ3NVYyODBDNjEwIDI0Ni44NjMgNjM2Ljg2MyAyMjAgNjcwIDIyMFpNMjgwIDYxMEMzMTMuMTM3IDYxMCAzNDAgNjM2Ljg2MyAzNDAgNjcwQzM0MCA3MDMuMTM3IDMxMy4xMzcgNzMwIDI4MCA3MzBDMjQ2Ljg2MyA3MzAgMjIwIDcwMy4xMzcgMjIwIDY3MEMyMjAgNjM2Ljg2MyAyNDYuODYzIDYxMCAyODAgNjEwWk00NzUgNjEwQzUwOC4xMzcgNjEwIDUzNSA2MzYuODYzIDUzNSA2NzBDNTM1IDcwMy4xMzcgNTA4LjEzNyA3MzAgNDc1IDczMEM0NDEuODYzIDczMCA0MTUgNzAzLjEzNyA0MTUgNjcwQzQxNSA2MzYuODYzIDQ0MS44NjMgNjEwIDQ3NSA2MTBaTTY3MCA2MTBDNzAzLjEzNyA2MTAgNzMwIDYzNi44NjMgNzMwIDY3MEM3MzAgNzAzLjEzNyA3MDMuMTM3IDczMCA2NzAgNzMwQzYzNi44NjMgNzMwIDYxMCA3MDMuMTM3IDYxMCA2NzBDNjEwIDYzNi44NjMgNjM2Ljg2MyA2MTAgNjcwIDYxMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt=""><span>DEXETERA</span></a>
+      <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
+    </div>
+    <div><h5>Product</h5><a href="Dexetera Landing v2.dc.html#markets">Markets</a><a href="https://dexetera.xyz">Launch app</a><a href="Dexetera Landing v2.dc.html#product">Create a market</a></div>
+    <div><h5>Learn</h5><a href="Dexetera Landing v2.dc.html#how">How it works</a><a href="#top">Whitepaper</a></div>
+    <div><h5>Community</h5><a href="Contact.dc.html">Contact</a><a href="https://x.com/dexeteralabs">X / Twitter</a><a href="https://www.dexetera.xyz">Website</a></div>
+  </div>
+  <div class="fb"><span>© 2026 Dexetera</span><span>Settled by public data</span></div>
+</footer>
+
+
+
+
+</body></html>

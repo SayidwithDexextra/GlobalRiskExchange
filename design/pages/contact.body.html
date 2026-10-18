@@ -1,0 +1,146 @@
+<!-- Contact page markup (body only), from design/source/Contact.dc.html.
+     Links rewritten to routes; logo is /dexetera-logo.svg (copy design/source/assets/dexetera-logo.svg to public/; rocks: assets/hero_rocks.webp to public/).
+     Port to JSX 1:1 (class -> className, inline style strings -> objects, onclick -> handlers). Keep every class name: design/pages/contact.css targets them.
+     Page behaviour (rocks sizing/parallax, header scroll state, form validation) is the script at the end; port it to a useEffect. -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="/"><img src="/dexetera-logo.svg" alt=""><span>DEXETERA</span></a>
+    <nav class="nav">
+      <a href="/#markets">Markets</a>
+      <a href="/#how">How it works</a>
+      <a href="/#product">Product</a>
+      <a href="/whitepaper">Whitepaper</a>
+      <a href="/contact" class="on" aria-current="page">Contact</a>
+    </nav>
+    <div class="hdr-r">
+      <span class="lang"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor"/><path d="M1.5 8h13M8 1.5c2 2 2.6 4 2.6 6.5S10 12.5 8 14.5C6 12.5 5.4 10.5 5.4 8S6 3.5 8 1.5z" stroke="currentColor"/></svg>English</span>
+      <button class="theme-toggle" type="button" onclick="dxToggleTheme()" aria-label="Switch to light mode">
+        <svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+      <a class="btn btn-s btn-h" href="https://dexetera.xyz/new-market">Create a market</a>
+      <a class="btn btn-p btn-app" href="https://dexetera.xyz"><span class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Launch app</a>
+      <button class="mnav-btn" type="button" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open')" style="width:34px;height:34px;border-radius:100px;border:1px solid var(--line2);background:var(--card2);flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:0"><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span><span style="width:14px;height:1.5px;background:var(--t2)"></span></button>
+    </div>
+  </div>
+  <div id="mnav" class="mnav" onclick="this.classList.remove('open')" style="position:absolute;top:72px;left:0;right:0;background:var(--card2);border-bottom:1px solid var(--line);padding:8px clamp(16px,3vw,32px) 16px;flex-direction:column;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t2)"><a href="/#markets" style="padding:14px 0;border-bottom:1px solid var(--hair)">Markets</a><a href="/#how" style="padding:14px 0;border-bottom:1px solid var(--hair)">How it works</a><a href="/#product" style="padding:14px 0;border-bottom:1px solid var(--hair)">Product</a><a href="/whitepaper" style="padding:14px 0;border-bottom:1px solid var(--hair)">Whitepaper</a><a href="/contact" style="padding:14px 0;border-bottom:1px solid var(--hair)">Contact</a><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><a href="https://dexetera.xyz/new-market" style="padding:14px 0;color:var(--t1)">Create a market</a><button class="theme-toggle" type="button" onclick="event.stopPropagation();dxToggleTheme()" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><svg class="sun" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button></div></div>
+</header>
+
+<section class="hero" id="top">
+  <div class="rock l" id="rockL"><i></i></div>
+  <div class="rock r" id="rockR"><i></i></div>
+  <div class="grain"></div>
+  <div class="hero-in">
+    <span class="chip"><i></i>Contact</span>
+    <h1><span class="g">Tell us the risk.</span>We'll help you price it.</h1>
+    <p class="lede">Hedging a business exposure, creating a market, providing liquidity or partnering with us. Send a note and the team will reply by email.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="contact">
+    <div class="card formcard" id="formcard">
+      <form id="cform" novalidate>
+        <div class="k">Send a message</div>
+        <h2>How can we help?</h2>
+        <div class="field">
+          <label>I'm interested in</label>
+          <div class="topics" role="radiogroup">
+            <input type="radio" name="topic" id="t1" value="hedge" checked><label for="t1">Hedging a risk</label>
+            <input type="radio" name="topic" id="t2" value="create"><label for="t2">Creating a market</label>
+            <input type="radio" name="topic" id="t3" value="liquidity"><label for="t3">Providing liquidity</label>
+            <input type="radio" name="topic" id="t4" value="partner"><label for="t4">Partnerships</label>
+            <input type="radio" name="topic" id="t5" value="press"><label for="t5">Press</label>
+            <input type="radio" name="topic" id="t6" value="other"><label for="t6">Other</label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="name">Name</label><input class="in" id="name" name="name" autocomplete="name" placeholder="Jane Smith" required><span class="msg">Please add your name.</span></div>
+          <div class="field"><label for="email">Work email</label><input class="in" id="email" name="email" type="email" autocomplete="email" placeholder="jane@company.com" required><span class="msg">Please add a valid email.</span></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="company">Company <em>(optional)</em></label><input class="in" id="company" name="company" autocomplete="organization" placeholder="Company name"></div>
+          <div class="field"><label for="metric">Metric or exposure <em>(optional)</em></label><input class="in" id="metric" name="metric" placeholder="e.g. Niño 3.4, ERCOT power, GPU rates"></div>
+        </div>
+        <div class="field"><label for="message">Message</label><textarea class="in" id="message" name="message" placeholder="What moves your costs or revenue, and what would you like to hedge or build?" required></textarea><span class="msg">Please add a short message.</span></div>
+        <div class="submit">
+          <p>We only use your details to reply to you. Prefer email? Write to <a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a>.</p>
+          <button class="btn btn-p" type="submit">Send message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </form>
+      <div class="done" role="status">
+        <div class="tick"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.5l3.2 3L14 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Message sent.</h3>
+        <p>Thanks for reaching out. We'll reply to you by email.</p>
+        <button class="btn btn-s" type="button" style="margin-top:22px" onclick="document.getElementById('formcard').classList.remove('sent')">Send another</button>
+      </div>
+    </div>
+
+    <aside class="side">
+      <a class="card chan" href="mailto:admin@dexetera.xyz"><div><div class="k">Email</div><div class="v">admin@dexetera.xyz</div><div class="d">Hedging, markets, partnerships</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="card chan" href="https://x.com/dexeteralabs"><div><div class="k">X / Twitter</div><div class="v">@dexeteralabs</div><div class="d">Product updates and new markets</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="card chan" href="https://doc.dexetera.org"><div><div class="k">Documentation</div><div class="v">doc.dexetera.org</div><div class="d">How markets, trading and settlement work</div></div><span class="go"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <div class="card next">
+        <div class="k">What happens next</div>
+        <ol>
+          <li>We read every message and reply by email.</li>
+          <li>If you have an exposure, we look at which public metric tracks it.</li>
+          <li>We walk you through creating or trading the market on Dexetera.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <section class="sec">
+    <div class="sec-h">
+      <div>
+        <span class="k">Questions</span>
+        <h2 class="big"><span class="g">Before you</span>write to us.</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Can you help me find a market for my exposure?<span>+</span></summary><p>Yes. Tell us what moves your costs or revenue. We'll help you check whether a credible, public, archivable data source tracks it, and whether it fits as a market on Dexetera.</p></details>
+        <details><summary>Do I need a crypto wallet to talk to you?<span>+</span></summary><p>No. Start with a conversation. When you're ready to trade, positions use USDC held in your own wallet, and creating a market or placing orders can be gasless.</p></details>
+        <details><summary>Is there a minimum size?<span>+</span></summary><p>There is no dealer setting a minimum ticket. Positions are sized in contracts on a public on-chain orderbook, so you can start small.</p></details>
+        <details><summary>How is a market settled?<span>+</span></summary><p>Each market settles against its named public data source. Anyone can propose the final value with evidence, anyone can challenge it with a bond, and disputes go to UMA's Optimistic Oracle.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="ft">
+    <div>
+      <a class="brand" href="/"><img src="/dexetera-logo.svg" alt=""><span>DEXETERA</span></a>
+      <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
+    </div>
+    <div><h5>Product</h5><a href="/#markets">Markets</a><a href="https://dexetera.xyz">Launch app</a><a href="https://dexetera.xyz/new-market">Create a market</a></div>
+    <div><h5>Learn</h5><a href="/#how">How it works</a><a href="/whitepaper">Whitepaper</a></div>
+    <div><h5>Company</h5><a href="/contact">Contact</a><a href="https://x.com/dexeteralabs">X / Twitter</a><a href="mailto:admin@dexetera.xyz">admin@dexetera.xyz</a></div>
+  </div>
+  <div class="fb"><span>© 2026 Dexetera</span><span>Settled by public data</span></div>
+</footer>
+
+<!-- ORIGINAL PAGE SCRIPT (port to useEffect) -->
+<script>
+(function(){
+  var hdr=document.getElementById('hdr'),L=document.getElementById('rockL'),R=document.getElementById('rockR'),hero=document.getElementById('top');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Rock sizing + parallax: same values as the Landing v2 hero */
+  function size(){var w=innerWidth,D=w>1024,T=w>768,dashW=D?Math.min(880,w*.72):T?w*.86:w-32,m=(w-dashW)/2,ov=T?70:20,sc=Math.max((m+ov)/515,D?0:w*.22/515);
+    L.style.width=(530*sc).toFixed(1)+'px';R.style.width=(m+ov+10*sc).toFixed(1)+'px';L.style.height=R.style.height=(1080*sc).toFixed(1)+'px';
+    var bs=(1920*sc).toFixed(1)+'px '+(1080*sc).toFixed(1)+'px';L.firstChild.style.backgroundSize=R.firstChild.style.backgroundSize=bs;R.firstChild.style.backgroundPosition=(-1300*sc).toFixed(1)+'px 0px';}
+  function s(){var y=scrollY;hdr.classList.toggle('scrolled',y>24);
+    if(reduce||innerWidth<=768){L.style.transform=R.style.transform='';return}
+    var p=Math.min(1,Math.max(0,y/(innerHeight*.8))),s2=1+.12*p;L.style.transform='translateX('+(-28*p).toFixed(2)+'%) scale('+s2+')';R.style.transform='translateX('+(28*p).toFixed(2)+'%) scale('+s2+')';}
+  addEventListener('resize',function(){size();s()});addEventListener('scroll',s,{passive:true});size();s();
+  if(reduce)hero.classList.add('in');else requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('in')})});
+  var f=document.getElementById('cform');
+  f.addEventListener('submit',function(e){e.preventDefault();var ok=true;
+    [['name',function(v){return v.trim().length>1}],['email',function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}],['message',function(v){return v.trim().length>3}]].forEach(function(p){
+      var el=document.getElementById(p[0]),good=p[1](el.value);el.parentNode.classList.toggle('err',!good);if(!good&&ok){el.focus();ok=false}});
+    if(!ok)return;
+    /* Developer: POST new FormData(f) to the contact endpoint here (e.g. /api/contact), then show the success state. */
+    document.getElementById('formcard').classList.add('sent');f.reset();});
+  f.querySelectorAll('.in').forEach(function(el){el.addEventListener('input',function(){el.parentNode.classList.remove('err')})});
+})();
+</script>

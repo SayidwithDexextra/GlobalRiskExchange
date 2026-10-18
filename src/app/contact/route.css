@@ -1,0 +1,13 @@
+/* next/font family names, and the route scroll behavior from the page spec.
+   The copied contact.css stays verbatim; these two declarations point --sans/--mono
+   at the names next/font actually registers. */
+.dx-contact {
+  --sans: var(--font-manrope), "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+:root:has(.dx-contact) {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.dx-contact) { scroll-behavior: auto; }
+}

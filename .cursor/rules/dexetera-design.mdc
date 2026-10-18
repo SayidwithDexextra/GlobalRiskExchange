@@ -1,0 +1,16 @@
+---
+description: Dexetera site replication rules
+globs: ["**/*.tsx","**/*.ts","**/*.css","**/*.mdx"]
+alwaysApply: true
+---
+- Design source of truth: design/source/*.dc.html, then design/HANDOFF.md (v2), then design/HANDOFF_v1_detailed.md. Replicate, do not redesign.
+- Colors only through CSS variables in app/globals.css (copied from design/tokens/theme.css). Dark default; light via [data-theme="light"].
+- Fonts: Manrope (UI), JetBrains Mono (numbers/labels), Georgia only for the DEXETERA wordmark.
+- Header 72px fixed, max-width 1344, container padding clamp(16px,3vw,32px), section top padding clamp(56px,7vw,88px).
+- Breakpoints: s 640, m 900, create 1000, hd 1025, l 1100, lang 1180, ht 769.
+- Nav: Markets, How it works, Product, Whitepaper, Contact. Never add Docs to any nav.
+- Email admin@dexetera.xyz only. Never use support@, app.dexetera.xyz or doc.dexetera.xyz. Docs URL is https://doc.dexetera.org.
+- Copy: no em dashes; never "regulated", "licensed", "compliant"; USD only; Dexetera is the platform, markets are contracts on it; no creator fee percentage.
+- Hero storm: keep dx-storm-minimal.js behavior identical (side lanes, below header, reduced-motion aware).
+- Icons: lucide-react, never unpkg images.
+- No horizontal scroll at 390px.
