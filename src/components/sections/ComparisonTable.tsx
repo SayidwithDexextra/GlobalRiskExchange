@@ -75,7 +75,7 @@ function Cell({ value }: { value: boolean | null }) {
 export function ComparisonTable() {
   const { w } = useViewport();
   const L = w >= 1100;
-  const splitCols = L ? 'minmax(0, 5fr) minmax(0, 7fr)' : '1fr';
+  const splitCols = L ? 'minmax(0, 5fr) minmax(0, 7fr)' : 'minmax(0, 1fr)';
 
   return (
     <div
@@ -84,7 +84,7 @@ export function ComparisonTable() {
       className="max-w-[1344px] mx-auto"
       style={{ padding: 'clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0' }}
     >
-      <div className="grid items-start" style={{ gridTemplateColumns: splitCols, gap: '40px 56px' }}>
+      <div className="grid items-start min-w-0" style={{ gridTemplateColumns: splitCols, gap: '40px 56px' }}>
         {/* Left column */}
         <div className={L ? 'sticky top-[96px]' : ''}>
           <div className="font-mono text-[10px] tracking-[0.1em] uppercase text-t4 mb-4">
@@ -116,13 +116,13 @@ export function ComparisonTable() {
 
         {/* Table */}
         <div
-          className="rounded-xl overflow-x-auto"
+          className="min-w-0 rounded-xl overflow-x-auto"
           style={{
             background: 'var(--card)',
             border: '1px solid var(--line)',
-            minWidth: L ? 'auto' : '640px',
           }}
         >
+          <div style={{ minWidth: L ? undefined : 640 }}>
           <table className="w-full text-[13px]" style={{ borderCollapse: 'collapse' }}>
             <thead>
               <tr
@@ -165,6 +165,7 @@ export function ComparisonTable() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

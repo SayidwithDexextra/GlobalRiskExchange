@@ -11,7 +11,7 @@ import { RiskNetwork } from '@/components/sections/RiskNetwork';
 import { Stepper } from '@/components/sections/Stepper';
 import { GpuExample } from '@/components/sections/GpuExample';
 import { MarketTables } from '@/components/sections/MarketTables';
-import { WhoCards } from '@/components/sections/WhoCards';
+import WhoItsFor from '@/components/sections/WhoItsFor';
 import { ProductSection } from '@/components/landing/ProductSection';
 import { ComparisonTable } from '@/components/sections/ComparisonTable';
 import { CreatorDashboard } from '@/components/sections/CreatorDashboard';
@@ -50,7 +50,7 @@ function LandingContent() {
       <MarketTables />
 
       {/* 10. Who it's for */}
-      <WhoCards />
+      <WhoItsFor />
 
       {/* 11. Product */}
       <ProductSection />

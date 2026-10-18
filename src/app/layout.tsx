@@ -17,9 +17,23 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dexetera.org";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Dexetera | The marketplace for risk",
   description: "Create a futures market on any number you can measure, trade it long or short in USDC, and let public data settle it.",
+  openGraph: {
+    title: "Dexetera | The marketplace for risk",
+    description: "Create a futures market on any number you can measure, trade it long or short in USDC, and let public data settle it.",
+    siteName: "Dexetera",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dexetera | The marketplace for risk",
+    description: "Create a futures market on any number you can measure, trade it long or short in USDC, and let public data settle it.",
+  },
 };
 
 // Runs as the document finishes parsing, before first paint, so a visited

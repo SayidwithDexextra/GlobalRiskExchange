@@ -33,7 +33,7 @@ function MarketTable({
 }) {
   return (
     <div
-      className="rounded-xl overflow-hidden"
+      className="min-w-0 rounded-xl overflow-hidden"
       style={{
         background: 'var(--card)',
         border: '1px solid var(--line)',
@@ -57,7 +57,8 @@ function MarketTable({
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto" style={{ minWidth: '580px' }}>
+      <div className="overflow-x-auto">
+        <div style={{ minWidth: 580 }}>
         <table className="w-full">
           <thead>
             <tr className="font-mono text-[9px] tracking-[0.1em] text-t4">
@@ -101,6 +102,7 @@ function MarketTable({
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
@@ -109,7 +111,7 @@ function MarketTable({
 export function MarketTables() {
   const { w } = useViewport();
   const L = w >= 1100;
-  const tableCols = L ? 'repeat(2, minmax(0, 1fr))' : '1fr';
+  const tableCols = L ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)';
 
   return (
     <div

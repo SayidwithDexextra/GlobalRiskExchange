@@ -166,6 +166,8 @@ html, body {
   color: var(--t1);
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 * {

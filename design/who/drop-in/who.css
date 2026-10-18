@@ -1,0 +1,38 @@
+/* "Who it's for" section. Scoped under .dx-who. Values copied 1:1 from the Claude Design source.
+   Breakpoints match the design: 4 columns at >=900px, 2 columns at 640-899px, 1 column below 640px. */
+.dx-who{max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.dx-who *,.dx-who *::before,.dx-who *::after{box-sizing:border-box}
+.dx-who__hdr{display:grid;grid-template-columns:minmax(0,1fr);gap:20px 48px;align-items:end;margin-bottom:40px}
+.dx-who__hdr-l{display:flex;flex-direction:column;gap:16px;min-width:0}
+.dx-who__eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
+.dx-who h2{margin:0;font-size:clamp(30px,3.4vw,44px);font-weight:600;line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
+.dx-who__lede{margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:560px;text-wrap:pretty}
+
+.dx-who__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.dx-who__card{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,transform .15s}
+.dx-who__card:hover{border-color:var(--line3);transform:translateY(-1px)}
+
+.dx-who__viz{height:128px;flex:none;min-width:0;overflow:hidden;background:var(--bg);border:1px solid var(--hair);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.dx-who__legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;line-height:1.5}
+.dx-who__legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.dx-who__legend .sw{display:inline-block;width:10px;height:0;border-top:1.5px solid currentColor}
+.dx-who__legend .sw.dash{border-top-style:dashed}
+.dx-who__legend .sw.box{width:8px;height:8px;border:0;background:currentColor;opacity:.45}
+.dx-who__plot{flex:1;min-height:0;min-width:0;position:relative}
+.dx-who__plot svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+
+.dx-who__viz--stat{padding:12px;justify-content:space-between;gap:0}
+.dx-who__viz--list{font-family:'JetBrains Mono',monospace;font-size:10px}
+.dx-who__vlabel{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--t4)}
+.dx-who__big{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--t1);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dx-who__row{display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px}
+
+.dx-who__num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--t4)}
+.dx-who__title{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.dx-who__body{font-size:13px;line-height:1.6;color:var(--t3);flex:1}
+.dx-who__chip{align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t-soft);border:1px solid var(--line3);border-radius:4px;padding:4px 8px;text-decoration:none;transition:border-color .15s,color .15s}
+.dx-who__chip:hover{border-color:var(--line4);color:var(--t1)}
+
+@media (min-width:640px){.dx-who__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.dx-who__hdr{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.dx-who__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.dx-who__card{transition:none}.dx-who__card:hover{transform:none}}

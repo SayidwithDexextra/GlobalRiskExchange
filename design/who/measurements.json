@@ -1,0 +1,382 @@
+{
+ "360_dark": {
+  "section_height": 1763,
+  "scroll_width": 360,
+  "cards_left_right_height": [
+   [
+    16,
+    344,
+    368
+   ],
+   [
+    16,
+    344,
+    326
+   ],
+   [
+    16,
+    344,
+    368
+   ],
+   [
+    16,
+    344,
+    346
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    48,
+    312,
+    88
+   ],
+   [
+    48,
+    312,
+    88
+   ]
+  ]
+ },
+ "390_dark": {
+  "section_height": 1673,
+  "scroll_width": 390,
+  "cards_left_right_height": [
+   [
+    16,
+    374,
+    368
+   ],
+   [
+    16,
+    374,
+    326
+   ],
+   [
+    16,
+    374,
+    326
+   ],
+   [
+    16,
+    374,
+    326
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    48,
+    342,
+    88
+   ],
+   [
+    48,
+    342,
+    88
+   ]
+  ]
+ },
+ "390_light": {
+  "section_height": 1673,
+  "scroll_width": 390,
+  "cards_left_right_height": [
+   [
+    16,
+    374,
+    368
+   ],
+   [
+    16,
+    374,
+    326
+   ],
+   [
+    16,
+    374,
+    326
+   ],
+   [
+    16,
+    374,
+    326
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    48,
+    342,
+    88
+   ],
+   [
+    48,
+    342,
+    88
+   ]
+  ]
+ },
+ "430_dark": {
+  "section_height": 1630,
+  "scroll_width": 430,
+  "cards_left_right_height": [
+   [
+    16,
+    414,
+    326
+   ],
+   [
+    16,
+    414,
+    326
+   ],
+   [
+    16,
+    414,
+    326
+   ],
+   [
+    16,
+    414,
+    326
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    48,
+    382,
+    100
+   ],
+   [
+    48,
+    382,
+    100
+   ]
+  ]
+ },
+ "640_dark": {
+  "section_height": 981,
+  "scroll_width": 640,
+  "cards_left_right_height": [
+   [
+    19,
+    314,
+    368
+   ],
+   [
+    326,
+    621,
+    368
+   ],
+   [
+    19,
+    314,
+    368
+   ],
+   [
+    326,
+    621,
+    368
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    51,
+    282,
+    88
+   ],
+   [
+    358,
+    589,
+    88
+   ]
+  ]
+ },
+ "768_dark": {
+  "section_height": 938,
+  "scroll_width": 768,
+  "cards_left_right_height": [
+   [
+    23,
+    378,
+    368
+   ],
+   [
+    390,
+    745,
+    368
+   ],
+   [
+    23,
+    378,
+    326
+   ],
+   [
+    390,
+    745,
+    326
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    55,
+    346,
+    88
+   ],
+   [
+    422,
+    713,
+    88
+   ]
+  ]
+ },
+ "900_dark": {
+  "section_height": 644,
+  "scroll_width": 900,
+  "cards_left_right_height": [
+   [
+    27,
+    230,
+    432
+   ],
+   [
+    242,
+    444,
+    432
+   ],
+   [
+    456,
+    659,
+    432
+   ],
+   [
+    671,
+    873,
+    432
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    59,
+    198,
+    76
+   ],
+   [
+    274,
+    412,
+    88
+   ]
+  ]
+ },
+ "1024_dark": {
+  "section_height": 605,
+  "scroll_width": 1024,
+  "cards_left_right_height": [
+   [
+    31,
+    262,
+    389
+   ],
+   [
+    274,
+    506,
+    389
+   ],
+   [
+    518,
+    750,
+    389
+   ],
+   [
+    762,
+    993,
+    389
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    63,
+    230,
+    88
+   ],
+   [
+    306,
+    474,
+    88
+   ]
+  ]
+ },
+ "1440_dark": {
+  "section_height": 620,
+  "scroll_width": 1440,
+  "cards_left_right_height": [
+   [
+    80,
+    391,
+    368
+   ],
+   [
+    403,
+    714,
+    368
+   ],
+   [
+    726,
+    1037,
+    368
+   ],
+   [
+    1049,
+    1360,
+    368
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    112,
+    359,
+    88
+   ],
+   [
+    435,
+    682,
+    88
+   ]
+  ]
+ },
+ "1440_light": {
+  "section_height": 620,
+  "scroll_width": 1440,
+  "cards_left_right_height": [
+   [
+    80,
+    391,
+    368
+   ],
+   [
+    403,
+    714,
+    368
+   ],
+   [
+    726,
+    1037,
+    368
+   ],
+   [
+    1049,
+    1360,
+    368
+   ]
+  ],
+  "chart_svgs_left_right_height": [
+   [
+    112,
+    359,
+    88
+   ],
+   [
+    435,
+    682,
+    88
+   ]
+  ]
+ }
+}
