@@ -18,7 +18,7 @@ export const TEAM: TeamMember[] = [
   {
     initials: "SM",
     name: "Sayid M.",
-    role: "FOUNDER, CEO & CTO",
+    role: "FOUNDER & CEO",
     photo: "/team/sayid.jpg",
     bio: "Technical founder of Dexetera and eMerge Americas Hackathon winner. Previously founded GPlay Studios, a play-to-earn blockchain gaming startup, and was a full-stack engineer at Mueshi Global.",
     tags: ["eMerge Americas", "GPlay Studios", "Mueshi Global"],
@@ -40,7 +40,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     initials: "CH",
-    name: "Cyril Houri",
+    name: "Cyril H.",
     role: "INVESTOR",
     photo: "/team/cyril.jpg",
     bio: "Pioneer of geolocation technology. Exited InfoSplit, founded Navizon and an early decentralized Bitcoin exchange, and funded Dexetera's $200,000 friends and family round.",
