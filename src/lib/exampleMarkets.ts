@@ -1,5 +1,7 @@
 // Single source for example market prices shown across the landing page.
 
+import { formatUsd } from "@/lib/format";
+
 export type ExampleMarket = {
   symbol: string;
   name: string;
@@ -35,13 +37,7 @@ export function exampleBySymbol(symbol: string): ExampleMarket {
 }
 
 export function formatExamplePrice(market: ExampleMarket, price = market.price): string {
-  return (
-    "$" +
-    price.toLocaleString("en-US", {
-      minimumFractionDigits: market.decimals,
-      maximumFractionDigits: market.decimals,
-    })
-  );
+  return formatUsd(price);
 }
 
 /** Percent label. A change that rounds to 0.00 is a neutral dash with no arrow. */

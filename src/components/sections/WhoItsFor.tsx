@@ -11,7 +11,7 @@
 
 import { useLiveMarket } from "@/hooks/useLiveMarket";
 import { exampleBySymbol } from "@/lib/exampleMarkets";
-import { formatUsdAmount } from "@/lib/format";
+import { formatUsd, formatUsdAmount } from "@/lib/format";
 import "./who.css";
 
 const UNHEDGED_FILL = "M0,16.22 C1.15,17.26 4.6,22.16 6.9,22.46 C9.2,22.77 11.49,18.48 13.79,18.05 C16.09,17.62 18.39,18.13 20.69,19.9 C22.99,21.67 25.29,26.18 27.59,28.67 C29.89,31.16 32.18,33.09 34.48,34.86 C36.78,36.64 39.08,38.22 41.38,39.31 C43.68,40.4 45.98,40.45 48.28,41.41 C50.57,42.38 52.87,43.62 55.17,45.1 C57.47,46.58 59.77,48.31 62.07,50.29 C64.37,52.27 66.67,57.36 68.97,57 C71.26,56.64 73.56,49.99 75.86,48.14 C78.16,46.29 80.46,47.65 82.76,45.9 C85.06,44.15 87.36,38.65 89.66,37.65 C91.95,36.64 94.25,39.32 96.55,39.87 C98.85,40.43 101.15,42.04 103.45,40.96 C105.75,39.89 108.05,35.55 110.34,33.41 C112.64,31.27 114.94,28.26 117.24,28.14 C119.54,28.03 121.84,33.25 124.14,32.72 C126.44,32.19 128.74,26.27 131.03,24.94 C133.33,23.61 135.63,24.56 137.93,24.74 C140.23,24.91 142.53,25.81 144.83,26.01 C147.13,26.22 149.43,26.95 151.72,25.96 C154.02,24.98 156.32,20.81 158.62,20.08 C160.92,19.36 163.22,22.39 165.52,21.62 C167.82,20.85 170.11,17.71 172.41,15.46 C174.71,13.22 177.01,10.22 179.31,8.15 C181.61,6.07 183.91,2.89 186.21,3 C188.51,3.11 190.8,8.76 193.1,8.82 C195.4,8.88 198.85,4.27 200,3.36 L200,60 L0,60 Z";
@@ -104,7 +104,7 @@ export default function WhoItsFor() {
             <span className="dx-who__vlabel">WHAT YOU NEED</span>
             <div className="dx-who__row"><span style={{ color: "var(--t3)" }}>Wallet</span><span style={{ color: "var(--green)" }}>✓</span></div>
             <div className="dx-who__row"><span style={{ color: "var(--t3)" }}>Collateral</span><span>USDC</span></div>
-            <div className="dx-who__row"><span style={{ color: "var(--t3)" }}>Gas</span><span>$0</span></div>
+            <div className="dx-who__row"><span style={{ color: "var(--t3)" }}>Gas</span><span>{formatUsd(0)}</span></div>
             <div className="dx-who__row"><span style={{ color: "var(--t3)" }}>Signatures per trade</span><span>1</span></div>
           </div>
           <span className="dx-who__num">04 / GLOBAL INVESTORS</span>

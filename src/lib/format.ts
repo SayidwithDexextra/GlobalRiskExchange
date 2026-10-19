@@ -1,13 +1,27 @@
+// One currency formatter for every dollar amount on the landing page.
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+/** $1,043.00 or -$1,043.00 */
+export function formatUsd(value: number): string {
+  return usdFormatter.format(value);
+}
+
+/** +$1,043.00 or -$1,043.00 */
+export function formatSignedUsd(value: number): string {
+  const text = usdFormatter.format(Math.abs(value));
+  if (value > 0) return `+${text}`;
+  if (value < 0) return `-${text}`;
+  return text;
+}
+
 // Format a number as money: +$1,234.00 or -$1,234.00
-export function money(v: number, decimals: number = 2): string {
-  const absVal = Math.abs(v);
-  if (absVal < 0.5 && decimals <= 0) return '$0';
-  const sign = v >= 0 ? '+' : '-';
-  const formatted = absVal.toLocaleString('en-US', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
-  return `${sign}$${formatted}`;
+export function money(v: number): string {
+  return formatSignedUsd(v);
 }
 
 // Get color based on value
@@ -18,21 +32,12 @@ export function col(v: number): string {
 
 // Grouped dollars, always two fraction digits: $1,284.20
 export function formatUsdAmount(v: number): string {
-  return (
-    "$" +
-    v.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  );
+  return formatUsd(v);
 }
 
 // Format price with proper decimals
-export function fmtP(v: number, dec: number = 2): string {
-  return '$' + v.toLocaleString('en-US', {
-    minimumFractionDigits: dec,
-    maximumFractionDigits: dec,
-  });
+export function fmtP(v: number): string {
+  return formatUsd(v);
 }
 
 // Format percent change

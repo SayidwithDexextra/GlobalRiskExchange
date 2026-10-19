@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { DASH_ASSETS, MY_MARKETS, POSITIONS, DASH_DATES } from '@/lib/data';
 import { exampleBySymbol, formatExampleChange, formatExamplePrice } from '@/lib/exampleMarkets';
+import { formatSignedUsd, formatUsd } from '@/lib/format';
 import { rnd, resetSeed } from '@/lib/prng';
 
 interface DashboardMockProps {
@@ -60,8 +61,8 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
     const pv = 345398.34 + (eggPrice - 2.715) * 52000;
     const gain = 15840 + (eggPrice - 2.715) * 52000;
     const pvPct = '+' + (gain / (pv - gain) * 100).toFixed(1) + '%';
-    const pvGain = '+$' + Math.round(gain).toLocaleString('en-US');
-    const pvFormatted = '$' + pv.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const pvGain = formatSignedUsd(gain);
+    const pvFormatted = formatUsd(pv);
 
     const eggs = exampleBySymbol('PRICE-EGGS');
     const eggChange = formatExampleChange(eggs.change);
@@ -88,16 +89,16 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
     });
 
     // Process positions with live egg price
-    const posRows = POSITIONS.map(([m, side, entry, mark, qty, dec]) => {
+    const posRows = POSITIONS.map(([m, side, entry, mark, qty]) => {
       const markVal = mark === 'live' ? eggPrice : mark;
       const pnl = (markVal - entry) * qty * (side === 'Long' ? 1 : -1);
       return {
         m,
         side,
         sc: side === 'Long' ? 'var(--green)' : 'var(--red)',
-        e: '$' + entry.toFixed(dec),
-        k: '$' + markVal.toFixed(dec),
-        pnl: (pnl >= 0 ? '+$' : '-$') + Math.abs(pnl).toFixed(2),
+        e: formatUsd(entry),
+        k: formatUsd(markVal),
+        pnl: formatSignedUsd(pnl),
         pc: pnl >= 0 ? 'var(--green)' : 'var(--red)',
       };
     });

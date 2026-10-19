@@ -5,13 +5,12 @@ import { useViewport } from '@/hooks/useViewport';
 import { useLiveMarket } from '@/hooks/useLiveMarket';
 import { MARKETS, FILTERS, FEATURED_KPIS, FEATURED_SERIES, type Market } from '@/lib/data';
 import { exampleBySymbol, formatExampleChange } from '@/lib/exampleMarkets';
+import { formatUsd } from '@/lib/format';
 import { AreaSpark } from '@/components/charts/AreaSpark';
 import { rnd, resetSeed } from '@/lib/prng';
 
 function fmtP(m: Market, v: number) {
-  return m.pct
-    ? v.toFixed(m.dec) + '%'
-    : '$' + v.toLocaleString('en-US', { minimumFractionDigits: m.dec, maximumFractionDigits: m.dec });
+  return m.pct ? v.toFixed(m.dec) + '%' : formatUsd(v);
 }
 
 function FeatChart({ data, volumeBars }: { data: number[]; volumeBars: number[] }) {
@@ -64,14 +63,14 @@ function FeatChart({ data, volumeBars }: { data: number[]; volumeBars: number[] 
               className="absolute left-[7px] font-mono text-[9px] text-t4 -translate-y-1/2"
               style={{ top: pc(l) + '%' }}
             >
-              ${l.toFixed(2)}
+              {formatUsd(l)}
             </span>
           ))}
           <span
             className="absolute left-0 right-0 font-mono text-[9px] font-semibold px-1.5 py-0.5 -translate-y-1/2"
             style={{ top: pc(last) + '%', background: 'var(--green)', color: 'var(--bg)' }}
           >
-            ${last.toFixed(2)}
+            {formatUsd(last)}
           </span>
         </div>
       </div>

@@ -19,7 +19,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://dexetera.org");
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://dexetera.org");
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

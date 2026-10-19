@@ -70,6 +70,7 @@ import {
   type Trade,
 } from './productModel';
 import { formatExampleChange } from '@/lib/exampleMarkets';
+import { formatUsd } from '@/lib/format';
 
 const QUICK: { label: string; add: number | null; color: string }[] = [
   { label: '+$100', add: 100, color: 'var(--t3)' },
@@ -696,7 +697,7 @@ export function ProductSection() {
                     </div>
                     {trades.map((t, i) => (
                       <div key={t.t + '-' + i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', padding: '0 12px', height: 22, alignItems: 'center', textAlign: 'center', fontFamily: MONO, fontSize: 12 }}>
-                        <span style={{ color: t.up ? 'var(--green)' : 'var(--red)' }}>{'$' + t.p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                        <span style={{ color: t.up ? 'var(--green)' : 'var(--red)' }}>{formatUsd(t.p)}</span>
                         <span style={{ color: 'var(--t-soft)' }}>{t.s}</span>
                         <span style={{ color: 'var(--t3)' }}>{timesReady ? formatTradeTime(t.t) : '--:--:--'}</span>
                       </div>

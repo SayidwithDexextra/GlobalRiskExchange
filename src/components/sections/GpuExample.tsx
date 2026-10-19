@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from 'react';
 import { AreaChart } from '@/components/charts/AreaSpark';
+import { formatSignedUsd, formatUsd } from '@/lib/format';
 
 const ENTRY = 2;
 
 function money(v: number): string {
-  const r = Math.round(v);
-  if (Math.abs(r) < 0.5) return '$0';
-  return (r > 0 ? '+' : '−') + '$' + Math.abs(r).toLocaleString('en-US');
+  const cents = Math.round(v * 100) / 100;
+  if (cents === 0) return formatUsd(0);
+  return formatSignedUsd(cents);
 }
 
 function valColor(v: number): string {
@@ -102,7 +103,7 @@ function Ledger({ ledger }: { ledger: LedgerSpec }) {
         style={{ borderTop: '1px solid var(--hair)' }}
       >
         <span>NET</span>
-        <span className="font-semibold">$0</span>
+        <span className="font-semibold">{formatUsd(0)}</span>
       </div>
     </div>
   );
@@ -115,7 +116,7 @@ function FeesNote({ fees }: { fees: number }) {
         <span className="min-w-0 flex-1 basis-0 font-mono text-[10px] leading-[1.45] tracking-[0.1em] text-t4">
           TRADING FEES GENERATED · CREATOR SHARES IN EVERY TRADE
         </span>
-        <span className="shrink-0 font-mono text-[16px] font-semibold">${fees.toFixed(2)}</span>
+        <span className="shrink-0 font-mono text-[16px] font-semibold">{formatUsd(fees)}</span>
       </div>
       <p className="m-0 text-[13px] leading-[1.5]" style={{ color: 'var(--t3)' }}>
         Neither side is gambling. Both lock in a more predictable quarter, and the market&apos;s creator earns a fee on every trade.
@@ -133,7 +134,7 @@ export function GpuExample() {
   const moveLabel =
     Math.abs(d) < 1
       ? 'AT ENTRY'
-      : (d > 0 ? '+' : '−') + '$' + Math.abs(gpu - ENTRY).toFixed(2) + ' FROM ENTRY';
+      : formatSignedUsd(gpu - ENTRY) + ' FROM ENTRY';
   const chgColor = Math.abs(d) < 1 ? 'var(--t2)' : gcol;
 
   const row = (label: string, v: number): LedgerRow => ({
@@ -181,7 +182,7 @@ export function GpuExample() {
         </span>
         <span className="flex items-baseline gap-2.5">
           <span className="font-mono text-[28px] font-semibold leading-none">
-            ${gpu.toFixed(2)}/hr
+            {formatUsd(gpu)}/hr
           </span>
           <span className="font-mono text-[11px]" style={{ color: chgColor }}>
             {moveLabel}

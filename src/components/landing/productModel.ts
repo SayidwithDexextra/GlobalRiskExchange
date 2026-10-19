@@ -1,6 +1,7 @@
 // NINO34 product data and pure derivations, ported from design/product/product.logic.js.
 
 import { clampToBand, exampleBySymbol, tickerFromExamples } from '@/lib/exampleMarkets';
+import { formatSignedUsd, formatUsd } from '@/lib/format';
 
 export type Candle = { o: number; h: number; l: number; c: number; v: number };
 export type Trade = { p: number; s: number; up: boolean; t: number };
@@ -164,8 +165,8 @@ export function createSeededTrades() {
   return { trades, rnd };
 }
 
-export function usd(v: number, d = 2) {
-  return '$' + v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+export function usd(v: number) {
+  return formatUsd(v);
 }
 
 export function num(v: number) {
@@ -175,7 +176,7 @@ export function num(v: number) {
 const MINUS = '\u2212';
 
 export function money0(v: number) {
-  return (v >= 0 ? '+$' : MINUS + '$') + Math.abs(Math.round(v)).toLocaleString('en-US');
+  return formatSignedUsd(v);
 }
 
 export function formatClock(d: Date) {
@@ -257,8 +258,8 @@ export function derive(btc: Candle[], hover: number | null, flashRow: number, ti
   const nPl = 12 * (last - 4620);
   const positions: PositionRow[] = [
     { ic: 'N', name: 'Niño 3.4', sub: 'NINO34-DEC26', size: '12', entry: '$4,620.00', mark: usd(last), pnl: money0(nPl), pct: (nPl >= 0 ? '+' : MINUS) + Math.abs((last / 4620 - 1) * 100).toFixed(1) + '%', pc: nPl >= 0 ? 'var(--green)' : 'var(--red)', liq: '$2,980.00' },
-    { ic: 'N', name: 'Niño 1+2', sub: 'NINO12-DEC26', size: '5', entry: '$6,100.00', mark: '$7,400.00', pnl: '+$6,500', pct: '+21.3%', pc: 'var(--green)', liq: '$3,950.00' },
-    { ic: 'E', name: 'Average egg price', sub: 'PRICE-EGGS', size: '4.2', entry: '$2.5377', mark: '$2.7180', pnl: '+$0.76', pct: '+7.10%', pc: 'var(--green)', liq: '$0.00' },
+    { ic: 'N', name: 'Niño 1+2', sub: 'NINO12-DEC26', size: '5', entry: '$6,100.00', mark: '$7,400.00', pnl: formatSignedUsd(6500), pct: '+21.3%', pc: 'var(--green)', liq: '$3,950.00' },
+    { ic: 'E', name: 'Average egg price', sub: 'PRICE-EGGS', size: '4.2', entry: '$2.5377', mark: '$2.7180', pnl: formatSignedUsd(0.76), pct: '+7.10%', pc: 'var(--green)', liq: '$0.00' },
   ];
   return {
     last,
@@ -268,8 +269,8 @@ export function derive(btc: Candle[], hover: number | null, flashRow: number, ti
       { l: 'MARK', v: usd(last), c: 'var(--t1)' },
       { l: 'LAST', v: usd(lastTrade.p), c: lastTrade.up ? 'var(--green)' : 'var(--red)' },
       { l: '24H CHG', v: ninoFlat ? '–' : (ninoUp ? '+' : '') + nino.change.toFixed(2) + '%', c: ninoFlat ? 'var(--t4)' : ninoUp ? 'var(--green)' : 'var(--red)' },
-      { l: '24H HIGH', v: usd(btc[n - 1].h, 0), c: 'var(--t1)' },
-      { l: '24H LOW', v: usd(btc[n - 1].l, 0), c: 'var(--t1)' },
+      { l: '24H HIGH', v: usd(btc[n - 1].h), c: 'var(--t1)' },
+      { l: '24H LOW', v: usd(btc[n - 1].l), c: 'var(--t1)' },
       { l: 'BID', v: usd(Bd[0].p), c: 'var(--green)' },
       { l: 'ASK', v: usd(A[0].p), c: 'var(--red)' },
       { l: 'SPREAD', v: '$20.00', c: 'var(--t1)' },
