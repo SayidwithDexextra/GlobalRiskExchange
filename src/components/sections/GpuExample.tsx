@@ -119,7 +119,7 @@ function FeesNote({ fees }: { fees: number }) {
         <span className="shrink-0 font-mono text-[16px] font-semibold">{formatUsd(fees)}</span>
       </div>
       <p className="m-0 text-[13px] leading-[1.5]" style={{ color: 'var(--t3)' }}>
-        Neither side is gambling. Both lock in a more predictable quarter, and the market&apos;s creator earns a fee on every trade.
+        Neither side is gambling. Both lock in a more predictable quarter, and the market&apos;s creator earns 20% of its trading fees, ongoing.
       </p>
     </div>
   );

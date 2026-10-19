@@ -153,11 +153,11 @@ export const COMPARE_COLS = ['FEATURE', 'DEXETERA', 'PREDICTION MKTS', 'CRYPTO P
 
 // FAQ
 export const FAQ: [string, string][] = [
-  ['How does creating a market work?', 'Describe the number in plain language. The AI wizard turns it into a market, suggests public sources to settle against, and lists it with one signature. The bond and any penalty are shown before you sign.'],
+  ['How does creating a market work?', 'Describe the number in plain language. The AI wizard turns it into a market, suggests public sources to settle against, and lists it with one signature. The bond and any penalty are shown before you sign. Creators earn 20% of the trading fees their market generates.'],
   ['How is a market settled?', 'At expiry the final value is captured from the named public source and a snapshot is saved to archive.org. Anyone can challenge it during the challenge window. Disputes escalate to UMA.'],
   ['What is UMA?', 'UMA runs an optimistic oracle. A proposed value is accepted unless someone disputes it within a set window. Disputed values are resolved by UMA token holders voting on the evidence.'],
   ['Who holds my funds?', "You do. Dexetera is non-custodial. Your USDC stays in your wallet and in the market's smart contracts. Dexetera never takes custody."],
-  ['What does it cost to trade?', 'About 0.10% per trade, with no gas thanks to gasless mode. For comparison, popular prediction markets charge around 2%, and bank hedges hide 0.25 to 1% or more in the spread.'],
+  ['What does it cost to trade?', 'About 0.10% per trade, with no gas thanks to gasless mode. 20% of that fee goes to the market\'s creator. For comparison, popular prediction markets charge around 2%, and bank hedges hide 0.25 to 1% or more in the spread.'],
   ['What makes a good market?', 'A number that a public source publishes on a regular schedule, that is hard to manipulate, and that has people on both sides who care where it goes.'],
   ['Can I exit before settlement?', 'Yes. Close all or part of a position at any time against the order book. Your P&L is realized at the price you exit.'],
   ['What happens if the data source is disputed?', "Anyone can challenge the proposed final value during the challenge window. The archived snapshot serves as the record, and UMA's oracle makes the final decision."],

@@ -95,7 +95,7 @@ export default function WhoItsFor() {
           </div>
           <span className="dx-who__num">03 / DATA OWNERS</span>
           <span className="dx-who__title">List what you know. Earn on every trade.</span>
-          <span className="dx-who__body">If you know a number and where it is published, the wizard turns it into a market in minutes.</span>
+          <span className="dx-who__body">If you know a number and where it is published, the wizard turns it into a market in minutes. You earn 20% of its trading fees.</span>
           <a className="dx-who__chip" href="https://dexetera.xyz/new-market">{dram.symbol} →</a>
         </article>
 

@@ -193,7 +193,7 @@ Container: max-width 1344, padding-inline `clamp(16px,3vw,32px)`. Section paddin
 - Never say "regulated", "licensed" or "compliant".
 - Dexetera is the platform; markets are contracts listed on it.
 - No investor material on public pages (TAM, raise amount, incorporation).
-- Creators: say "a share of trading fees", no percentage.
+- Creators: earn 20% of trading fees, ongoing.
 
 ## 12. Acceptance checklist
 

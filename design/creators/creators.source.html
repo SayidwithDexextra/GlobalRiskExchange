@@ -1,0 +1,42 @@
+<!-- CREATORS -->
+<div data-reveal data-screen-label="Creators" style="max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0">
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:{{ split57 }}">
+    <div style="padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4)">Creators earn 20%</div>
+      <h2 style="margin:0;font-size:clamp(28px,3vw,40px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;text-wrap:balance">List a market. Earn 20% of every trade.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:var(--t3);max-width:480px;text-wrap:pretty">Every trade on Dexetera pays a ~0.10% fee. 20% of that fee goes straight to the wallet that created the market, on every trade, for as long as the market trades. No cap, no expiry.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--hair);padding-top:18px;max-width:480px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);line-height:1.6;width:20px">01</span><span style="font-size:14px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">List a number.</span> Describe it in plain language and the wizard builds the market.</span></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);line-height:1.6;width:20px">02</span><span style="font-size:14px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">Traders trade it.</span> Every fill pays the ~0.10% fee.</span></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);line-height:1.6;width:20px">03</span><span style="font-size:14px;line-height:1.6;color:var(--t3)"><span style="color:var(--t1);font-weight:600">You earn 20%.</span> Your share is paid per trade to your creator wallet.</span></div>
+      </div>
+      <a href="https://dexetera.xyz/new-market" style="align-self:flex-start;height:44px;padding:0 22px;display:flex;align-items:center;gap:8px;border-radius:100px;background:var(--btn-p-bg);color:var(--btn-p-fg);font-size:14px;font-weight:600" style-hover="background:var(--btn-p-hover);color:var(--btn-p-fg)">+ Create a market</a>
+    </div>
+    <div style="padding:clamp(16px,2.5vw,28px);background:var(--bg);border-left:{{ crRightBL }};border-top:{{ crRightBT }};min-width:0;display:flex;flex-direction:column;justify-content:center">
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:clamp(14px,2vw,20px);display:flex;flex-direction:column;gap:16px;min-width:0">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--t4)">CREATOR EARNINGS · ESTIMATE</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--t4);border:1px solid var(--line);border-radius:100px;padding:3px 9px">EXAMPLE</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px"><span style="font-size:13px;color:var(--t3)">Monthly trading volume</span><span style="font-family:'JetBrains Mono',monospace;font-size:clamp(22px,2.4vw,30px);font-weight:600;letter-spacing:-0.02em">{{ crVolFmt }}</span></div>
+          <input type="range" min="0" max="{{ crMax }}" step="1" value="{{ crIdx }}" onInput="{{ onCr }}" onChange="{{ onCr }}" aria-label="Monthly trading volume" style="width:100%;cursor:pointer;margin:4px 0 0">
+          <div style="display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4)"><span>$1M</span><span>$500M</span></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+          <div style="flex:1 1 {{ crCellBasis }};min-width:0;background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">VOLUME</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ crVolFmt }}</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t4);flex:none;display:{{ crOpDisp }}">×</span><div style="flex:1 1 {{ crCellBasis }};min-width:0;background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">FEE</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">0.10%</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t4);flex:none;display:{{ crOpDisp }}">=</span><div style="flex:1 1 {{ crCellBasis }};min-width:0;background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">FEES</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ crFeesFmt }}</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t4);flex:none;display:{{ crOpDisp }}">×</span><div style="flex:1 1 {{ crCellBasis }};min-width:0;background:var(--bg);border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:10px;font-weight:500;letter-spacing:0.08em;color:var(--t-gray)">CREATOR SHARE</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">20%</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t4);flex:none;display:{{ crOpDisp }}">=</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--hair);padding-top:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:clamp(28px,3.2vw,40px);font-weight:600;letter-spacing:-0.02em;color:var(--green);line-height:1.1">{{ crMonthFmt }} / month</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t3)">{{ crYearFmt }} / year</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;height:6px;border-radius:100px;overflow:hidden;gap:2px"><span style="width:20%;background:var(--green)"></span><span style="flex:1;background:var(--line2)"></span></div>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em"><span style="color:var(--green)">Creator 20%</span><span style="color:var(--t4)">Protocol 80%</span></div>
+        </div>
+        <p style="margin:0;font-size:12px;line-height:1.5;color:var(--t4)">Illustrative. Earnings depend on your market's actual trading volume.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

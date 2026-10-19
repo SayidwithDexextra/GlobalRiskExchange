@@ -14,7 +14,7 @@ import { MarketTables } from '@/components/sections/MarketTables';
 import WhoItsFor from '@/components/sections/WhoItsFor';
 import { ProductSection } from '@/components/landing/ProductSection';
 import { ComparisonTable } from '@/components/sections/ComparisonTable';
-import { CreatorDashboard } from '@/components/sections/CreatorDashboard';
+import CreatorsEarn from '@/components/sections/CreatorsEarn';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { LiveMarketProvider, useLiveMarket } from '@/hooks/useLiveMarket';
@@ -59,7 +59,7 @@ function LandingContent() {
       <ComparisonTable />
 
       {/* 13. Creators earn */}
-      <CreatorDashboard />
+      <CreatorsEarn />
 
       {/* 14. FAQ */}
       <FaqAccordion />

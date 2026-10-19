@@ -417,7 +417,7 @@ html,body{margin:0;background:var(--bg);color:var(--t1);font-family:"Manrope",sy
     <li>Creation runs through a guided Market Creation Wizard (metric, then trading configuration, then settlement and oracle configuration, then review and deploy), with an AI assistant that validates the metric and suggests a fair starting price.</li>
     <li>Each market is deployed as its own on-chain Diamond (EIP-2535) proxy with isolated per market storage, so a problem in one market can never affect another.</li>
     <li>All markets share a single global <code>FacetRegistry</code>, so trading and settlement logic can be improved atomically across every market at once, without touching any individual market's funds or positions.</li>
-    <li>A creator defines the metric, its canonical public data source (URL), a settlement date (from one day to one year out), a starting price, and descriptive tags. A creation fee and a refundable creator bond keep spam out, and creators can earn a share of the trading fees their market generates.</li>
+    <li>A creator defines the metric, its canonical public data source (URL), a settlement date (from one day to one year out), a starting price, and descriptive tags. A creation fee and a refundable creator bond keep spam out, and creators earn 20% of the trading fees their market generates, ongoing.</li>
     <li>Creation can be gasless. The creator signs an EIP-712 message and a relayer submits the transaction.</li>
   </ul>
   <div class="pull">Markets are scalar futures, not binary bets. A business takes a continuous position on how high or how low a real economic variable will settle, which is exactly the shape of a genuine hedge.</div>
