@@ -1,6 +1,7 @@
 'use client';
 
 import { TICKER } from '@/lib/data';
+import { formatExampleChange } from '@/lib/exampleMarkets';
 
 // Background ticker (not pausable, not interactive)
 function BgTicker({ durationSec, reverse }: { durationSec: number; reverse?: boolean }) {
@@ -15,7 +16,9 @@ function BgTicker({ durationSec, reverse }: { durationSec: number; reverse?: boo
         animation: `${reverse ? 'dx-ticker-r' : 'dx-ticker'} ${durationSec}s linear infinite`,
       }}
     >
-      {doubled.map(([symbol, price, change], i) => (
+      {doubled.map(([symbol, price, change], i) => {
+        const chg = formatExampleChange(change);
+        return (
         <span
           key={`${symbol}-${i}`}
           className="inline-flex items-center gap-2 px-[22px] whitespace-nowrap"
@@ -24,15 +27,10 @@ function BgTicker({ durationSec, reverse }: { durationSec: number; reverse?: boo
           <span className="text-t3">{symbol}</span>
           <span className="text-line4">•</span>
           <span className="text-t1">{price}</span>
-          <span
-            style={{
-              color: change > 0 ? 'var(--green)' : change < 0 ? 'var(--red)' : 'var(--t2)',
-            }}
-          >
-            {change > 0 ? '+' : ''}{change.toFixed(2)}%
-          </span>
+          <span style={{ color: chg.color }}>{chg.text}</span>
         </span>
-      ))}
+        );
+      })}
     </div>
   );
 }

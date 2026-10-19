@@ -14,10 +14,9 @@ const NOISE_SVG = "url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2
 
 interface HeroProps {
   eggPrice: number;
-  eggChg24: number;
 }
 
-export function Hero({ eggPrice, eggChg24 }: HeroProps) {
+export function Hero({ eggPrice }: HeroProps) {
   const { w, h } = useViewport();
   const reducedMotion = usePrefersReducedMotion();
   
@@ -160,22 +159,14 @@ export function Hero({ eggPrice, eggChg24 }: HeroProps) {
           width={dashW}
           showSidebar={T}
           eggPrice={eggPrice}
-          eggChg24={eggChg24}
           myOpen={myOpen}
           onToggleMy={() => setMyOpen(!myOpen)}
           pvSize={pvSize}
+          scrollPill={seq ? <ScrollPill ref={pillRef} opacity={1} /> : null}
         />
 
         {/* Rocks */}
         <Rocks scrollProgress={scrollProgress} />
-
-        {/* Scroll pill */}
-        {seq && (
-          <ScrollPill
-            ref={pillRef}
-            opacity={1}
-          />
-        )}
       </div>
     </div>
   );

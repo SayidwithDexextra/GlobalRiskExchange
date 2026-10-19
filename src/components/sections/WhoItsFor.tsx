@@ -9,7 +9,9 @@
 //    and vector-effect="non-scaling-stroke", so they stretch to the card and keep crisp 1.5px lines
 //  - chart boxes are a fixed 128px tall at every width
 
-import { useEffect, useState } from "react";
+import { useLiveMarket } from "@/hooks/useLiveMarket";
+import { exampleBySymbol } from "@/lib/exampleMarkets";
+import { formatUsdAmount } from "@/lib/format";
 import "./who.css";
 
 const UNHEDGED_FILL = "M0,16.22 C1.15,17.26 4.6,22.16 6.9,22.46 C9.2,22.77 11.49,18.48 13.79,18.05 C16.09,17.62 18.39,18.13 20.69,19.9 C22.99,21.67 25.29,26.18 27.59,28.67 C29.89,31.16 32.18,33.09 34.48,34.86 C36.78,36.64 39.08,38.22 41.38,39.31 C43.68,40.4 45.98,40.45 48.28,41.41 C50.57,42.38 52.87,43.62 55.17,45.1 C57.47,46.58 59.77,48.31 62.07,50.29 C64.37,52.27 66.67,57.36 68.97,57 C71.26,56.64 73.56,49.99 75.86,48.14 C78.16,46.29 80.46,47.65 82.76,45.9 C85.06,44.15 87.36,38.65 89.66,37.65 C91.95,36.64 94.25,39.32 96.55,39.87 C98.85,40.43 101.15,42.04 103.45,40.96 C105.75,39.89 108.05,35.55 110.34,33.41 C112.64,31.27 114.94,28.26 117.24,28.14 C119.54,28.03 121.84,33.25 124.14,32.72 C126.44,32.19 128.74,26.27 131.03,24.94 C133.33,23.61 135.63,24.56 137.93,24.74 C140.23,24.91 142.53,25.81 144.83,26.01 C147.13,26.22 149.43,26.95 151.72,25.96 C154.02,24.98 156.32,20.81 158.62,20.08 C160.92,19.36 163.22,22.39 165.52,21.62 C167.82,20.85 170.11,17.71 172.41,15.46 C174.71,13.22 177.01,10.22 179.31,8.15 C181.61,6.07 183.91,2.89 186.21,3 C188.51,3.11 190.8,8.76 193.1,8.82 C195.4,8.88 198.85,4.27 200,3.36 L200,60 L0,60 Z";
@@ -19,18 +21,12 @@ const GAS_LINE = "M0,41.99 C1.15,42.35 4.6,44.07 6.9,44.15 C9.2,44.24 11.49,42.7
 const POWER_LINE = "M0,9.46 C1.15,9.97 4.6,12.37 6.9,12.51 C9.2,12.66 11.49,10.57 13.79,10.36 C16.09,10.15 18.39,10.4 20.69,11.26 C22.99,12.13 25.29,14.33 27.59,15.55 C29.89,16.77 32.18,17.71 34.48,18.58 C36.78,19.45 39.08,20.22 41.38,20.75 C43.68,21.29 45.98,21.31 48.28,21.78 C50.57,22.25 52.87,22.86 55.17,23.58 C57.47,24.31 59.77,25.15 62.07,26.12 C64.37,27.09 66.67,29.58 68.97,29.4 C71.26,29.23 73.56,25.97 75.86,25.07 C78.16,24.17 80.46,24.83 82.76,23.98 C85.06,23.12 87.36,20.43 89.66,19.94 C91.95,19.45 94.25,20.76 96.55,21.03 C98.85,21.3 101.15,22.09 103.45,21.56 C105.75,21.03 108.05,18.91 110.34,17.87 C112.64,16.82 114.94,15.35 117.24,15.29 C119.54,15.24 121.84,17.79 124.14,17.53 C126.44,17.27 128.74,14.38 131.03,13.73 C133.33,13.08 135.63,13.54 137.93,13.63 C140.23,13.71 142.53,14.15 144.83,14.25 C147.13,14.35 149.43,14.71 151.72,14.23 C154.02,13.74 156.32,11.71 158.62,11.35 C160.92,11 163.22,12.48 165.52,12.1 C167.82,11.73 170.11,10.19 172.41,9.09 C174.71,8 177.01,6.53 179.31,5.52 C181.61,4.5 183.91,2.95 186.21,3 C188.51,3.05 190.8,5.82 193.1,5.85 C195.4,5.88 198.85,3.62 200,3.18";
 const REF_Y = 3.36;
 
-function useCreatorFees(start = 1284.2) {
-  const [fees, setFees] = useState(start);
-  useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setFees((f) => f + 0.4 + Math.random() * 2.6), 1500);
-    return () => clearInterval(id);
-  }, []);
-  return "$" + fees.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
 export default function WhoItsFor() {
-  const fees = useCreatorFees();
+  const { ownerFees } = useLiveMarket();
+  const fees = formatUsdAmount(ownerFees);
+  const gpu = exampleBySymbol("GPU-H100");
+  const dram = exampleBySymbol("DRAM-DDR5");
+  const eggs = exampleBySymbol("PRICE-EGGS");
   return (
     <section className="dx-who" data-reveal aria-labelledby="who-title">
       <div className="dx-who__hdr">
@@ -67,7 +63,7 @@ export default function WhoItsFor() {
           <span className="dx-who__num">01 / BUSINESSES</span>
           <span className="dx-who__title">Hedge the number that moves your margin.</span>
           <span className="dx-who__body">Importers, data centers, miners and farmers can take the other side of the price that drives their costs.</span>
-          <a className="dx-who__chip" href="https://dexetera.xyz/explore">GPU-H100 →</a>
+          <a className="dx-who__chip" href="https://dexetera.xyz/explore">{gpu.symbol} →</a>
         </article>
 
         <article className="dx-who__card">
@@ -100,7 +96,7 @@ export default function WhoItsFor() {
           <span className="dx-who__num">03 / DATA OWNERS</span>
           <span className="dx-who__title">List what you know. Earn on every trade.</span>
           <span className="dx-who__body">If you know a number and where it is published, the wizard turns it into a market in minutes.</span>
-          <a className="dx-who__chip" href="https://dexetera.xyz/new-market">DRAM-DDR5 →</a>
+          <a className="dx-who__chip" href="https://dexetera.xyz/new-market">{dram.symbol} →</a>
         </article>
 
         <article className="dx-who__card">
@@ -114,7 +110,7 @@ export default function WhoItsFor() {
           <span className="dx-who__num">04 / GLOBAL INVESTORS</span>
           <span className="dx-who__title">Hedging tools, open to anyone.</span>
           <span className="dx-who__body">Most hedging products are built for institutions. Dexetera is open to anyone with a wallet.</span>
-          <a className="dx-who__chip" href="https://dexetera.xyz/token/PRICE-EGGS">PRICE-EGGS →</a>
+          <a className="dx-who__chip" href="https://dexetera.xyz/token/PRICE-EGGS">{eggs.symbol} →</a>
         </article>
       </div>
     </section>

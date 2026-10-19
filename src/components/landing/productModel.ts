@@ -1,5 +1,7 @@
 // NINO34 product data and pure derivations, ported from design/product/product.logic.js.
 
+import { clampToBand, exampleBySymbol, tickerFromExamples } from '@/lib/exampleMarkets';
+
 export type Candle = { o: number; h: number; l: number; c: number; v: number };
 export type Trade = { p: number; s: number; up: boolean; t: number };
 export type BookTab = 'book' | 'trades';
@@ -87,9 +89,6 @@ export const NINO_CANDLES: Candle[] = [
   { o: 5260, h: 5360, l: 5220, c: 5310, v: 0.63 },
   { o: 5310, h: 5430, l: 5310, c: 5400, v: 0.78 }
 ];
-
-/** Constructor egg close, before live ticks. Ticker change stays +0.12. */
-export const EGG_PRICE = 2.715;
 
 const ASK_SIZES = [120, 85, 240, 60, 310, 180, 420, 95, 600];
 const BID_SIZES = [150, 90, 260, 40, 380, 210, 500, 130, 560];
@@ -228,6 +227,9 @@ export function derive(btc: Candle[], hover: number | null, flashRow: number, ti
   const prevC = btc[n - 2].c;
   const chg = (last / prevC - 1) * 100;
   const up = chg >= 0;
+  const nino = exampleBySymbol('NINO34-DEC26');
+  const ninoUp = nino.change > 0;
+  const ninoFlat = Math.round(nino.change * 100) === 0;
   let ca = 0;
   let cb = 0;
   const A: { p: number; s: number; t: number }[] = [];
@@ -265,7 +267,7 @@ export function derive(btc: Candle[], hover: number | null, flashRow: number, ti
     stats: [
       { l: 'MARK', v: usd(last), c: 'var(--t1)' },
       { l: 'LAST', v: usd(lastTrade.p), c: lastTrade.up ? 'var(--green)' : 'var(--red)' },
-      { l: '24H CHG', v: (up ? '+' : '') + chg.toFixed(1) + '%', c: up ? 'var(--green)' : 'var(--red)' },
+      { l: '24H CHG', v: ninoFlat ? '–' : (ninoUp ? '+' : '') + nino.change.toFixed(2) + '%', c: ninoFlat ? 'var(--t4)' : ninoUp ? 'var(--green)' : 'var(--red)' },
       { l: '24H HIGH', v: usd(btc[n - 1].h, 0), c: 'var(--t1)' },
       { l: '24H LOW', v: usd(btc[n - 1].l, 0), c: 'var(--t1)' },
       { l: 'BID', v: usd(Bd[0].p), c: 'var(--green)' },
@@ -288,26 +290,19 @@ export function derive(btc: Candle[], hover: number | null, flashRow: number, ti
     bidCount: Bd.length + ' orders',
     spreadTxt: '$20.00 · ' + ((20 / last) * 100).toFixed(2) + '%',
     curPrice: usd(last),
-    curChg: (up ? '\u2191 ' : '\u2193 ') + Math.abs(chg).toFixed(2) + '%',
-    curChgColor: up ? 'var(--green)' : 'var(--red)',
+    curChg: ninoFlat ? '–' : (ninoUp ? '\u2191 ' : '\u2193 ') + Math.abs(nino.change).toFixed(2) + '%',
+    curChgColor: ninoFlat ? 'var(--t4)' : ninoUp ? 'var(--green)' : 'var(--red)',
     tiVal: TI[tiTab],
     positions,
-    ticker: [
-      ['NINO34-DEC26', usd(last), +chg.toFixed(2)],
-      ['ETHEREUM', '$2,430.15', -1.49],
-      ['GOLD', '$2,412.30', 0.31],
-      ['NASDAQ', '$29,686.80', 0],
-      ['PRICE-EGGS', '$' + EGG_PRICE.toFixed(3), 0.12],
-      ['PRICE-MILK-US', '$4.52', 0],
-      ['SILVER', '$75.96', 0.21],
-      ['500', '$7,594.21', 0.08],
-    ],
+    ticker: tickerFromExamples(),
   };
 }
 
 export function stepCandle(btc: Candle[], rnd: () => number) {
   const bl = btc[btc.length - 1];
-  const bm = Math.min(5430, Math.max(5380, bl.c + (rnd() < 0.5 ? -10 : 10)));
+  const base = exampleBySymbol('NINO34-DEC26').price;
+  const stepped = Math.min(5430, Math.max(5380, bl.c + (rnd() < 0.5 ? -10 : 10)));
+  const bm = clampToBand(stepped, base);
   const next = btc.slice();
   next[next.length - 1] = { ...bl, c: bm, h: Math.max(bl.h, bm), l: Math.min(bl.l, bm) };
   return { btc: next, price: bm, up: bm >= bl.c };

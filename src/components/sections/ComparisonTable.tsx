@@ -19,7 +19,7 @@ const ROWS = [
     insurance: false,
   },
   {
-    feature: 'No counterparty risk',
+    feature: 'No bank counterparty',
     dx: true,
     otc: false,
     prediction: true,
@@ -72,9 +72,17 @@ function Cell({ value }: { value: boolean | null }) {
   return <Minus className="w-4 h-4 text-t4 mx-auto" />;
 }
 
+const COLS: { key: 'dx' | 'otc' | 'prediction' | 'insurance'; label: string }[] = [
+  { key: 'dx', label: 'Dexetera' },
+  { key: 'otc', label: 'OTC / Bank' },
+  { key: 'prediction', label: 'Prediction' },
+  { key: 'insurance', label: 'Insurance' },
+];
+
 export function ComparisonTable() {
   const { w } = useViewport();
   const L = w >= 1100;
+  const stacked = w < 640;
   const splitCols = L ? 'minmax(0, 5fr) minmax(0, 7fr)' : 'minmax(0, 1fr)';
 
   return (
@@ -122,6 +130,34 @@ export function ComparisonTable() {
             border: '1px solid var(--line)',
           }}
         >
+          {stacked ? (
+            <div>
+              {ROWS.map((row) => (
+                <div key={row.feature} className="p-4" style={{ borderBottom: '1px solid var(--hair)' }}>
+                  <div className="text-[13px] text-t3 mb-3">{row.feature}</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {COLS.map((col) => (
+                      <div
+                        key={col.key}
+                        className="flex items-center justify-between gap-2 min-w-0 rounded-md px-2.5 py-2"
+                        style={{
+                          background: col.key === 'dx' ? 'var(--card2)' : 'transparent',
+                          border: '1px solid var(--hair)',
+                        }}
+                      >
+                        <span className="font-mono text-[9px] tracking-[0.06em] uppercase text-t4">
+                          {col.label}
+                        </span>
+                        <span className="flex-none">
+                          <Cell value={row[col.key]} />
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
           <div style={{ minWidth: L ? undefined : 640 }}>
           <table className="w-full text-[13px]" style={{ borderCollapse: 'collapse' }}>
             <thead>
@@ -166,6 +202,7 @@ export function ComparisonTable() {
             </tbody>
           </table>
           </div>
+          )}
         </div>
       </div>
     </div>

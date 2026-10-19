@@ -20,14 +20,14 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { LiveMarketProvider, useLiveMarket } from '@/hooks/useLiveMarket';
 
 function LandingContent() {
-  const { eggPrice, eggChg24 } = useLiveMarket();
+  const { eggPrice } = useLiveMarket();
 
   return (
     <>
       <Header currentPath="/" />
       
       {/* 1. Hero */}
-      <Hero eggPrice={eggPrice} eggChg24={eggChg24} />
+      <Hero eggPrice={eggPrice} />
 
       {/* 2-4. Ticker / Stats / Trust */}
       <Ticker />

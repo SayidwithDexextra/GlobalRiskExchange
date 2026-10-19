@@ -3,21 +3,27 @@
 import { useViewport } from '@/hooks/useViewport';
 import { AreaSpark } from '@/components/charts/AreaSpark';
 import { walk, resetSeed } from '@/lib/prng';
+import { exampleBySymbol } from '@/lib/exampleMarkets';
+
+function listed(symbol: string) {
+  const market = exampleBySymbol(symbol);
+  return { name: market.name, sym: market.symbol };
+}
 
 // Generate spark data for tables
 resetSeed(123);
 const priceExamples = [
-  { name: 'Eggs, Grade A', sym: 'PRICE-EGGS', long: '24K', short: '18K', spark: walk(2.5, 20, 0.005, 0.04) },
-  { name: 'Milk, US average', sym: 'PRICE-MILK-US', long: '12K', short: '9K', spark: walk(3.8, 20, -0.003, 0.03) },
-  { name: 'Crude Oil, WTI', sym: 'CRUDE-OIL', long: '156K', short: '142K', spark: walk(78, 20, 0.002, 0.025) },
-  { name: 'Gold, spot', sym: 'GOLD', long: '89K', short: '76K', spark: walk(2040, 20, 0.004, 0.02) },
+  { ...listed('PRICE-EGGS'), long: '24K', short: '18K', spark: walk(2.5, 20, 0.005, 0.04) },
+  { ...listed('PRICE-MILK-US'), long: '12K', short: '9K', spark: walk(3.8, 20, -0.003, 0.03) },
+  { ...listed('CRUDE-OIL'), long: '156K', short: '142K', spark: walk(78, 20, 0.002, 0.025) },
+  { ...listed('GOLD'), long: '89K', short: '76K', spark: walk(2040, 20, 0.004, 0.02) },
 ];
 
 const otherExamples = [
-  { name: 'GPU H100 rental', sym: 'GPU-H100', long: '412K', short: '380K', spark: walk(2.0, 20, 0.008, 0.05) },
-  { name: 'ERCOT North power', sym: 'ERCOT-N', long: '67K', short: '54K', spark: walk(38, 20, -0.004, 0.06) },
-  { name: 'Niño 3.4 index', sym: 'NINO34-DEC26', long: '34K', short: '28K', spark: walk(3000, 20, 0.002, 0.03) },
-  { name: 'US CPI, YoY', sym: 'US-CPI-YOY', long: '45K', short: '52K', spark: walk(2.9, 20, -0.003, 0.025) },
+  { ...listed('GPU-H100'), long: '412K', short: '380K', spark: walk(2.0, 20, 0.008, 0.05) },
+  { ...listed('ERCOT-N'), long: '67K', short: '54K', spark: walk(38, 20, -0.004, 0.06) },
+  { ...listed('NINO34-DEC26'), long: '34K', short: '28K', spark: walk(3000, 20, 0.002, 0.03) },
+  { ...listed('US-CPI-YOY'), long: '45K', short: '52K', spark: walk(2.9, 20, -0.003, 0.025) },
 ];
 
 function MarketTable({

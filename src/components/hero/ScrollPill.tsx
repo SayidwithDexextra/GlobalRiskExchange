@@ -14,12 +14,13 @@ export const ScrollPill = forwardRef<HTMLAnchorElement, ScrollPillProps>(
       <Link
         ref={ref}
         href="/#markets"
-        className="absolute z-[4] left-1/2 bottom-6 -translate-x-1/2 h-8 px-[14px] flex items-center gap-2 rounded-full text-[11px] text-t2 whitespace-nowrap transition-colors hover:text-t1"
+        className="absolute z-[4] left-1/2 -translate-x-1/2 h-8 px-[14px] flex items-center gap-2 rounded-full text-[11px] text-t2 whitespace-nowrap transition-colors hover:text-t1"
         style={{
           background: 'var(--pill)',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
           border: '1px solid var(--line2)',
+          top: -40,
           opacity,
         }}
       >

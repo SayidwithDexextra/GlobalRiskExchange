@@ -2,6 +2,7 @@
 
 import { useViewport } from '@/hooks/useViewport';
 import { useLiveMarket } from '@/hooks/useLiveMarket';
+import { formatUsdAmount } from '@/lib/format';
 import { rnd, resetSeed } from '@/lib/prng';
 
 // Generate volume bars
@@ -50,10 +51,16 @@ export function CreatorDashboard() {
           </p>
           <a
             href="https://dexetera.xyz/new-market"
-            className="inline-flex items-center h-[44px] px-[22px] rounded-[10px] text-[14px] font-semibold self-start transition-all"
+            className="inline-flex items-center h-10 px-5 rounded-full text-[13px] font-semibold self-start transition-colors"
             style={{
-              background: 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F97316 100%)',
-              color: '#fff',
+              background: 'var(--btn-p-bg)',
+              color: 'var(--btn-p-fg)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--btn-p-hover)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--btn-p-bg)';
             }}
           >
             + Create a market
@@ -131,7 +138,7 @@ export function CreatorDashboard() {
                   FEES EARNED
                 </div>
                 <div className="font-mono text-[17px] font-semibold text-green">
-                  ${ownerFees.toFixed(2)}
+                  {formatUsdAmount(ownerFees)}
                 </div>
               </div>
               <div

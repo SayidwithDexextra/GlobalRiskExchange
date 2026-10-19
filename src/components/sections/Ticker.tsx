@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { TICKER } from '@/lib/data';
 import { useLiveMarket } from '@/hooks/useLiveMarket';
+import { exampleBySymbol, formatExampleChange, formatExamplePrice } from '@/lib/exampleMarkets';
 
 interface TickerProps {
   durationSec?: number;
@@ -11,21 +12,22 @@ interface TickerProps {
 }
 
 export function Ticker({ durationSec = 60, reverse = false, pausable = true }: TickerProps) {
-  const { eggPrice, eggChg24 } = useLiveMarket();
+  const { eggPrice } = useLiveMarket();
 
   // Build ticker items with live egg price
   const items = useMemo(() => {
     return TICKER.map(([symbol, price, change]) => {
       if (symbol === 'PRICE-EGGS') {
+        const listed = exampleBySymbol('PRICE-EGGS');
         return {
           symbol,
-          price: '$' + eggPrice.toFixed(3),
-          change: eggChg24,
+          price: formatExamplePrice(listed, eggPrice),
+          change: listed.change,
         };
       }
       return { symbol, price, change };
     });
-  }, [eggPrice, eggChg24]);
+  }, [eggPrice]);
 
   // Double the items for seamless loop
   const doubledItems = [...items, ...items];
@@ -56,7 +58,9 @@ export function Ticker({ durationSec = 60, reverse = false, pausable = true }: T
           }
         }}
       >
-        {doubledItems.map((item, i) => (
+        {doubledItems.map((item, i) => {
+          const change = formatExampleChange(item.change);
+          return (
           <span
             key={`${item.symbol}-${i}`}
             className="inline-flex items-center gap-2 px-[22px] whitespace-nowrap"
@@ -65,21 +69,10 @@ export function Ticker({ durationSec = 60, reverse = false, pausable = true }: T
             <span className="text-t3">{item.symbol}</span>
             <span className="text-line4">•</span>
             <span className="text-t1">{item.price}</span>
-            <span
-              style={{
-                color:
-                  item.change > 0
-                    ? 'var(--green)'
-                    : item.change < 0
-                    ? 'var(--red)'
-                    : 'var(--t2)',
-              }}
-            >
-              {item.change > 0 ? '+' : ''}
-              {item.change.toFixed(2)}%
-            </span>
+            <span style={{ color: change.color }}>{change.text}</span>
           </span>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

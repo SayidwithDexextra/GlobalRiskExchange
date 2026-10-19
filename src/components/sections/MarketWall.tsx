@@ -4,6 +4,7 @@ import { useId, useMemo, useState } from 'react';
 import { useViewport } from '@/hooks/useViewport';
 import { useLiveMarket } from '@/hooks/useLiveMarket';
 import { MARKETS, FILTERS, FEATURED_KPIS, FEATURED_SERIES, type Market } from '@/lib/data';
+import { exampleBySymbol, formatExampleChange } from '@/lib/exampleMarkets';
 import { AreaSpark } from '@/components/charts/AreaSpark';
 import { rnd, resetSeed } from '@/lib/prng';
 
@@ -98,7 +99,7 @@ function FeatChart({ data, volumeBars }: { data: number[]; volumeBars: number[] 
 
 export function MarketWall() {
   const { w } = useViewport();
-  const { eggPrice, eggChg24, series } = useLiveMarket();
+  const { eggPrice, series } = useLiveMarket();
   const [filter, setFilter] = useState<string>('All');
 
   const M = w >= 900;
@@ -112,15 +113,14 @@ export function MarketWall() {
 
   const feat = useMemo(() => {
     const m = MARKETS[0];
-    const last = FEATURED_SERIES[FEATURED_SERIES.length - 1];
-    const first = FEATURED_SERIES[0];
-    const change = (last / first - 1) * 100;
-    const up = change >= 0;
+    const listed = exampleBySymbol(m.id);
+    const chg = formatExampleChange(listed.change, { arrow: true });
     return {
       ...m,
-      price: fmtP(m, last),
-      chg: (up ? '▲ ' : '▼ ') + Math.abs(change).toFixed(2) + '%',
-      chgColor: up ? 'var(--green)' : 'var(--red)',
+      name: listed.name,
+      price: fmtP(m, listed.price),
+      chg: chg.text,
+      chgColor: chg.color,
       tag: 'EXAMPLE',
       tagColor: 'var(--t4)',
       href: 'https://dexetera.xyz/explore',
@@ -132,18 +132,16 @@ export function MarketWall() {
   const cards = useMemo(() => {
     return MARKETS.slice(1).map((m, i) => {
       const isEgg = m.id === 'PRICE-EGGS';
+      const listed = exampleBySymbol(m.id);
       const s = isEgg ? series[1] || [] : series[i + 1] || [];
-      const last = s.length ? s[s.length - 1] : m.base;
-      const price = isEgg ? eggPrice : last;
-      let change = 0;
-      if (isEgg) change = eggChg24;
-      else if (s.length > 1) change = (last / s[Math.max(0, s.length - 25)] - 1) * 100;
-      const up = change >= 0;
+      const price = isEgg ? eggPrice : listed.price;
+      const chg = formatExampleChange(listed.change, { arrow: true });
       return {
         ...m,
+        name: listed.name,
         price: fmtP(m, price),
-        chg: (up ? '▲ ' : '▼ ') + Math.abs(change).toFixed(2) + '%',
-        chgColor: up ? 'var(--green)' : 'var(--red)',
+        chg: chg.text,
+        chgColor: chg.color,
         tag: 'EXAMPLE',
         tagColor: 'var(--t4)',
         href: 'https://dexetera.xyz/explore',
@@ -151,7 +149,7 @@ export function MarketWall() {
         series: s,
       };
     });
-  }, [eggPrice, eggChg24, series]);
+  }, [eggPrice, series]);
 
   const getOpacity = (cat: string) => (filter === 'All' || cat === filter ? 1 : 0.28);
 

@@ -1,5 +1,12 @@
 // Market data types and constants
 
+import {
+  exampleBySymbol,
+  formatExampleChange,
+  formatExamplePrice,
+  tickerFromExamples,
+} from "@/lib/exampleMarkets";
+
 export type Market = {
   id: string;
   name: string;
@@ -33,21 +40,8 @@ export const FEATURED_SERIES = Array.from({ length: 90 }, (_, i) => {
     - (0.035 * Math.sin(11) + 0.02 * Math.sin(24)) * t;
 });
 
-// Ticker data
-export const TICKER: [string, string, number][] = [
-  ['PRICE-EGGS', '$2.715', 0],
-  ['PRICE-MILK-US', '$4.12', 0.24],
-  ['CRUDE-OIL', '$71.84', -0.62],
-  ['GOLD', '$2,412.30', 0.31],
-  ['SILVER', '$29.84', 0.48],
-  ['NASDAQ', '$18,240.11', -0.12],
-  ['GPU-H100', '$2.00', 0],
-  ['ERCOT-N', '$38.40', 1.12],
-  ['DRAM-DDR5', '$4.85', -0.41],
-  ['FREIGHT-FEU', '$2,140', 0.66],
-  ['BTC', '$64,210.00', 0.86],
-  ['ETH', '$3,120.45', -0.33],
-];
+// Ticker data, from the shared example list
+export const TICKER: [string, string, number][] = tickerFromExamples();
 
 export const STATS = [
   { label: 'What you can list', value: 'Any', sub: 'PUBLIC NUMBER' },
@@ -64,23 +58,28 @@ export const GLASS_STATS = [
   { v: 'Institutions', d: "Who gets access to a bank's hedging desk.", x: 'ANYONE TRADES', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
 ];
 
+const dashGpu = exampleBySymbol('GPU-H100');
+const dashErcot = exampleBySymbol('ERCOT-N');
+const dashGpuChg = formatExampleChange(dashGpu.change);
+const dashErcotChg = formatExampleChange(dashErcot.change);
+
 // Hero dashboard data
 export const DASH_ASSETS = [
   { sym: 'PRICE-EGGS', p: 'live', c: 'live', dot: '#F5F5F5' },
-  { sym: 'GPU-H100', p: '$2.00', c: '+1.20%', col: '#4ADE80', dot: '#808080' },
-  { sym: 'ERCOT-N', p: '$41.80', c: '+3.42%', col: '#4ADE80', dot: '#4ADE80' },
+  { sym: dashGpu.symbol, p: formatExamplePrice(dashGpu), c: dashGpuChg.text, col: dashGpuChg.color, dot: '#808080' },
+  { sym: dashErcot.symbol, p: formatExamplePrice(dashErcot), c: dashErcotChg.text, col: dashErcotChg.color, dot: '#4ADE80' },
 ];
 
 export const MY_MARKETS = [
   { sym: 'PRICE-EGGS', p: 'live', dot: '#F5F5F5' },
-  { sym: 'GPU-H100', p: '$2.00', dot: '#808080' },
-  { sym: 'ERCOT-N', p: '$41.80', dot: '#4ADE80' },
+  { sym: dashGpu.symbol, p: formatExamplePrice(dashGpu), dot: '#808080' },
+  { sym: dashErcot.symbol, p: formatExamplePrice(dashErcot), dot: '#4ADE80' },
 ];
 
 export const POSITIONS: [string, 'Long' | 'Short', number, number | 'live', number, number][] = [
   ['PRICE-EGGS', 'Long', 2.690, 'live', 20000, 3],
-  ['GPU-H100', 'Short', 2.06, 2.00, 10000, 2],
-  ['ERCOT-N', 'Long', 42.35, 41.80, 400, 2],
+  ['GPU-H100', 'Short', 2.06, dashGpu.price, 10000, dashGpu.decimals],
+  ['ERCOT-N', 'Long', 42.35, dashErcot.price, 400, dashErcot.decimals],
 ];
 
 export const DASH_DATES = ['OCT 1', 'OCT 4', 'OCT 7', 'OCT 10', 'OCT 13', 'OCT 16'];
@@ -195,6 +194,7 @@ export const FOOTER_LINKS = {
     { label: 'Team', href: '/team' },
     { label: 'Contact', href: '/contact' },
     { label: 'X / Twitter', href: 'https://x.com/dexeteralabs' },
+    { label: 'Discord', href: 'https://discord.com/invite/ntVTBwhTd' },
     { label: 'admin@dexetera.xyz', href: 'mailto:admin@dexetera.xyz' },
   ],
 };

@@ -16,6 +16,17 @@ export function col(v: number): string {
   return v > 0 ? 'var(--green)' : 'var(--red)';
 }
 
+// Grouped dollars, always two fraction digits: $1,284.20
+export function formatUsdAmount(v: number): string {
+  return (
+    "$" +
+    v.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
+}
+
 // Format price with proper decimals
 export function fmtP(v: number, dec: number = 2): string {
   return '$' + v.toLocaleString('en-US', {

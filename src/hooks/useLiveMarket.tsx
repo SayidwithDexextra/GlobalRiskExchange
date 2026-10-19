@@ -2,6 +2,9 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { rnd, resetSeed } from '@/lib/prng';
+import { clampToBand, exampleBySymbol } from '@/lib/exampleMarkets';
+
+const EGG_BASE = exampleBySymbol('PRICE-EGGS').price;
 
 interface Candle {
   o: number;
@@ -169,7 +172,7 @@ export function LiveMarketProvider({ children }: LiveMarketProviderProps) {
     const interval = setInterval(() => {
       setState(prev => {
         const lastCandle = prev.candles[prev.candles.length - 1];
-        const m = lastCandle.c * (1 + (rnd() - 0.5) * 0.004);
+        const m = clampToBand(lastCandle.c * (1 + (rnd() - 0.5) * 0.004), EGG_BASE);
         
         const newCandles = [...prev.candles];
         tn++;

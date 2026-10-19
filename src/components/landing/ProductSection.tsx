@@ -69,6 +69,7 @@ import {
   type TiTab,
   type Trade,
 } from './productModel';
+import { formatExampleChange } from '@/lib/exampleMarkets';
 
 const QUICK: { label: string; add: number | null; color: string }[] = [
   { label: '+$100', add: 100, color: 'var(--t3)' },
@@ -246,9 +247,12 @@ export function ProductSection() {
   const [timesReady, setTimesReady] = useState(false);
 
   const wide = w >= 900;
+  const phone = w < 640;
   const cw = measured ?? Math.min(1680, w - 48) - 2;
-  const desktop = cw >= 1330;
-  const scale = desktop ? 1 : Math.min(1, cw / 1280);
+  const desktop = !phone && cw >= 1330;
+  const scale = desktop || phone ? 1 : Math.min(1, cw / 1280);
+  const stageH = phone ? undefined : Math.round(803 * scale);
+  const stageTransform = desktop || phone ? 'none' : `scale(${scale.toFixed(4)})`;
   const d = derive(btc, hover, flashRow, tiTab, trades[0]);
   const longOn = sideStyle(side === 'long');
   const shortOn = sideStyle(side !== 'long');
@@ -363,30 +367,30 @@ export function ProductSection() {
       <div
         ref={frameRef}
         style={{
-          width: 'calc(100vw - 48px)',
-          maxWidth: 1680,
-          marginLeft: '50%',
-          transform: 'translateX(-50%)',
+          width: phone ? '100%' : 'calc(100vw - 48px)',
+          maxWidth: phone ? '100%' : 1680,
+          marginLeft: phone ? 0 : '50%',
+          transform: phone ? 'none' : 'translateX(-50%)',
           boxSizing: 'border-box',
           border: '1px solid var(--line)',
           borderRadius: 12,
           overflow: 'hidden',
           background: 'var(--bg)',
-          WebkitMaskImage: 'linear-gradient(to bottom,#000 calc(100% - 140px),transparent)',
-          maskImage: 'linear-gradient(to bottom,#000 calc(100% - 140px),transparent)',
+          WebkitMaskImage: phone ? undefined : 'linear-gradient(to bottom,#000 calc(100% - 140px),transparent)',
+          maskImage: phone ? undefined : 'linear-gradient(to bottom,#000 calc(100% - 140px),transparent)',
         }}
       >
         <div style={{ height: 38, background: 'var(--card2)', borderBottom: '1px solid var(--hair)', display: 'flex', alignItems: 'center', gap: 8, padding: '0 14px' }}>
           <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--line2)' }} />
           <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--line2)' }} />
           <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--line2)' }} />
-          <span style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <span style={{ fontFamily: MONO, fontSize: 11, color: 'var(--t3)', background: 'var(--bg)', border: '1px solid var(--line)', borderRadius: 6, padding: '4px 14px' }}>dexetera.xyz/token/NINO34-DEC26</span>
+          <span style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+            <span style={{ fontFamily: MONO, fontSize: 11, color: 'var(--t3)', background: 'var(--bg)', border: '1px solid var(--line)', borderRadius: 6, padding: '4px 14px', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>dexetera.xyz/token/NINO34-DEC26</span>
           </span>
         </div>
-        <div style={{ position: 'relative', height: Math.round(803 * scale), overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', left: 0, top: 0, width: desktop ? '100%' : 1280, height: 803, transform: desktop ? 'none' : `scale(${scale.toFixed(4)})`, transformOrigin: '0 0', fontFamily: SANS, color: 'var(--t1)', background: 'var(--bg)' }}>
-            <div style={{ position: 'absolute', left: 0, top: 0, width: 52, bottom: 0, background: 'var(--card)', borderRight: '1px solid var(--hair)', boxSizing: 'border-box' }}>
+        <div style={{ position: 'relative', height: stageH, overflow: 'hidden' }}>
+          <div style={{ position: phone ? 'relative' : 'absolute', left: 0, top: 0, width: phone ? '100%' : desktop ? '100%' : 1280, height: phone ? 'auto' : 803, transform: stageTransform, transformOrigin: '0 0', fontFamily: SANS, color: 'var(--t1)', background: 'var(--bg)' }}>
+            <div style={{ display: phone ? 'none' : undefined, position: 'absolute', left: 0, top: 0, width: 52, bottom: 0, background: 'var(--card)', borderRight: '1px solid var(--hair)', boxSizing: 'border-box' }}>
               <span style={{ position: 'absolute', left: 10, top: 14, width: 32, height: 32, borderRadius: 8, background: 'var(--line2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Ico icon={User} size={16} color="var(--t3)" />
               </span>
@@ -397,7 +401,7 @@ export function ProductSection() {
               ))}
             </div>
 
-            <div style={{ position: 'absolute', left: 52, top: 0, right: 0, height: 56, boxSizing: 'border-box', borderBottom: '1px solid var(--hair)', display: 'flex', alignItems: 'center', padding: '0 16px' }}>
+            <div style={{ display: phone ? 'none' : 'flex', position: 'absolute', left: 52, top: 0, right: 0, height: 56, boxSizing: 'border-box', borderBottom: '1px solid var(--hair)', alignItems: 'center', padding: '0 16px' }}>
               <div style={{ width: 122, display: 'flex', alignItems: 'center', gap: 8, flex: 'none' }}>
                 <img src="/assets/dexetera-logo.png" alt="Dexetera" style={{ width: 36, height: 36, borderRadius: 8, display: 'block' }} />
                 <span style={{ fontFamily: SERIF, fontSize: 14, letterSpacing: '0.04em' }}>DEXETERA</span>
@@ -436,19 +440,22 @@ export function ProductSection() {
               </span>
             </div>
 
-            <div style={{ position: 'absolute', left: 52, top: 56, right: 0, height: 46, boxSizing: 'border-box', borderBottom: '1px solid var(--hair)', overflow: 'hidden' }}>
+            <div style={{ display: phone ? 'none' : undefined, position: 'absolute', left: 52, top: 56, right: 0, height: 46, boxSizing: 'border-box', borderBottom: '1px solid var(--hair)', overflow: 'hidden' }}>
               <div style={{ display: 'flex', width: 'max-content', height: 46, alignItems: 'center', fontFamily: MONO, fontSize: 12, animation: 'dx-ticker 70s linear infinite' }}>
-                {d.ticker.concat(d.ticker).map((t, i) => (
+                {d.ticker.concat(d.ticker).map((t, i) => {
+                  const chg = formatExampleChange(t[2]);
+                  return (
                   <span key={t[0] + i} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '0 24px', whiteSpace: 'nowrap' }}>
                     <span style={{ color: 'var(--t-soft)' }}>{t[0]}</span>
                     <span style={{ color: 'var(--t1)' }}>{t[1]}</span>
-                    <span style={{ color: t[2] < 0 ? 'var(--red)' : 'var(--green)' }}>{(t[2] >= 0 ? '+' : '') + t[2].toFixed(2) + '%'}</span>
+                    <span style={{ color: chg.color }}>{chg.text}</span>
                   </span>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
-            <div style={{ position: 'absolute', left: 52, top: 102, right: 0, height: 138, boxSizing: 'border-box', background: 'var(--card)', borderBottom: '1px solid var(--hair)' }}>
+            <div style={{ display: phone ? 'none' : undefined, position: 'absolute', left: 52, top: 102, right: 0, height: 138, boxSizing: 'border-box', background: 'var(--card)', borderBottom: '1px solid var(--hair)' }}>
               <div style={{ position: 'absolute', left: 16, right: 16, top: 8, height: 52, display: 'flex', alignItems: 'center' }}>
                 <span style={{ position: 'relative', display: 'flex' }}>
                   <img src="/assets/nino34-icon.svg" alt="" style={{ width: 34, height: 34, borderRadius: '50%', display: 'block', flex: 'none' }} />
@@ -516,8 +523,8 @@ export function ProductSection() {
               </div>
             </div>
 
-            <div style={{ position: 'absolute', left: 56, right: 4, top: 242, display: 'grid', gridTemplateColumns: 'minmax(0,2.2fr) minmax(0,1fr) 320px', gridTemplateRows: '318px 240px', gap: '3px 5px' }}>
-              <div style={{ position: 'relative', gridColumn: 1, gridRow: 1, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', overflow: 'hidden' }}>
+            <div style={{ position: phone ? 'relative' : 'absolute', left: phone ? 0 : 56, right: phone ? 0 : 4, top: phone ? 0 : 242, display: phone ? 'flex' : 'grid', flexDirection: phone ? 'column' : undefined, gap: phone ? 12 : '3px 5px', padding: phone ? 8 : undefined, boxSizing: 'border-box', width: phone ? '100%' : undefined, gridTemplateColumns: phone ? undefined : 'minmax(0,2.2fr) minmax(0,1fr) 320px', gridTemplateRows: phone ? undefined : '318px 240px' }}>
+              <div style={{ display: phone ? 'none' : undefined, position: 'relative', gridColumn: 1, gridRow: 1, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 40, boxSizing: 'border-box', borderBottom: '1px solid var(--ln)', display: 'flex', alignItems: 'center', gap: 14, padding: '0 10px', fontSize: 15, color: 'var(--t-soft)' }}>
                   <Ico icon={Search} size={17} color="var(--t-soft)" />
                   <span style={{ width: 68 }}>NINO34</span>
@@ -582,7 +589,7 @@ export function ProductSection() {
                 </div>
               </div>
 
-              <div style={{ position: 'relative', gridColumn: 1, gridRow: 2, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', overflow: 'hidden' }}>
+              <div style={{ display: phone ? 'none' : undefined, position: 'relative', gridColumn: 1, gridRow: 2, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', overflow: 'hidden' }}>
                 <div style={{ height: 46, display: 'flex', alignItems: 'center', gap: 8, padding: '0 10px' }}>
                   {POS_TABS.map((tab) => {
                     const on = posTab === tab;
@@ -633,8 +640,8 @@ export function ProductSection() {
                 )}
               </div>
 
-              <div style={{ position: 'relative', gridColumn: 2, gridRow: '1 / 3', boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)' }}>
-                <span style={{ ...pillStyle(), top: -11, left: 12 }}>
+              <div style={{ position: 'relative', order: phone ? 2 : undefined, height: phone ? 560 : undefined, width: phone ? '100%' : undefined, gridColumn: phone ? undefined : 2, gridRow: phone ? undefined : '1 / 3', boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)' }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: -11, left: 12 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>1</span>
                   Live order book
                 </span>
@@ -698,16 +705,16 @@ export function ProductSection() {
                 )}
               </div>
 
-              <div style={{ gridColumn: 3, gridRow: '1 / 3', display: 'flex', flexDirection: 'column', gap: 6, position: 'relative' }}>
-                <span style={{ ...pillStyle(), top: -11, left: 150 }}>
+              <div style={{ gridColumn: phone ? undefined : 3, gridRow: phone ? undefined : '1 / 3', display: phone ? 'contents' : 'flex', flexDirection: 'column', gap: 6, position: 'relative', width: phone ? '100%' : undefined }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: -11, left: 150 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>3</span>
                   Source + UMA settlement
                 </span>
-                <span style={{ ...pillStyle(), top: 193, left: 12 }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: 193, left: 12 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>2</span>
                   Gasless, one signature
                 </span>
-                <div style={{ position: 'relative', height: 198, flex: 'none', boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)' }}>
+                <div style={{ position: 'relative', order: phone ? 1 : undefined, height: 198, flex: 'none', width: phone ? '100%' : undefined, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)' }}>
                   <div style={{ height: 30, display: 'flex', alignItems: 'center', gap: 8, padding: '0 12px' }}>
                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--red)' }} />
                     <span style={{ fontSize: 12, fontWeight: 500, color: 'var(--t-hi)' }}>Metric Source</span>
@@ -759,7 +766,7 @@ export function ProductSection() {
                     </div>
                   </div>
                 </div>
-                <div style={{ position: 'relative', height: 357, flex: 'none', boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', padding: '14px 14px 0', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'relative', order: phone ? 3 : undefined, height: 357, flex: 'none', width: phone ? '100%' : undefined, boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)', padding: '14px 14px 0', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ height: 42, flex: 'none', boxSizing: 'border-box', border: '1px solid var(--line)', borderRadius: 6, padding: 3, display: 'flex', gap: 4 }}>
                     {MK_TABS.map((tab) => {
                       const on = mkTab === tab;

@@ -50,7 +50,7 @@ export function Header({ currentPath = '/' }: HeaderProps) {
       }}
     >
       <div
-        className="relative max-w-[1344px] h-full mx-auto flex items-center justify-between gap-16"
+        className={`relative max-w-[1344px] h-full mx-auto flex items-center justify-between ${w < 420 ? 'gap-2' : 'gap-16'}`}
         style={{ padding: '0 clamp(16px,3vw,32px)' }}
       >
         {/* Logo */}
@@ -99,7 +99,7 @@ export function Header({ currentPath = '/' }: HeaderProps) {
             </span>
           )}
 
-          <div className="flex items-center gap-[10px]">
+          <div className={`flex items-center ${w < 420 ? 'gap-[6px]' : 'gap-[10px]'}`}>
             {/* Theme toggle */}
             <ThemeToggle />
 
@@ -128,7 +128,7 @@ export function Header({ currentPath = '/' }: HeaderProps) {
             {/* Launch app button */}
             <a
               href="https://dexetera.xyz"
-              className="h-[34px] pl-[6px] pr-4 flex items-center gap-2 rounded-full text-[12px] font-semibold transition-colors"
+              className="h-[34px] pl-[6px] pr-4 flex items-center gap-2 rounded-full text-[12px] font-semibold whitespace-nowrap transition-colors"
               style={{
                 background: 'var(--btn-p-bg)',
                 color: 'var(--btn-p-fg)',
@@ -146,7 +146,7 @@ export function Header({ currentPath = '/' }: HeaderProps) {
               >
                 <ArrowUpRight className="w-3 h-3" style={{ color: 'var(--btn-p-bg)' }} />
               </span>
-              Launch app
+              {w < 420 ? 'Launch' : 'Launch app'}
             </a>
 
             {/* Mobile menu button */}

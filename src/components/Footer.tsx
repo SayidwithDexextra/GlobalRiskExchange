@@ -1,6 +1,34 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FOOTER_LINKS, FOOTER_CHIPS } from '@/lib/data';
+
+function isExternal(href: string) {
+  return href.startsWith('http://') || href.startsWith('https://');
+}
+
+function FooterLink({ href, children }: { href: string; children: ReactNode }) {
+  const className = 'text-[13px] text-t2 hover:text-t1 transition-colors';
+  if (isExternal(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  if (href.startsWith('/')) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  );
+}
 
 export function Footer() {
   return (
@@ -38,13 +66,9 @@ export function Footer() {
             Product
           </h5>
           {FOOTER_LINKS.product.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[13px] text-t2 hover:text-t1 transition-colors"
-            >
+            <FooterLink key={link.href} href={link.href}>
               {link.label}
-            </a>
+            </FooterLink>
           ))}
         </div>
 
@@ -54,13 +78,9 @@ export function Footer() {
             Learn
           </h5>
           {FOOTER_LINKS.learn.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[13px] text-t2 hover:text-t1 transition-colors"
-            >
+            <FooterLink key={link.href} href={link.href}>
               {link.label}
-            </Link>
+            </FooterLink>
           ))}
         </div>
 
@@ -70,23 +90,37 @@ export function Footer() {
             Company
           </h5>
           {FOOTER_LINKS.company.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[13px] text-t2 hover:text-t1 transition-colors"
-            >
+            <FooterLink key={link.href} href={link.href}>
               {link.label}
-            </a>
+            </FooterLink>
           ))}
         </div>
       </div>
 
       {/* Bottom bar */}
       <div
-        className="max-w-[1344px] mx-auto border-t border-hair flex justify-between items-center font-mono text-[10px] tracking-[0.1em] uppercase text-t4"
+        className="max-w-[1344px] mx-auto border-t border-hair flex flex-wrap justify-between items-center gap-x-4 gap-y-2 font-mono text-[10px] tracking-[0.1em] uppercase text-t4"
         style={{ padding: '20px clamp(16px,3vw,32px) 32px' }}
       >
-        <span>© 2026 Dexetera</span>
+        <span className="inline-flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span>© 2026 Dexetera</span>
+          <a
+            href="https://dexetera.org/dexetera-tos.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-t1"
+          >
+            Terms
+          </a>
+          <a
+            href="https://dexetera.org/dexetera-privacy.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-t1"
+          >
+            Privacy
+          </a>
+        </span>
         <span>Settled by public data</span>
       </div>
 
@@ -110,20 +144,11 @@ function StatusBar() {
         className="max-w-[1344px] mx-auto min-h-[48px] py-[10px] flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px]"
         style={{ padding: '10px clamp(16px,3vw,32px)' }}
       >
-        <span className="flex items-center gap-2 text-t3">
-          <span className="w-[6px] h-[6px] rounded-full bg-t4" />
-          Preview
-        </span>
-
-        {/* Links */}
         <Link href="/#how" className="text-t2 hover:text-t1">
           How it works
         </Link>
-        <a href="https://dexetera.xyz/watchlist" className="text-t2 hover:text-t1">
+        <a href="https://dexetera.xyz/watchlist" target="_blank" rel="noopener noreferrer" className="text-t2 hover:text-t1">
           Watchlist
-        </a>
-        <a href="https://doc.dexetera.org" className="text-t2 hover:text-t1">
-          Docs
         </a>
         <a href="mailto:admin@dexetera.xyz" className="text-t2 hover:text-t1">
           Support
@@ -135,6 +160,8 @@ function StatusBar() {
             <a
               key={chip}
               href={`https://dexetera.xyz/token/${chip}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-mono text-[10px] px-[7px] py-[3px] rounded text-t2 transition-colors hover:text-t1"
               style={{ border: '1px solid var(--line3)' }}
             >

@@ -19,10 +19,13 @@ export const Rocks = forwardRef<{ leftRef: HTMLDivElement | null; rightRef: HTML
     const T = w > 768;
 
     // Calculate rock geometry
+    const desktop = w >= 1100;
     const dashW = D ? Math.min(880, w * 0.72) : T ? w * 0.86 : w - 32;
     const m = (w - dashW) / 2;
-    const ov = T ? 70 : 20;
-    const sc = Math.max((m + ov) / 515, D ? 0 : (w * 0.22) / 515);
+    // On desktop, size the rocks to the side margins so they don't cover dashboard text.
+    const gap = 16;
+    const ov = desktop ? ((m - gap) * 515) / 530 - m : T ? 70 : 20;
+    const sc = Math.max((m + ov) / 515, desktop ? 0 : (w * 0.22) / 515);
 
     const leftWidth = 530 * sc;
     const rightWidth = m + ov + 10 * sc;

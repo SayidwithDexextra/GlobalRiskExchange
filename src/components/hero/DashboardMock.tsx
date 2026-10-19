@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, type ReactNode } from 'react';
 import Image from 'next/image';
 import { 
   PanelLeft, 
@@ -13,20 +13,21 @@ import {
   Bell 
 } from 'lucide-react';
 import { DASH_ASSETS, MY_MARKETS, POSITIONS, DASH_DATES } from '@/lib/data';
+import { exampleBySymbol, formatExampleChange, formatExamplePrice } from '@/lib/exampleMarkets';
 import { rnd, resetSeed } from '@/lib/prng';
 
 interface DashboardMockProps {
   width: number;
   showSidebar: boolean;
   eggPrice: number;
-  eggChg24: number;
   myOpen: boolean;
   onToggleMy: () => void;
   pvSize: string;
+  scrollPill?: ReactNode;
 }
 
 export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
-  function DashboardMock({ width, showSidebar, eggPrice, eggChg24, myOpen, onToggleMy, pvSize }, ref) {
+  function DashboardMock({ width, showSidebar, eggPrice, myOpen, onToggleMy, pvSize, scrollPill }, ref) {
     
     // Generate dashboard bars (deterministic)
     const bars = useMemo(() => {
@@ -62,14 +63,17 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
     const pvGain = '+$' + Math.round(gain).toLocaleString('en-US');
     const pvFormatted = '$' + pv.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    // Process assets with live egg price
+    const eggs = exampleBySymbol('PRICE-EGGS');
+    const eggChange = formatExampleChange(eggs.change);
+
+    // Process assets with live egg price, starting from the shared list
     const heroAssets = DASH_ASSETS.map((a) => {
       if (a.sym === 'PRICE-EGGS') {
         return {
           ...a,
-          p: '$' + eggPrice.toFixed(3),
-          c: (eggChg24 >= 0 ? '+' : '') + eggChg24.toFixed(2) + '%',
-          col: eggChg24 >= 0 ? 'var(--green)' : 'var(--red)',
+          p: formatExamplePrice(eggs, eggPrice),
+          c: eggChange.text,
+          col: eggChange.color,
         };
       }
       return a;
@@ -78,7 +82,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
     // Process my markets with live egg price
     const myMarkets = MY_MARKETS.map((m) => {
       if (m.sym === 'PRICE-EGGS') {
-        return { ...m, p: '$' + eggPrice.toFixed(3) };
+        return { ...m, p: formatExamplePrice(eggs, eggPrice) };
       }
       return m;
     });
@@ -104,6 +108,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
         className="relative z-[2] flex justify-center will-change-transform"
         style={{ marginTop: showSidebar ? '44px' : '36px' }}
       >
+        {scrollPill}
         <div
           className="flex-none flex overflow-hidden rounded-2xl"
           style={{
