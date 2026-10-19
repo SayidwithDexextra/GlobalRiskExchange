@@ -2,7 +2,7 @@
 // To use a headshot: put the image in /public/team/ and set `photo: "/team/sayid.jpg"`.
 // The monogram (initials) shows whenever `photo` is empty.
 
-export type TeamLink = { kind: "linkedin" | "x"; href: string; label: string };
+export type TeamLink = { kind: "linkedin" | "x" | "crunchbase"; href: string; label: string };
 
 export type TeamMember = {
   initials: string;
@@ -45,6 +45,8 @@ export const TEAM: TeamMember[] = [
     photo: "/team/cyril.jpg",
     bio: "Pioneer of geolocation technology. Exited InfoSplit, founded Navizon and an early decentralized Bitcoin exchange, and funded Dexetera's $200,000 friends and family round.",
     tags: [],
-    links: [],
+    links: [
+      { kind: "crunchbase", href: "https://www.crunchbase.com/person/cyril-houri", label: "Cyril H. on Crunchbase" },
+    ],
   },
 ];
