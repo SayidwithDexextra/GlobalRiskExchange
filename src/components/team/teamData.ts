@@ -20,7 +20,7 @@ export const TEAM: TeamMember[] = [
     name: "Sayid M.",
     role: "FOUNDER & CEO",
     photo: "/team/sayid.jpg",
-    bio: "Sayid started Dexetera to give risks that never had a market, from El Niño to GPU rental rates, a place to be priced and hedged, and he leads the engineering behind it. Before Dexetera he founded GPlay Studios, a play-to-earn blockchain game studio, and built Web3 commerce infrastructure and Ethereum smart contracts as a full-stack engineer at Mueshi Global. He is also an eMerge Americas Hackathon winner.",
+    bio: "Sayid is breaking risk out of the silos of traditional banks. Dexetera extends the major contracts that run global finance into a permissionless, on-chain marketplace where anyone can price and hedge any measurable risk, from El Niño to GPU rental rates. He leads the engineering behind the platform. Before Dexetera he founded GPlay Studios, a play-to-earn blockchain game studio, and built Web3 commerce infrastructure and Ethereum smart contracts as a full-stack engineer at Mueshi Global. He is also an eMerge Americas Hackathon winner.",
     tags: ["eMerge Americas", "GPlay Studios", "Mueshi Global"],
     links: [
       { kind: "linkedin", href: "https://www.linkedin.com/in/sayiddexetera", label: "Sayid M. on LinkedIn" },
