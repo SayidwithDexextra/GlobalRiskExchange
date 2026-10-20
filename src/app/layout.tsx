@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import { HashlessScroll } from "@/components/HashlessScroll";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -192,6 +193,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <script dangerouslySetInnerHTML={{ __html: hashlessScript }} />
         <HashlessScroll />
+        <Analytics />
       </body>
     </html>
   );
