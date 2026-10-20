@@ -17,6 +17,7 @@ export const HeroCopy = forwardRef<HTMLDivElement, HeroCopyProps>(
     return (
       <div
         ref={ref}
+        data-hero-copy
         className="relative z-[1] flex flex-col items-center text-center will-change-transform"
         style={{ padding: `${paddingTop} 16px 0` }}
       >

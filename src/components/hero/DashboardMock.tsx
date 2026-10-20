@@ -106,6 +106,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
     return (
       <div
         ref={ref}
+        data-hero-dash
         className="relative z-[2] flex justify-center will-change-transform"
         style={{ marginTop: showSidebar ? '44px' : '36px' }}
       >

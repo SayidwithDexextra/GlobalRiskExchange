@@ -70,6 +70,7 @@ export const Rocks = forwardRef<{ leftRef: HTMLDivElement | null; rightRef: HTML
       >
         {/* Left rock */}
         <div
+          data-hero-rock
           className="absolute left-0 bottom-0 will-change-transform"
           style={{
             width: `${leftWidth}px`,

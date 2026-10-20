@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useViewport } from '@/hooks/useViewport';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { HeroStorm } from './HeroStorm';
+import HeroDisasters from './HeroDisasters';
 import { HeroCopy } from './HeroCopy';
 import { DashboardMock } from './DashboardMock';
 import { Rocks } from './Rocks';
@@ -142,7 +143,8 @@ export function Hero({ eggPrice }: HeroProps) {
           }}
         />
 
-        {/* Storm canvas */}
+        {/* Disaster photos, then the lightning canvas */}
+        <HeroDisasters top={72} />
         <HeroStorm />
 
         {/* Copy */}
