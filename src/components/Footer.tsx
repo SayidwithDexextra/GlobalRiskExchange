@@ -105,7 +105,7 @@ export function Footer() {
         <span className="inline-flex flex-wrap items-center gap-x-4 gap-y-1">
           <span>© 2026 Dexetera</span>
           <a
-            href="https://dexetera.org/dexetera-tos.html"
+            href="https://www.dexetera.xyz/terms"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-t1"
@@ -113,7 +113,7 @@ export function Footer() {
             Terms
           </a>
           <a
-            href="https://dexetera.org/dexetera-privacy.html"
+            href="https://www.dexetera.xyz/privacy"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-t1"
