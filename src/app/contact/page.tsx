@@ -68,11 +68,13 @@ export default function ContactPage() {
       const card = document.getElementById('formcard');
       fetch('/api/contact', { method: 'POST', body: new FormData(form) })
         .then((res) => {
-          if (!res.ok) return;
+          if (!res.ok) throw new Error('send failed');
           card?.classList.add('sent');
           form.reset();
         })
-        .catch(() => {});
+        .catch(() => {
+          alert('Sorry, your message could not be sent. Please email us at admin@dexetera.xyz.');
+        });
     }
     function onInput(e: Event) {
       (e.currentTarget as HTMLElement).parentElement?.classList.remove('err');
