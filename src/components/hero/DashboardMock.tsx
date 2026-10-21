@@ -135,7 +135,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
                 <span className="flex items-center gap-2">
                   <Image
                     src="/assets/dexetera-logo.png"
-                    alt=""
+                    alt="Dexetera logo"
                     width={24}
                     height={24}
                     className="rounded-[5px] block flex-none"
