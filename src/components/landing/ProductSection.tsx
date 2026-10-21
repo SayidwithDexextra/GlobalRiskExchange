@@ -459,7 +459,7 @@ export function ProductSection() {
             <div style={{ display: phone ? 'none' : undefined, position: 'absolute', left: 52, top: 102, right: 0, height: 138, boxSizing: 'border-box', background: 'var(--card)', borderBottom: '1px solid var(--hair)' }}>
               <div style={{ position: 'absolute', left: 16, right: 16, top: 8, height: 52, display: 'flex', alignItems: 'center' }}>
                 <span style={{ position: 'relative', display: 'flex' }}>
-                  <img src="/assets/nino34-icon.svg" alt="" style={{ width: 34, height: 34, borderRadius: '50%', display: 'block', flex: 'none' }} />
+                  <img src="/assets/nino34-icon.svg" alt="Niño 3.4 market icon" style={{ width: 34, height: 34, borderRadius: '50%', display: 'block', flex: 'none' }} />
                   <span style={{ position: 'absolute', right: -1, bottom: -1, width: 9, height: 9, borderRadius: '50%', background: 'var(--green)', border: '2px solid var(--card)' }} />
                 </span>
                 <div style={{ flex: 'none', marginLeft: 12, display: 'flex', flexDirection: 'column', gap: 2, whiteSpace: 'nowrap' }}>
@@ -733,7 +733,7 @@ export function ProductSection() {
                       <span style={{ fontSize: 10, color: 'var(--t2)' }}>ACTIVE</span>
                     </div>
                     <span style={{ position: 'absolute', left: 8, top: 35 }}>
-                      <img src="/assets/nino34-icon.svg" alt="" style={{ width: 26, height: 26, borderRadius: '50%', display: 'block', flex: 'none' }} />
+                      <img src="/assets/nino34-icon.svg" alt="Niño 3.4 market icon" style={{ width: 26, height: 26, borderRadius: '50%', display: 'block', flex: 'none' }} />
                     </span>
                     <span style={{ position: 'absolute', left: 40, top: 28, fontSize: 13, fontWeight: 600 }}>Niño 3.4</span>
                     <div style={{ position: 'absolute', left: 38, top: 48, display: 'flex', gap: 4 }}>
