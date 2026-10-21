@@ -28,6 +28,7 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: "Dexetera | The marketplace for risk",
   description: "Create a futures market on any number you can measure, trade it long or short in USDC, and let public data settle it.",
   openGraph: {
