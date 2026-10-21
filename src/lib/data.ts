@@ -194,7 +194,6 @@ export const FOOTER_LINKS = {
     { label: 'Team', href: '/team' },
     { label: 'Contact', href: '/contact' },
     { label: 'X / Twitter', href: 'https://x.com/dexeteralabs' },
-    { label: 'Discord', href: 'https://discord.com/invite/ntVTBwhTd' },
     { label: 'admin@dexetera.xyz', href: 'mailto:admin@dexetera.xyz' },
   ],
 };
