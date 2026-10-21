@@ -71,6 +71,7 @@ export default function ContactPage() {
           if (!res.ok) throw new Error('send failed');
           card?.classList.add('sent');
           form.reset();
+          if (tEl) tEl.value = String(Date.now());
         })
         .catch(() => {
           alert('Sorry, your message could not be sent. Please email us at admin@dexetera.xyz.');
@@ -82,6 +83,8 @@ export default function ContactPage() {
     const fields = form.querySelectorAll('.in');
     window.addEventListener('resize', onResize);
     window.addEventListener('scroll', onScroll, { passive: true });
+    const tEl = document.getElementById('cf_t') as HTMLInputElement | null;
+    if (tEl) tEl.value = String(Date.now());
     form.addEventListener('submit', onSubmit);
     fields.forEach((el) => el.addEventListener('input', onInput));
     size();
@@ -115,6 +118,11 @@ export default function ContactPage() {
         <div className='contact'>
         <div className='card formcard' id='formcard'>
         <form id='cform' noValidate>
+        <div aria-hidden='true' style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+          <label htmlFor='cf_website'>Leave this field empty</label>
+          <input id='cf_website' name='website' type='text' tabIndex={-1} autoComplete='off' defaultValue='' />
+          <input id='cf_t' name='cf_t' type='hidden' defaultValue='' />
+        </div>
         <div className='k'>Send a message</div>
         <h2>How can we help?</h2>
         <div className='field'>
@@ -181,7 +189,7 @@ export default function ContactPage() {
         <footer>
         <div className='ft'>
         <div>
-        <a className='brand' href='/'><img src='/dexetera-logo.svg' alt='' /><span>DEXETERA</span></a>
+        <a className='brand' href='/'><img src='/dexetera-logo.svg' alt='Dexetera logo' /><span>DEXETERA</span></a>
         <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
         </div>
         <div><h5>Product</h5><a href='/#markets'>Markets</a><a href='https://dexetera.xyz'>Launch app</a><a href='https://dexetera.xyz/new-market'>Create a market</a></div>
