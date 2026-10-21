@@ -48,6 +48,13 @@ export function FilmCard() {
   }, []);
 
   const showCard = ready && !hidden && !open;
+  const shownOnce = useRef(false);
+  useEffect(() => {
+    if (showCard && !shownOnce.current) {
+      shownOnce.current = true;
+      track('film_card_shown');
+    }
+  }, [showCard]);
 
   // Play the silent loop only while the card is on screen
   useEffect(() => {
