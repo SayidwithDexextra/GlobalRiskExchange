@@ -18,6 +18,7 @@ import CreatorsEarn from '@/components/sections/CreatorsEarn';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { LiveMarketProvider, useLiveMarket } from '@/hooks/useLiveMarket';
+import { FilmCard } from '@/components/film/FilmCard';
 
 function LandingContent() {
   const { eggPrice } = useLiveMarket();
@@ -69,6 +70,9 @@ function LandingContent() {
 
       {/* 16. Footer */}
       <Footer />
+
+      {/* Floating film card (bottom right, after the hero) */}
+      <FilmCard />
     </>
   );
 }
