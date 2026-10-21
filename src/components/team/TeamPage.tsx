@@ -98,7 +98,7 @@ export default function TeamPage() {
               <article className={i === TEAM.length - 1 && TEAM.length % 2 === 1 ? "pc pc-solo" : "pc"} key={p.name}>
                 <div className="pc-top">
                   <div className="ph" aria-hidden="true">
-                    {p.photo ? <img src={p.photo} alt="" /> : p.initials}
+                    {p.photo ? <img src={p.photo} alt={`Photo of ${p.name}`} /> : p.initials}
                   </div>
                   <div>
                     <h2>{p.name}</h2>
@@ -139,7 +139,7 @@ export default function TeamPage() {
       <footer>
         <div className="ft">
           <div>
-            <a className="brand" href="/"><img src="/dexetera-logo.svg" alt="" /><span>DEXETERA</span></a>
+            <a className="brand" href="/"><img src="/dexetera-logo.svg" alt="Dexetera logo" /><span>DEXETERA</span></a>
             <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
           </div>
           <div><h5>Product</h5><a href="/#markets">Markets</a><a href="https://dexetera.xyz">Launch app</a><a href="https://dexetera.xyz/new-market">Create a market</a></div>
