@@ -5,6 +5,7 @@ import TeamPage from "@/components/team/TeamPage";
 export const metadata: Metadata = {
   title: "Team | Dexetera",
   description: "The people building Dexetera, a live exchange for real-world markets.",
+  alternates: { canonical: "/team" },
 };
 
 export default function Page() {
