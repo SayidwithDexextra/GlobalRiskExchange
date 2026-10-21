@@ -25,14 +25,52 @@ function esc(s: string) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Spam protection: hidden trap field, minimum fill time, link limit, same-site origin,
+// and a per-visitor rate limit (best effort, per server instance).
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string) {
+  const now = Date.now();
+  const list = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
+  list.push(now);
+  hits.set(ip, list);
+  if (hits.size > 5000) hits.clear();
+  return list.length > MAX_PER_WINDOW;
+}
+
+function allowedOrigin(origin: string | null) {
+  if (!origin) return true;
+  try {
+    const h = new URL(origin).hostname;
+    return h === 'dexetera.org' || h.endsWith('.dexetera.org') || h === 'localhost' || h.endsWith('.vercel.app');
+  } catch {
+    return false;
+  }
+}
+
+// Bots get a normal-looking success so they don't retry, but nothing is sent.
+const silentOk = () => NextResponse.json({ success: true, message: 'Message received' }, { status: 200 });
+
 function clip(s: string, n: number) {
   return s.trim().slice(0, n);
 }
 
 export async function POST(request: NextRequest) {
   try {
+    if (!allowedOrigin(request.headers.get('origin'))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    const ip = (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() || request.headers.get('x-real-ip') || 'unknown';
+    if (rateLimited(ip)) {
+      return NextResponse.json({ error: 'Too many messages. Please try again in a few minutes.' }, { status: 429 });
+    }
+
     const contentType = request.headers.get('content-type') || '';
     let data: ContactFormData;
+    let trap = '';
+    let startedAt = 0;
     if (contentType.includes('application/json')) {
       data = await request.json();
     } else {
@@ -45,7 +83,13 @@ export async function POST(request: NextRequest) {
         topic: String(fd.get('topic') || ''),
         message: String(fd.get('message') || ''),
       };
+      trap = String(fd.get('website') || '');
+      startedAt = Number(fd.get('cf_t') || 0);
     }
+
+    if (trap.trim()) return silentOk();
+    if (startedAt && Date.now() - startedAt < 3000) return silentOk();
+    if (((data.message || '').match(/https?:\/\/|www\./gi) || []).length > 3) return silentOk();
 
     // Validate required fields
     if (!data.name?.trim() || data.name.trim().length <= 1 || !data.email || !data.message?.trim() || data.message.trim().length <= 3) {
