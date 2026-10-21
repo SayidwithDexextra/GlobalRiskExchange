@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import { HashlessScroll } from "@/components/HashlessScroll";
-import { Analytics } from "@vercel/analytics/next";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -167,12 +167,21 @@ const themeScript = `
 // PostHog analytics (page views, clicks, scroll depth, session replay, heatmaps).
 // Events go through /ingest (rewrite in next.config.ts) so ad blockers drop fewer visits.
 const posthogScript = `
+(function(){try{var q=new URLSearchParams(location.search).get('dx_me');if(q===null)return;
+if(q==='1'){localStorage.setItem('dx-internal','1');}else{localStorage.removeItem('dx-internal');}
+var u=new URL(location.href);u.searchParams.delete('dx_me');history.replaceState(null,'',u.pathname+u.search+u.hash);
+var msg=q==='1'?'This browser is now marked as you. Your visits will not count in the traffic reports.':'This browser is no longer marked as you.';
+var show=function(){var d=document.createElement('div');d.textContent=msg;d.setAttribute('role','status');
+d.style.cssText='position:fixed;left:50%;top:88px;transform:translateX(-50%);z-index:200;max-width:92vw;padding:12px 18px;border-radius:12px;background:#0f0f11;color:#ededee;border:1px solid rgba(61,220,132,.45);font:500 14px/1.4 system-ui,sans-serif;box-shadow:0 16px 40px rgba(0,0,0,.45)';
+document.body.appendChild(d);setTimeout(function(){d.remove();},6000);};
+if(document.body){show();}else{document.addEventListener('DOMContentLoaded',show);}}catch(e){}})();
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="vu pu gu mu init Gu Qu Hu Wu Xu il Vu Yu ju oc ac lc uc cc hc capture getExtension Zu hu gc calculateEventProperties vc register register_once register_for_session unregister unregister_for_session zu mc getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wc identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kc shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yc nc createPersonProfile setInternalOrTestUser bc xu ku opt_in_capturing opt_out_capturing Su has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing tc debug nl Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
 posthog.init('phc_mvyRtX6trxVyVXZqV6kwzQvddPu6PpoLDFbBBdCLFbHj', {
   api_host: '/ingest',
   ui_host: 'https://us.posthog.com',
   defaults: '2026-05-30',
   person_profiles: 'always',
+  before_send: function(ev){try{if(ev&&localStorage.getItem('dx-internal')==='1'){ev.properties=ev.properties||{};ev.properties.dx_internal=true;}}catch(e){}return ev;},
 });
 `;
 
@@ -193,7 +202,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <script dangerouslySetInnerHTML={{ __html: hashlessScript }} />
         <HashlessScroll />
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
