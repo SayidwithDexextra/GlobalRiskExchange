@@ -430,7 +430,7 @@ export default function WhitepaperPage() {
         <footer>
         <div className='ft'>
         <div>
-        <a className='brand' href='/'><img src='/dexetera-logo.svg' alt='' /><span>DEXETERA</span></a>
+        <a className='brand' href='/'><img src='/dexetera-logo.svg' alt='Dexetera logo' /><span>DEXETERA</span></a>
         <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
         </div>
         <div><h5>Product</h5><a href='/#markets'>Markets</a><a href='https://dexetera.xyz'>Launch app</a><a href='https://dexetera.xyz/new-market'>Create a market</a></div>
