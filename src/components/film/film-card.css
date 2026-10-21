@@ -1,10 +1,10 @@
 /* Dexetera film: corner card + theater player */
 .dx-film-card {
   position: fixed;
-  right: 28px;
-  bottom: 28px;
+  right: 24px;
+  bottom: 24px;
   z-index: 45;
-  width: 400px;
+  width: 312px;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
@@ -23,7 +23,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background: #0b0b0c;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -51,13 +51,13 @@
 }
 .dx-film-card .tag {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.14em;
   color: #d8d8dc;
   background: rgba(10, 10, 11, 0.6);
@@ -65,7 +65,7 @@
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-  padding: 4px 9px 4px 8px;
+  padding: 3px 8px 3px 7px;
 }
 .dx-film-card .tag i {
   width: 5px;
@@ -80,11 +80,11 @@
 }
 .dx-film-card .x {
   position: absolute;
-  top: 9px;
-  right: 9px;
+  top: 7px;
+  right: 7px;
   z-index: 2;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 7px;
   display: grid;
   place-items: center;
@@ -103,7 +103,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 56px 16px 15px;
+  padding: 44px 13px 12px;
   background: linear-gradient(rgba(8, 8, 9, 0), rgba(8, 8, 9, 0.78) 45%, rgba(8, 8, 9, 0.96));
   display: flex;
   align-items: flex-end;
@@ -111,7 +111,7 @@
 }
 .dx-film-card .txt {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   color: #f2f2f3;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -119,15 +119,15 @@
 .dx-film-card .txt small {
   display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   color: #8f8f96;
   font-weight: 400;
   letter-spacing: 0.02em;
   margin-top: 3px;
 }
 .dx-film-card .pl {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #f2f2f3;
   display: grid;
@@ -138,10 +138,10 @@
 .dx-film-card:hover .pl { transform: scale(1.1); }
 .dx-film-card .pl::after {
   content: '';
-  border-left: 10px solid #111;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  margin-left: 3px;
+  border-left: 8px solid #111;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  margin-left: 2px;
 }
 .dx-film-card .bar {
   position: absolute;
