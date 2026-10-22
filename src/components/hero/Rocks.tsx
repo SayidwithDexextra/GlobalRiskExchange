@@ -31,7 +31,8 @@ export const Rocks = forwardRef<{ leftRef: HTMLDivElement | null; rightRef: HTML
     const rightWidth = m + ov + 10 * sc;
     const height = 1080 * sc;
     const bgSize = `${1920 * sc}px ${1080 * sc}px`;
-    const rightBgPos = `${-1300 * sc}px 0px`;
+    const rightBgPos = '0px 0px';
+    const rightBgSize = `${620 * sc}px ${1080 * sc}px`;
 
     // Scroll-based transform
     const p = scrollProgress;
@@ -106,8 +107,8 @@ export const Rocks = forwardRef<{ leftRef: HTMLDivElement | null; rightRef: HTML
           <div
             className="w-full h-full bg-no-repeat"
             style={{
-              backgroundImage: 'url(/assets/hero_rocks.webp)',
-              backgroundSize: bgSize,
+              backgroundImage: 'url(/assets/hero_rocks_man.webp)',
+              backgroundSize: rightBgSize,
               backgroundPosition: rightBgPos,
               filter: 'var(--rock-filter)',
               transform: innerScale,
