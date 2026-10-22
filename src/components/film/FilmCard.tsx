@@ -163,8 +163,8 @@ export function FilmCard() {
         <div className="tile">
           <video
             ref={loopRef}
-            src={ready ? LOOP : undefined}
-            poster={LOOP_POSTER}
+            src={ready && !hidden ? LOOP : undefined}
+            poster={ready && !hidden ? LOOP_POSTER : undefined}
             muted
             loop
             playsInline
@@ -210,7 +210,7 @@ export function FilmCard() {
         <div className="frame">
           <video
             ref={filmRef}
-            poster={POSTER}
+            poster={open ? POSTER : undefined}
             preload="none"
             playsInline
             controls
