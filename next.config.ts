@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
       { source: "/contact.html", destination: "/contact", permanent: true },
       { source: "/security.html", destination: "/", permanent: true },
       { source: "/markets.html", destination: "https://dexetera.xyz/explore", permanent: true },
+      { source: "/dexetera-tos.html", destination: "https://www.dexetera.xyz/terms", permanent: true },
+      { source: "/dexetera-privacy.html", destination: "https://www.dexetera.xyz/privacy", permanent: true },
+      { source: "/terms", destination: "https://www.dexetera.xyz/terms", permanent: true },
+      { source: "/privacy", destination: "https://www.dexetera.xyz/privacy", permanent: true },
       { source: "/dexetera-waitlist", destination: "/", permanent: true },
       { source: "/dexetera-waitlist/:path*", destination: "/", permanent: true },
     ];
