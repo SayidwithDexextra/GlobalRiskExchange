@@ -125,7 +125,9 @@ export function Footer() {
       </div>
 
       {/* Status bar */}
-      <StatusBar />
+      <div className="max-sm:hidden">
+        <StatusBar />
+      </div>
     </footer>
   );
 }
