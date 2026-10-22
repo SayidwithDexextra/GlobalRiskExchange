@@ -314,3 +314,7 @@ input:focus {
 
 /* Phone swipe rows (see src/lib/swipeRow.ts) */
 .dx-swipe::-webkit-scrollbar{display:none}
+
+/* Hide scrollbars site-wide; scrolling (wheel, trackpad, touch, keys) still works. */
+html, body, * { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { display: none; width: 0; height: 0; }
