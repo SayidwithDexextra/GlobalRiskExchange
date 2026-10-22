@@ -853,6 +853,8 @@ export function ProductSection() {
         </div>
       </div>
 
+      {/* Feature strip repeats the three points above, so phones skip it to keep the page short */}
+      {!phone && (
       <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: wide ? 'repeat(5,minmax(0,1fr))' : 'minmax(0,1fr)', border: '1px solid var(--line)', borderRadius: 12, background: 'var(--card)' }}>
         {FEATURES.map((ft) => (
           <div key={ft.t} style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 10, borderRight: '1px solid var(--hair)', borderBottom: '1px solid var(--hair)' }}>
@@ -862,6 +864,7 @@ export function ProductSection() {
           </div>
         ))}
       </div>
+      )}
     </section>
   );
 }
