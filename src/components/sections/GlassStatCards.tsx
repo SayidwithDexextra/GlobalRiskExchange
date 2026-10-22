@@ -5,10 +5,13 @@ import { GLASS_STATS } from '@/lib/data';
 export function GlassStatCards({
   columns,
   rows,
+  limit,
 }: {
   columns: string;
   rows: string;
+  limit?: number;
 }) {
+  const stats = limit ? GLASS_STATS.slice(0, limit) : GLASS_STATS;
   return (
     <div
       className="grid gap-3 min-w-0"
@@ -18,7 +21,7 @@ export function GlassStatCards({
         height: rows === 'auto' ? undefined : '100%',
       }}
     >
-      {GLASS_STATS.map((ps, i) => (
+      {stats.map((ps, i) => (
         <div
           key={i}
           className="relative overflow-hidden rounded-2xl p-[14px] flex flex-col gap-2 min-w-0 transition-all duration-200"

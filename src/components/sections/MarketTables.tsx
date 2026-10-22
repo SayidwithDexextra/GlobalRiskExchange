@@ -31,12 +31,16 @@ function MarketTable({
   count,
   subtitle,
   markets,
+  compact = false,
 }: {
   title: string;
   count: number;
   subtitle: string;
   markets: typeof priceExamples;
+  compact?: boolean;
 }) {
+  // Phones show the first two rows only, to keep the page short.
+  const rows = compact ? markets.slice(0, 2) : markets;
   return (
     <div
       className="min-w-0 rounded-xl overflow-hidden"
@@ -84,7 +88,7 @@ function MarketTable({
             </tr>
           </thead>
           <tbody>
-            {markets.map((m, i) => (
+            {rows.map((m, i) => (
               <tr
                 key={i}
                 className="hover:bg-card2 transition-colors cursor-pointer"
@@ -117,6 +121,7 @@ function MarketTable({
 export function MarketTables() {
   const { w } = useViewport();
   const L = w >= 1100;
+  const compact = w < 640;
   const tableCols = L ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)';
 
   return (
@@ -146,14 +151,27 @@ export function MarketTables() {
           count={4}
           subtitle="Example"
           markets={priceExamples}
+          compact={compact}
         />
         <MarketTable
           title="Other metrics"
           count={4}
           subtitle="Example"
           markets={otherExamples}
+          compact={compact}
         />
       </div>
+      {compact && (
+        <a
+          href="https://dexetera.xyz/explore"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cta="see_all_markets"
+          className="mt-4 inline-flex items-center gap-2 text-[14px] font-medium text-t2 hover:text-t1"
+        >
+          See all markets <span aria-hidden>→</span>
+        </a>
+      )}
     </div>
   );
 }

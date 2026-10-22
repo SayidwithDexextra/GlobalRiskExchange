@@ -5,6 +5,7 @@ import { useViewport } from '@/hooks/useViewport';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { AreaSpark } from '@/components/charts/AreaSpark';
 import { walk, rnd, resetSeed } from '@/lib/prng';
+import { swipeRowStyle, swipeItemStyle, swipeIndex } from '@/lib/swipeRow';
 
 const STEPS = [
   {
@@ -42,6 +43,7 @@ export function Stepper() {
 
   const M = w >= 900;
   const S = w >= 640;
+  const swipe = w < 640;
   const hdrCols = M ? 'minmax(0,7fr) minmax(0,5fr)' : 'minmax(0,1fr)';
   const c4 = S ? 'repeat(4,minmax(0,1fr))' : w >= 480 ? 'repeat(2,minmax(0,1fr))' : '1fr';
 
@@ -100,8 +102,19 @@ export function Stepper() {
 
       {/* Steps grid */}
       <div
-        className="grid"
-        style={{ gridTemplateColumns: c4, gap: '24px 12px' }}
+        className={swipe ? 'dx-swipe' : 'grid'}
+        style={swipe ? swipeRowStyle() : { gridTemplateColumns: c4, gap: '24px 12px' }}
+        onScroll={
+          swipe
+            ? (e) => {
+                const i = swipeIndex(e.currentTarget);
+                if (i !== step) {
+                  stepClickRef.current = Date.now();
+                  setStep(Math.min(3, i));
+                }
+              }
+            : undefined
+        }
       >
         {STEPS.map((s, i) => {
           const isActive = step === i;
@@ -112,6 +125,7 @@ export function Stepper() {
               key={i}
               onClick={() => handleStepClick(i)}
               className="flex flex-col gap-[14px] cursor-pointer min-w-0"
+              style={swipe ? swipeItemStyle : undefined}
             >
               {/* Rail */}
               <div

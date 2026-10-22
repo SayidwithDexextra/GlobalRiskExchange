@@ -131,29 +131,43 @@ export function ComparisonTable() {
           }}
         >
           {stacked ? (
-            <div>
+            // Phones: one compact grid, feature on the left and one icon per column.
+            <div role="table" aria-label="Dexetera compared with banks, prediction markets and insurance">
+              <div
+                role="row"
+                className="grid items-end font-mono text-[8px] tracking-normal uppercase text-t4"
+                style={{ gridTemplateColumns: 'minmax(0,1fr) repeat(4, 56px)', borderBottom: '1px solid var(--line)' }}
+              >
+                <span role="columnheader" className="py-3 pl-4">Feature</span>
+                {COLS.map((col) => (
+                  <span
+                    role="columnheader"
+                    key={col.key}
+                    className={`py-3 text-center ${col.key === 'dx' ? 'font-semibold text-t1' : ''}`}
+                    style={col.key === 'dx' ? { background: 'var(--card2)', borderTop: '1px solid var(--t1)' } : undefined}
+                  >
+                    {col.key === 'otc' ? 'Bank' : col.label}
+                  </span>
+                ))}
+              </div>
               {ROWS.map((row) => (
-                <div key={row.feature} className="p-4" style={{ borderBottom: '1px solid var(--hair)' }}>
-                  <div className="text-[13px] text-t3 mb-3">{row.feature}</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {COLS.map((col) => (
-                      <div
-                        key={col.key}
-                        className="flex items-center justify-between gap-2 min-w-0 rounded-md px-2.5 py-2"
-                        style={{
-                          background: col.key === 'dx' ? 'var(--card2)' : 'transparent',
-                          border: '1px solid var(--hair)',
-                        }}
-                      >
-                        <span className="font-mono text-[9px] tracking-[0.06em] uppercase text-t4">
-                          {col.label}
-                        </span>
-                        <span className="flex-none">
-                          <Cell value={row[col.key]} />
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                <div
+                  role="row"
+                  key={row.feature}
+                  className="grid items-center"
+                  style={{ gridTemplateColumns: 'minmax(0,1fr) repeat(4, 56px)', borderBottom: '1px solid var(--hair)' }}
+                >
+                  <span role="cell" className="py-3 pl-4 pr-2 text-[13px] leading-[1.3] text-t3">{row.feature}</span>
+                  {COLS.map((col) => (
+                    <span
+                      role="cell"
+                      key={col.key}
+                      className="py-3 self-stretch flex items-center"
+                      style={col.key === 'dx' ? { background: 'var(--card2)' } : undefined}
+                    >
+                      <Cell value={row[col.key]} />
+                    </span>
+                  ))}
                 </div>
               ))}
             </div>

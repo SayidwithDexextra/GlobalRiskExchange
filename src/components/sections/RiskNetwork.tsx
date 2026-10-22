@@ -18,7 +18,7 @@ export function RiskNetwork() {
   const L = w >= 1100;
   const M = w >= 900;
   const hdrCols = M ? 'minmax(0,7fr) minmax(0,5fr)' : 'minmax(0,1fr)';
-  const netH = w < 640 ? '420px' : w < 900 ? '320px' : '380px';
+  const netH = w < 640 ? '340px' : w < 900 ? '320px' : '380px';
   const probCols = L ? 'minmax(0,62fr) minmax(0,38fr)' : 'minmax(0,1fr)';
   const probRows = L ? 'repeat(2,minmax(0,1fr))' : 'auto';
   const probStatCols = L
@@ -150,7 +150,7 @@ export function RiskNetwork() {
           </div>
         </div>
 
-        <GlassStatCards columns={probStatCols} rows={probRows} />
+        <GlassStatCards columns={probStatCols} rows={probRows} limit={w < 640 ? 2 : undefined} />
       </div>
     </div>
   );
