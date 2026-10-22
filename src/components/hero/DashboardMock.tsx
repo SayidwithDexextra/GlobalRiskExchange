@@ -337,7 +337,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
 
             {/* Positions header */}
             <div
-              className="grid gap-2 pt-3 font-mono text-[10px] tracking-[0.08em] uppercase text-t4"
+              className="grid gap-2 pt-3 font-mono text-[10px] tracking-[0.08em] uppercase text-t4 max-sm:hidden"
               style={{
                 gridTemplateColumns: 'minmax(0,2fr) repeat(4,minmax(0,1fr))',
                 borderTop: '1px solid var(--ln)',
@@ -351,7 +351,7 @@ export const DashboardMock = forwardRef<HTMLDivElement, DashboardMockProps>(
             </div>
 
             {/* Positions rows */}
-            <div className="flex flex-col -mt-3">
+            <div className="flex flex-col -mt-3 max-sm:hidden">
               {posRows.map((pr) => (
                 <div
                   key={pr.m}
