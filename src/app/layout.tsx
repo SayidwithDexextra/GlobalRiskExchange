@@ -235,6 +235,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: hashlessClickScript }} />
         <script dangerouslySetInnerHTML={{ __html: posthogScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredDataJson }} />
+        {/* Hide scrollbars site-wide (inline so it never waits on a cached stylesheet); scrolling still works. */}
+        <style dangerouslySetInnerHTML={{ __html: 'html,body,*{scrollbar-width:none;-ms-overflow-style:none}html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:none;width:0;height:0}' }} />
       </head>
       <body className="min-h-screen bg-bg font-sans antialiased">
         {children}
