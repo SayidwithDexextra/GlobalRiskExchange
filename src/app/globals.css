@@ -311,3 +311,6 @@ input:focus {
   --breakpoint-lang: 1180px;
   --breakpoint-ht: 769px;
 }
+
+/* Phone swipe rows (see src/lib/swipeRow.ts) */
+.dx-swipe::-webkit-scrollbar{display:none}

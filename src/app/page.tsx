@@ -27,49 +27,61 @@ function LandingContent() {
     <>
       <Header currentPath="/" />
       
-      {/* 1. Hero */}
-      <Hero eggPrice={eggPrice} />
+      {/* Phones see the creator section earlier (right after the GPU example), since most
+          phone visitors never scroll far enough to reach it. Desktop order is unchanged. */}
+      <div className="flex flex-col">
+        <div>
+          {/* 1. Hero */}
+          <Hero eggPrice={eggPrice} />
 
-      {/* 2-4. Ticker / Stats / Trust */}
-      <Ticker />
-      <StatStrip />
-      <TrustRow />
+          {/* 2-4. Ticker / Stats / Trust */}
+          <Ticker />
+          <StatStrip />
+          <TrustRow />
 
-      {/* 5. Market wall */}
-      <MarketWall />
+          {/* 5. Market wall */}
+          <MarketWall />
 
-      {/* 6. Problem / Network */}
-      <RiskNetwork />
+          {/* 6. Problem / Network */}
+          <RiskNetwork />
 
-      {/* 7. How it works */}
-      <Stepper />
+          {/* 7. How it works */}
+          <Stepper />
 
-      {/* 8. GPU Example */}
-      <GpuExample />
+          {/* 8. GPU Example */}
+          <GpuExample />
+        </div>
 
-      {/* 9. Market Types */}
-      <MarketTables />
+        {/* 13. Creators earn (moves up to here on phones) */}
+        <div className="max-md:order-1 md:order-3">
+          <CreatorsEarn />
+        </div>
 
-      {/* 10. Who it's for */}
-      <WhoItsFor />
+        <div className="order-2">
+          {/* 9. Market Types */}
+          <MarketTables />
 
-      {/* 11. Product */}
-      <ProductSection />
+          {/* 10. Who it's for */}
+          <WhoItsFor />
 
-      {/* 12. Why Dexetera */}
-      <ComparisonTable />
+          {/* 11. Product */}
+          <ProductSection />
 
-      {/* 13. Creators earn */}
-      <CreatorsEarn />
+          {/* 12. Why Dexetera */}
+          <ComparisonTable />
+        </div>
 
-      {/* 14. FAQ */}
-      <FaqAccordion />
+        <div className="order-4">
+          {/* 14. FAQ */}
+          <FaqAccordion />
 
-      {/* 15. Final CTA */}
-      <FinalCta />
+          {/* 15. Final CTA */}
+          <FinalCta />
 
-      {/* 16. Footer */}
-      <Footer />
+          {/* 16. Footer */}
+          <Footer />
+        </div>
+      </div>
 
       {/* Floating film card (bottom right, after the hero) */}
       <FilmCard />

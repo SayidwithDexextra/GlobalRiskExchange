@@ -44,6 +44,41 @@ export const metadata: Metadata = {
   },
 };
 
+// Company details for search engines (schema.org). Facts only: names, links, logo, contact.
+const CANONICAL = "https://www.dexetera.org";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${CANONICAL}/#organization`,
+      name: "Dexetera",
+      url: CANONICAL,
+      logo: { "@type": "ImageObject", url: `${CANONICAL}/apple-icon.png`, width: 180, height: 180 },
+      description:
+        "Dexetera is a marketplace for risk. Anyone can create a futures market on any number they can measure, trade it long or short in USDC, and let public data settle it.",
+      email: "admin@dexetera.xyz",
+      sameAs: ["https://x.com/dexeteralabs", "https://www.dexetera.xyz"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: "admin@dexetera.xyz",
+        url: `${CANONICAL}/contact`,
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${CANONICAL}/#website`,
+      name: "Dexetera",
+      alternateName: "Dexetera | The marketplace for risk",
+      url: CANONICAL,
+      publisher: { "@id": `${CANONICAL}/#organization` },
+      inLanguage: "en",
+    },
+  ],
+};
+const structuredDataJson = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+
 // Runs as the document finishes parsing, before first paint, so a visited
 // /#markets URL scrolls to the section and then drops the hash.
 const hashlessScript = `
@@ -182,6 +217,7 @@ posthog.init('phc_mvyRtX6trxVyVXZqV6kwzQvddPu6PpoLDFbBBdCLFbHj', {
   ui_host: 'https://us.posthog.com',
   defaults: '2026-05-30',
   person_profiles: 'always',
+  disable_surveys: true,
   before_send: function(ev){try{if(ev&&localStorage.getItem('dx-internal')==='1'){ev.properties=ev.properties||{};ev.properties.dx_internal=true;}}catch(e){}return ev;},
 });
 `;
@@ -198,6 +234,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: hashlessClickScript }} />
         <script dangerouslySetInnerHTML={{ __html: posthogScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredDataJson }} />
       </head>
       <body className="min-h-screen bg-bg font-sans antialiased">
         {children}
