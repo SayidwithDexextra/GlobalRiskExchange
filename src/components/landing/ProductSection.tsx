@@ -115,6 +115,8 @@ function pillStyle(): CSSProperties {
     alignItems: 'center',
     gap: 6,
     height: 22,
+    boxSizing: 'border-box',
+    lineHeight: 1,
     padding: '0 10px 0 4px',
     background: 'var(--btn-p-bg)',
     color: 'var(--btn-p-fg)',
@@ -642,7 +644,7 @@ export function ProductSection() {
               </div>
 
               <div style={{ position: 'relative', order: phone ? 2 : undefined, height: phone ? 560 : undefined, width: phone ? '100%' : undefined, gridColumn: phone ? undefined : 2, gridRow: phone ? undefined : '1 / 3', boxSizing: 'border-box', border: '1px solid var(--ln)', borderRadius: 6, background: 'var(--card)' }}>
-                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: -11, left: 12 }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : 'flex', top: -11, left: 12 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>1</span>
                   Live order book
                 </span>
@@ -707,11 +709,11 @@ export function ProductSection() {
               </div>
 
               <div style={{ gridColumn: phone ? undefined : 3, gridRow: phone ? undefined : '1 / 3', display: phone ? 'contents' : 'flex', flexDirection: 'column', gap: 6, position: 'relative', width: phone ? '100%' : undefined }}>
-                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: -11, left: 150 }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : 'flex', top: -11, left: 150 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>3</span>
                   Source + UMA settlement
                 </span>
-                <span style={{ ...pillStyle(), display: phone ? 'none' : undefined, top: 193, left: 12 }}>
+                <span style={{ ...pillStyle(), display: phone ? 'none' : 'flex', top: 193, left: 12 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', background: 'var(--bg)', color: 'var(--t1)', fontFamily: MONO, fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>2</span>
                   Gasless, one signature
                 </span>
