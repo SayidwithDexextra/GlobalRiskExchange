@@ -318,3 +318,6 @@ input:focus {
 /* Hide scrollbars site-wide; scrolling (wheel, trackpad, touch, keys) still works. */
 html, body, * { scrollbar-width: none; -ms-overflow-style: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+/* Inside Look dropdown items in the site header (hover state from design/source/Inside Look.dc.html). */
+.dx-il-dd:hover { background: var(--card3); color: var(--t1) !important; }
