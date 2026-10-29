@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { NAV_LINKS } from '@/lib/data';
+import { NAV_LINKS, INSIDE_LOOK_SECTIONS } from '@/lib/data';
 import { ThemeToggle } from './ThemeToggle';
 
 interface MobileMenuProps {
@@ -22,6 +22,33 @@ export function MobileMenu({ isOpen, onClose, currentPath = '/' }: MobileMenuPro
       {NAV_LINKS.map((link) => {
         const isActive = currentPath === link.href || 
           (link.href.startsWith('/#') && currentPath === '/');
+        if (link.href === '/inside-look') {
+          // Inside Look with its three sections as sub links (design/source/Inside Look.dc.html).
+          return (
+            <div key={link.href} className="flex flex-col border-b border-hair" style={{ padding: '14px 0 8px' }}>
+              <Link
+                href={link.href}
+                className="text-[12px] font-semibold tracking-[0.08em] uppercase"
+                style={{ color: isActive ? 'var(--t1)' : 'var(--t2)' }}
+              >
+                {link.label}
+              </Link>
+              <div className="flex flex-col" style={{ padding: '6px 0 0 14px', borderLeft: '1px solid var(--line2)', marginTop: 10 }}>
+                {INSIDE_LOOK_SECTIONS.map((s) => (
+                  <a
+                    key={s.href}
+                    href={s.href}
+                    className="flex items-center gap-[10px] min-h-[44px] text-[13px] font-medium normal-case tracking-normal"
+                    style={{ color: 'var(--t3)' }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-jetbrains), "JetBrains Mono", monospace', fontSize: 10, color: 'var(--t4)' }}>{s.n}</span>
+                    {s.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        }
         return (
           <Link
             key={link.href}

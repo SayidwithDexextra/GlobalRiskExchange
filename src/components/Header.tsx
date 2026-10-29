@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, Globe } from 'lucide-react';
 import { useViewport } from '@/hooks/useViewport';
-import { NAV_LINKS } from '@/lib/data';
+import { NAV_LINKS, INSIDE_LOOK_SECTIONS } from '@/lib/data';
 import { ThemeToggle } from './ThemeToggle';
 import { MobileMenu } from './MobileMenu';
 
@@ -17,9 +17,10 @@ export function Header({ currentPath = '/' }: HeaderProps) {
   const { w } = useViewport();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ddOpen, setDdOpen] = useState(false);
 
-  const showNav = w > 1100;
-  const showLang = w >= 1180;
+  const showNav = w >= 1240; // was w > 1100. Raised so six nav items keep clear of the buttons.
+  const showLang = false; // was w >= 1180. The decorative English label no longer fits once Inside Look joined the nav.
   const showCreate = w >= 1000;
 
   useEffect(() => {
@@ -69,11 +70,64 @@ export function Header({ currentPath = '/' }: HeaderProps) {
 
         {/* Desktop Nav */}
         {showNav && (
-          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-7 text-[11px] font-semibold tracking-[0.08em] uppercase whitespace-nowrap">
+          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center text-[11px] font-semibold tracking-[0.08em] uppercase whitespace-nowrap" style={{ gap: w >= 1366 ? 28 : 18 }}>
             {NAV_LINKS.map((link) => {
               const isActive = currentPath === link.href ||
                 (link.href === '/whitepaper' && currentPath === '/whitepaper') ||
                 (link.href === '/contact' && currentPath === '/contact');
+              if (link.href === '/inside-look') {
+                // Inside Look dropdown, 1:1 with design/source/Inside Look.dc.html.
+                return (
+                  <div
+                    key={link.href}
+                    className="relative h-[72px] flex items-center"
+                    onMouseEnter={() => setDdOpen(true)}
+                    onMouseLeave={() => setDdOpen(false)}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`flex items-center gap-[6px] transition-colors hover:text-t1${isActive ? ' on' : ''}`}
+                      aria-current={isActive ? 'page' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={ddOpen}
+                      style={{ color: isActive ? 'var(--t1)' : 'var(--t2)' }}
+                    >
+                      {link.label}
+                      <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                        <path d="M2 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.3" />
+                      </svg>
+                    </Link>
+                    {ddOpen && (
+                      <div
+                        className="absolute flex flex-col gap-[2px]"
+                        style={{
+                          top: 60,
+                          left: -14,
+                          minWidth: 240,
+                          padding: 6,
+                          background: 'var(--card2)',
+                          border: '1px solid var(--line2)',
+                          borderRadius: 10,
+                          boxShadow: 'var(--shadow)',
+                        }}
+                      >
+                        {INSIDE_LOOK_SECTIONS.map((s) => (
+                          <a
+                            key={s.href}
+                            href={s.href}
+                            onClick={() => setDdOpen(false)}
+                            className="dx-il-dd flex items-center gap-3 rounded-[6px] text-[13px] font-medium normal-case tracking-normal"
+                            style={{ padding: '10px 12px', color: 'var(--t3)' }}
+                          >
+                            <span style={{ fontFamily: 'var(--font-jetbrains), "JetBrains Mono", monospace', fontSize: 10, color: 'var(--t4)' }}>{s.n}</span>
+                            {s.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={link.href}
