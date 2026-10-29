@@ -188,7 +188,7 @@ export class Component extends DCLogic {
     if (this.tickT) return;
     this.tickT = setInterval(() => {
       document.querySelectorAll('[data-hero-art] [data-tick]').forEach(el => {
-        const d = el.dataset, svg = el.ownerSVGElement, tm = svg && svg.getCurrentTime ? svg.getCurrentTime() % 10 : 5;
+        const d = el.dataset, svg = el.ownerSVGElement; if (document.hidden || (svg && svg.__p)) return; const tm = svg && svg.getCurrentTime ? svg.getCurrentTime() % 10 : 5;
         const a0 = d.tickFrom != null ? +d.tickFrom : 164.4, a1 = d.tickTo != null ? +d.tickTo : 184.5, dec = d.tickDec != null ? +d.tickDec : 1;
         const u = Math.min(1, Math.max(0, tm / 4.5)), v = (a0 + (a1 - a0) * u).toFixed(dec);
         const txt = (d.tickPre != null ? d.tickPre : 'INPUT COSTS ') + v + (d.tickSuf || '');
@@ -205,8 +205,9 @@ export class Component extends DCLogic {
       const sm = x => x * x * (3 - 2 * x), cl = x => Math.min(1, Math.max(0, x));
       if (art) { art.style.opacity = (1 - 0.75 * sm(cl(p / A))).toFixed(3); art.style.transform = ''; }
       if (cue) cue.style.opacity = Math.max(0, 1 - p * 12).toFixed(3);
-      root.style.setProperty('--lbl', (1 - sm(cl(p / (A * 0.8)))).toFixed(3));
+      { const lv = (1 - sm(cl(p / (A * 0.8)))).toFixed(3); if (root.__lbl !== lv) { root.__lbl = lv; root.querySelectorAll('[style*="--lbl"]').forEach(t => t.style.setProperty('--lbl', lv)); } }
       if (bar) bar.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+      { const hs = art && art.querySelector('svg'), off = r.bottom < 0 || r.top > vh; if (hs && hs.pauseAnimations) { if (off && !hs.__p) { hs.__p = 1; try { hs.pauseAnimations(); } catch (e) {} } else if (!off && hs.__p) { hs.__p = 0; try { hs.unpauseAnimations(); } catch (e) {} } } }
       steps.forEach((el, i) => {
         const t = (p - A - i * seg) / seg, last = i === N - 1, fi = cl(t / 0.3), fo = last ? 1 : 1 - cl((t - 0.7) / 0.3), o = t < 0 ? 0 : sm(fi) * sm(fo);
         const s = rm ? 1 : t < 0.3 ? 0.92 + 0.08 * sm(fi) : last ? 1 : 1 + 0.06 * (1 - sm(fo));
@@ -255,9 +256,9 @@ export class Component extends DCLogic {
     document.querySelectorAll('svg[data-draw]:not([data-drawn])').forEach(svg => {
       svg.setAttribute('data-drawn', '1'); if (rm || !svg.animate) return;
       const hero = !!svg.closest('[data-hero-art]');
-      if (hero && svg.pauseAnimations) { try { svg.pauseAnimations(); svg.setCurrentTime(0); } catch (e) {} setTimeout(() => { try { svg.unpauseAnimations(); } catch (e) {} }, 2550); }
+      if (hero && svg.pauseAnimations) { try { svg.pauseAnimations(); svg.setCurrentTime(0); } catch (e) {} setTimeout(() => { try { svg.unpauseAnimations(); } catch (e) {} }, 1750); }
       const els = svg.querySelectorAll('[data-s]'), n = els.length || 1, span = +svg.getAttribute('data-draw') || 1600;
-      els.forEach((el, i) => el.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: hero ? 800 : 900, delay: (i / n) * span, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'backwards' }));
+      els.forEach((el, i) => el.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: hero ? 600 : 900, delay: (i / n) * span * (hero ? 0.65 : 1), easing: 'cubic-bezier(.4,0,.2,1)', fill: 'backwards' }));
       svg.querySelectorAll('[data-f]').forEach(el => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: span * 0.6 + 300, fill: 'backwards' }));
     });
   }

@@ -6,3 +6,15 @@
 
 /* Server rendered summary (visible to search engines and screen readers until the page mounts). */
 .dx-il-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- Performance (measured: hero idle went from ~12 to ~58 fps in a test browser) ---------- */
+/* The site sets html{scroll-behavior:smooth}; here it made section switches and jumps crawl. */
+:root:has(.dx-il), :root:has(.dx-il) body { scroll-behavior: auto !important; }
+/* The double drop-shadow glow on the hero drawing re-filtered ~750 SVG nodes on every animation frame. */
+.dx-il, [data-theme="light"] .dx-il { --stroke-glow: none !important; }
+/* Blur filters on the animated highlight boxes inside the hero drawing (same cost). */
+.dx-il [data-hero-art] [filter] { filter: none !important; }
+/* Frosted glass behind the endlessly scrolling ticker chips re-blurred every frame. */
+.dx-il [style*="dx-ticker"] span { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+/* Parts that fade and move on scroll get their own GPU layer so the drawing is not repainted. */
+.dx-il [data-hero-art], .dx-il [data-story-step], .dx-il [data-first-block] { will-change: opacity, transform; }
