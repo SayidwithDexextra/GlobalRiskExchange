@@ -193,7 +193,7 @@ export default function ContactPage() {
         <p>The marketplace for risk. Create a futures market on any number you can measure.</p>
         </div>
         <div><h5>Product</h5><a href='/#markets'>Markets</a><a href='https://dexetera.xyz'>Launch app</a><a href='https://dexetera.xyz/new-market'>Create a market</a></div>
-        <div><h5>Learn</h5><a href='/#how'>How it works</a><a href='/whitepaper'>Whitepaper</a></div>
+        <div><h5>Learn</h5><a href='/#how'>How it works</a><a href='/inside-look'>Inside Look</a><a href='/whitepaper'>Whitepaper</a></div>
         <div><h5>Company</h5><a href='/team'>Team</a><a href='/contact'>Contact</a><a href='https://x.com/dexeteralabs'>X / Twitter</a><a href='mailto:admin@dexetera.xyz'>admin@dexetera.xyz</a></div>
         </div>
         <div className='fb'><span>© 2026 Dexetera</span><span>Settled by public data</span></div>
