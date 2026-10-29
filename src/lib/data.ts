@@ -174,9 +174,18 @@ export const LEDGERS = [
 export const NAV_LINKS = [
   { label: 'Markets', href: '/#markets' },
   { label: 'Product', href: '/#product' },
+  { label: 'Inside Look', href: '/inside-look' },
   { label: 'Whitepaper', href: '/whitepaper' },
   { label: 'Team', href: '/team' },
   { label: 'Contact', href: '/contact' },
+];
+
+// Inside Look sections (header dropdown + mobile menu sub links).
+// Plain hrefs on purpose: /inside-look picks the section up from the link, also across pages.
+export const INSIDE_LOOK_SECTIONS = [
+  { n: '01', label: 'Development cost', href: '/inside-look#development' },
+  { n: '02', label: 'El Niño', href: '/inside-look#elnino' },
+  { n: '03', label: 'Power', href: '/inside-look#power' },
 ];
 
 // Footer links
@@ -188,6 +197,7 @@ export const FOOTER_LINKS = {
   ],
   learn: [
     { label: 'How it works', href: '/#how' },
+    { label: 'Inside Look', href: '/inside-look' },
     { label: 'Whitepaper', href: '/whitepaper' },
   ],
   company: [
