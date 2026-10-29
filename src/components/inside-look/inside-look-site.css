@@ -1,0 +1,8 @@
+/* Site glue for the Inside Look page (not part of the design file). */
+
+/* The site footer renders after the page; keep the design's bottom room for the floating section selector. */
+.dx-il-foot { background: var(--bg); padding-bottom: 76px; }
+@media (max-width: 639px) { .dx-il-foot { padding-bottom: 96px; } }
+
+/* Server rendered summary (visible to search engines and screen readers until the page mounts). */
+.dx-il-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
