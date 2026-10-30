@@ -6,8 +6,8 @@ import * as React from 'react';
 import { DCLogic } from './dcRuntime';
 
 export class Component extends DCLogic {
-  state = { settle: 41.24, rin: false, w: 1440, h: 900, sec: 'development', vis: 1, scrolled: false, menu: false, dd: false, tab: 0, sub: 0 };
-  secs = [{ id: 'development', n: '01', l: 'Development cost' }, { id: 'elnino', n: '02', l: 'El Niño' }, { id: 'power', n: '03', l: 'Power' }];
+  state = { settle: 41.24, rin: false, w: 1440, h: 900, sec: 'weather', vis: 1, scrolled: false, menu: false, dd: false, tab: 0, sub: 0 };
+  secs = [{ id: 'weather', n: '01', l: 'Weather risk' }, { id: 'development', n: '02', l: 'Development cost' }, { id: 'power', n: '03', l: 'Power' }];
   pwVals(s) {
     const d = 2880 * (s.settle - 41.24), z = Math.abs(d) < 0.5;
     const f = v => (z || Math.abs(v) < 0.5) ? '$0' : (v > 0 ? '+' : '\u2212') + '$' + Math.round(Math.abs(v)).toLocaleString('en-US');
@@ -22,14 +22,14 @@ export class Component extends DCLogic {
   }
   splitRef = React.createRef(); gapsRef = React.createRef(); whoRef = React.createRef(); layersRef = React.createRef(); splitRef2 = React.createRef(); splitRef3 = React.createRef();
   componentDidMount() {
-    const fromHash = () => { let h = (location.hash || '').slice(1); if (!h && window.__dxIL) { h = String(window.__dxIL); window.__dxIL = ''; } return this.secs.some(s => s.id === h) ? h : null; };
+    const fromHash = () => { let h = (location.hash || '').slice(1); if (!h && window.__dxIL) { h = String(window.__dxIL); window.__dxIL = ''; } if (h === 'elnino') h = 'weather'; return this.secs.some(s => s.id === h) ? h : null; };
     const h0 = fromHash(); if (h0) this.setState({ sec: h0 });
     this.onHash = () => { const h = fromHash(); if (h && h !== this.state.sec) this.go(h, true); };
     this.onResize = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
     this.onScroll = () => { const y = window.scrollY || 0, sc = y > 24; if (sc !== this.state.scrolled) this.setState({ scrolled: sc });
       if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = 0; this.heroFx(); });
     };
-    this.onLink = ev => { const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null; if (!a) return; const m = (a.getAttribute('href') || '').match(/^(?:\/inside-look)?#(development|elnino|power)$/); if (!m) return; ev.preventDefault(); if (!a.closest('[data-dx-il]')) this.go(m[1]); }; document.addEventListener('click', this.onLink); window.addEventListener('hashchange', this.onHash); window.addEventListener('popstate', this.onHash);
+    this.onLink = ev => { const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null; if (!a) return; const m = (a.getAttribute('href') || '').match(/^(?:\/inside-look)?#(weather|elnino|development|power)$/); if (!m) return; ev.preventDefault(); if (!a.closest('[data-dx-il]')) this.go(m[1] === 'elnino' ? 'weather' : m[1]); }; document.addEventListener('click', this.onLink); window.addEventListener('hashchange', this.onHash); window.addEventListener('popstate', this.onHash);
     window.addEventListener('resize', this.onResize); window.addEventListener('scroll', this.onScroll, { passive: true });
     this.onResize(); this.onScroll(); setTimeout(() => { this.draw(); this.fitHero(); this.heroFx(); }, 30); setTimeout(() => { this.fitHero(); this.heroFx(); }, 400);
     requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ rin: true })));
@@ -111,7 +111,7 @@ export class Component extends DCLogic {
     }
     return React.createElement(this.MktChart, { kind });
   }
-  railSecs() { const pre = { development: '01 ', elnino: '02 ', power: '03 ' }[this.state.sec] || '01 '; return [...document.querySelectorAll('section[data-screen-label^="' + pre + '"]')].filter(s => !/Hero$/.test(s.dataset.screenLabel) && s.offsetParent !== null); }
+  railSecs() { const pre = { development: '01 ', weather: '02 ', power: '03 ' }[this.state.sec] || '01 '; return [...document.querySelectorAll('section[data-screen-label^="' + pre + '"]')].filter(s => !/Hero$/.test(s.dataset.screenLabel) && s.offsetParent !== null); }
   railSync() {
     const n = this.railSecs().length;
     if (n !== (this.state.railN || 0)) this.setState({ railN: n });
@@ -274,7 +274,7 @@ export class Component extends DCLogic {
       this.setState({ sec: id, vis: 1, tab: 0, sub: 0, railN: 0 }, () => {
         top0(); this.pendSec = null;
         requestAnimationFrame(() => { top0(); try { this.contentFx(); this.storyFx(); this.railFx(); this.fixPx(); } catch (e) {} this.onScroll && this.onScroll(); });
-        this.ft2 = setTimeout(() => { const want = { development: '01 Hero', elnino: '02 Hero', power: '03 Hero' }[this.state.sec], hs = [...document.querySelectorAll('section[data-screen-label$="Hero"]')].map(s => s.dataset.screenLabel); if (hs.length !== 1 || hs[0] !== want) this.forceUpdate(); if ((window.scrollY || 0) > 0 && !this.userScrolled) top0(); }, 120);
+        this.ft2 = setTimeout(() => { const want = { development: '01 Hero', weather: '02 Hero', power: '03 Hero' }[this.state.sec], hs = [...document.querySelectorAll('section[data-screen-label$="Hero"]')].map(s => s.dataset.screenLabel); if (hs.length !== 1 || hs[0] !== want) this.forceUpdate(); if ((window.scrollY || 0) > 0 && !this.userScrolled) top0(); }, 120);
       });
     }, 160);
   }
@@ -685,7 +685,7 @@ export class Component extends DCLogic {
   }
   renderVals() {
     const s = this.state, w = s.w, M = w >= 1024, T = w >= 768, S = w >= 640;
-    const sec = this.secs.find(x => x.id === s.sec) || this.secs[0], isDev = s.sec === 'development', isEl = s.sec === 'elnino', isPw = s.sec === 'power';
+    const sec = this.secs.find(x => x.id === s.sec) || this.secs[0], isDev = s.sec === 'development', isEl = s.sec === 'weather', isPw = s.sec === 'power';
     const colW = Math.min(w, 1200);
     const D = w > 1024, dashW = D ? Math.min(880, w * 0.72) : T ? w * 0.86 : w - 32, rm = (w - dashW) / 2, rov = T ? 70 : 20, rsc = Math.max((rm + rov) / 515, D ? 0 : w * 0.22 / 515);
     const inset = T ? Math.max(32, Math.round(rm + rov * 0.5 - (w - colW) / 2)) : 0;

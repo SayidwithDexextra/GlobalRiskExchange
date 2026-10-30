@@ -1,6 +1,6 @@
 'use client';
 
-// Inside Look page body: three pilot sections (Development cost, El Niño, Power) with
+// Inside Look page body: three pilot sections (Weather risk, Development cost, Power) with
 // animated line drawing heroes, pinned scroll stats, market cards and content blocks.
 //
 // This is the design itself, not a re-creation:
@@ -40,8 +40,8 @@ export default function InsideLook() {
           <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
             <div className="dx-il-sr">
               <h1>Inside Look. The unhedged exposures Dexetera is building first.</h1>
+              <p>Weather risk: weather losses that are mostly uninsured and have no listed index to hedge them.</p>
               <p>Development cost: construction input prices hit a record and fixed price budgets carry the risk.</p>
-              <p>El Niño: weather losses that are mostly uninsured and have no listed index to hedge them.</p>
               <p>Power: spot, capacity and solar capture prices that move faster than any listed contract.</p>
             </div>
           </div>
