@@ -293,7 +293,7 @@ export default function WhitepaperPage() {
         <li>A mark price derived from market activity drives unrealized PnL and liquidation thresholds. Keeper callable liquidation protects protocol solvency.</li>
         <li>Every order, fill, and cancellation is recorded on-chain. Gasless (meta) trading is supported via signed sessions and relayers.</li>
         </ul>
-        <p>For a hedger, this means a festival can <em>short</em> a travel demand market to offset weak attendance, while an airline or hotel chain, whose revenue rises with the same variable, takes the natural <em>long</em>. Their opposing commercial exposures meet in a transparent, continuously priced market.</p>
+        <p>For a hedger, this means a data center can go <em>long</em> an electricity price market to cap its power bill, while a power producer, whose revenue falls when prices drop, takes the natural <em>short</em>. Their opposing commercial exposures meet in a transparent, continuously priced market.</p>
         <h3 className='sub'><span>4.4</span>Metric Tracking and Trustless Settlement</h3>
         <p>This is what makes "any measurable risk" both real and safe to settle.</p>
         <p><strong>Metric tracking.</strong> Each market carries its own defined data source. An AI metric worker reads and analyzes the source at creation and near settlement, proposing values with confidence and reasoning, and feeds a time series for charting.</p>
@@ -340,26 +340,26 @@ export default function WhitepaperPage() {
         <h2><span className='g'>Three groups whose interests</span>complement one another.</h2>
         <p className='intro'>An on-chain marketplace for risk works because it brings together three participant groups whose interests naturally complement one another.</p>
         <div className='fig'>
-        <div className='fig-h'><span className='k'>Fig. 4  Natural counterparties meet in one market</span><span className='k'>Travel demand</span></div>
+        <div className='fig-h'><span className='k'>Fig. 4  Natural counterparties meet in one market</span><span className='k'>Electricity price</span></div>
         <svg viewBox='0 0 760 230' fill='none' fontFamily='JetBrains Mono, monospace'>
         <defs><radialGradient id='wg2' cx='50%' cy='50%' r='50%'><stop offset='0' stopColor='#fff' stopOpacity='.09' /><stop offset='1' stopColor='#fff' stopOpacity='0' /></radialGradient></defs>
         <rect x='28' y='40' width='200' height='104' rx='12' fill='#141414' stroke='#222' />
         <text x='46' y='66' fill='#606060' fontSize='8.5' letterSpacing='1.2'>COMMERCIAL HEDGER</text>
-        <text x='46' y='90' fill='#fff' fontSize='11'>Festival</text>
-        <text x='46' y='110' fill='#808080' fontSize='9'>fears LOW travel demand</text>
-        <text x='46' y='130' fill='#F87171' fontSize='9.5' letterSpacing='1'>SHORT</text>
+        <text x='46' y='90' fill='#fff' fontSize='11'>Data center</text>
+        <text x='46' y='110' fill='#808080' fontSize='9'>fears HIGH power prices</text>
+        <text x='46' y='130' fill='#4ADE80' fontSize='9.5' letterSpacing='1'>LONG</text>
         <rect x='532' y='40' width='200' height='104' rx='12' fill='#141414' stroke='#222' />
         <text x='550' y='66' fill='#606060' fontSize='8.5' letterSpacing='1.2'>NATURAL COUNTERPARTY</text>
-        <text x='550' y='90' fill='#fff' fontSize='11'>Airline · hotel chain</text>
-        <text x='550' y='110' fill='#808080' fontSize='9'>benefits from HIGH demand</text>
-        <text x='550' y='130' fill='#4ADE80' fontSize='9.5' letterSpacing='1'>LONG</text>
+        <text x='550' y='90' fill='#fff' fontSize='11'>Power producer</text>
+        <text x='550' y='110' fill='#808080' fontSize='9'>fears LOW power prices</text>
+        <text x='550' y='130' fill='#F87171' fontSize='9.5' letterSpacing='1'>SHORT</text>
         <ellipse cx='380' cy='92' rx='110' ry='70' fill='url(#wg2)' />
         <rect x='290' y='56' width='180' height='72' rx='12' fill='#0F0F0F' stroke='#333' />
         <text x='380' y='82' fill='#606060' fontSize='8.5' textAnchor='middle' letterSpacing='1.2'>ONE STANDARD MARKET</text>
-        <text x='380' y='106' fill='#fff' fontSize='11' textAnchor='middle'>TSA throughput</text>
+        <text x='380' y='106' fill='#fff' fontSize='11' textAnchor='middle'>Regional power price</text>
         <path d='M228 92 H290' stroke='#333' /><path d='M470 92 H532' stroke='#333' />
-        <circle r='2.5' fill='#F87171'><animateMotion dur='2.2s' repeatCount='indefinite' path='M228 92 H290' /></circle>
-        <circle r='2.5' fill='#4ADE80'><animateMotion dur='2.2s' repeatCount='indefinite' path='M532 92 H470' /></circle>
+        <circle r='2.5' fill='#4ADE80'><animateMotion dur='2.2s' repeatCount='indefinite' path='M228 92 H290' /></circle>
+        <circle r='2.5' fill='#F87171'><animateMotion dur='2.2s' repeatCount='indefinite' path='M532 92 H470' /></circle>
         <rect x='290' y='168' width='180' height='40' rx='12' fill='#141414' stroke='#222' />
         <text x='380' y='192' fill='#A1A1A1' fontSize='9' textAnchor='middle' letterSpacing='1'>LIQUIDITY PROVIDERS</text>
         <path d='M380 168 V128' stroke='#333' strokeDasharray='3 4' />
@@ -376,8 +376,8 @@ export default function WhitepaperPage() {
         </ul>
         <p>Their objective is not profit from the market itself. It is to convert an uncertain future cost or revenue into a known one.</p>
         <h3 className='sub'><span>5.2</span>Natural Counterparties</h3>
-        <p>Businesses whose economics move in the opposite direction to a given hedger. When one company's costs rise with a variable and another's revenue rises with the same variable, they are natural counterparties.</p>
-        <p>A festival fears <em>low</em> travel demand, while an airline benefits from <em>high</em> travel demand. A data center fears <em>high</em> electricity prices, while a power producer benefits from them. When these participants trade against each other, they offset commercial risk <em>and</em> sharpen price discovery, turning what would otherwise be a zero sum speculation into genuine risk transfer between real economic actors.</p>
+        <p>Businesses whose economics move in the opposite direction to a given hedger. When the same move that hurts one company helps another, they are natural counterparties.</p>
+        <p>A data center fears <em>high</em> electricity prices, while a power producer fears <em>low</em> ones. An airline fears <em>high</em> jet fuel prices, while a refiner earns more when they rise. Each side hedges by taking the position the other one needs. Not every exposure has a mirror image. A festival and an airline both lose when travel demand falls, so they sit on the same side, and liquidity providers take the other. When natural counterparties trade against each other, they offset commercial risk <em>and</em> sharpen price discovery, turning what would otherwise be a zero sum speculation into genuine risk transfer between real economic actors.</p>
         <h3 className='sub'><span>5.3</span>Liquidity Providers</h3>
         <p>Institutional and individual capital providers who earn returns by supplying liquidity to markets where natural buyers and sellers are temporarily imbalanced. They bridge the timing gaps between hedgers and their natural counterparties, tighten spreads, and are compensated for warehousing risk.</p>
         <p>For liquidity providers, an on-chain marketplace for risk is a new asset class: a source of returns uncorrelated with traditional markets, accessible without the institutional infrastructure that gates OTC derivatives desks today.</p>
