@@ -4,7 +4,7 @@ import InsideLook from "@/components/inside-look/InsideLook";
 
 const title = "Inside Look | Dexetera";
 const description =
-  "The three unhedged exposures Dexetera is building first: development cost, El Niño weather risk and power markets.";
+  "The three unhedged exposures Dexetera is building first: weather risk, development cost and power markets.";
 
 export const metadata: Metadata = {
   title,
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title, description },
 };
 
-// The site's hash scripts strip #development / #elnino / #power from the address bar before
+// The site's hash scripts strip #weather / #development / #power from the address bar before
 // React runs. Capture the wanted section first so deep links and the header dropdown work.
-const sectionCapture = `try{var h=(location.hash||'').slice(1);if(!h){h=sessionStorage.getItem('dx-scroll-target')||''}if(/^(development|elnino|power)$/.test(h)){window.__dxIL=h}}catch(e){}`;
+const sectionCapture = `try{var h=(location.hash||'').slice(1);if(!h){h=sessionStorage.getItem('dx-scroll-target')||''}if(h==='elnino'){h='weather'}if(/^(weather|development|power)$/.test(h)){window.__dxIL=h}}catch(e){}`;
 
 export default function Page() {
   return (
