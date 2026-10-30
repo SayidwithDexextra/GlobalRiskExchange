@@ -150,7 +150,7 @@ export default function WhitepaperPage() {
         <p>This paper proposes a new category of financial infrastructure: <strong>an on-chain marketplace for risk.</strong> These are decentralized commercial risk markets that settle against existing, authoritative public data sources. By turning any objectively measurable economic variable into a standardized, continuously traded market, businesses can hedge real world exposures transparently, without brokers, minimum ticket sizes, or institutional relationships.</p>
         <p>The objective is not to replace insurance or traditional derivatives. It is to make commercial risk transfer more accessible, more liquid, and more efficient, and to expand the universe of risks that can be hedged at all.</p>
         <p>Dexetera is permissionless infrastructure for that marketplace. Anyone can create a market on any measurable metric, trade it on an on-chain orderbook with USDC collateral, and settle from verifiable public evidence secured by UMA's Optimistic Oracle.</p>
-        <div className='pull'>No exchange. No gatekeeper. No one who controls the outcome.</div>
+        <div className='pull'>No listing desk. No gatekeeper. No single party controls the outcome.</div>
         </section>
         <section className='ch' id='problem'>
         <div className='num'>01 / The Problem</div>
@@ -182,17 +182,18 @@ export default function WhitepaperPage() {
         <svg viewBox='0 0 760 300' fill='none' fontFamily='JetBrains Mono, monospace'>
         <circle cx='380' cy='150' r='128' stroke='#222' strokeDasharray='2 5' />
         <circle cx='380' cy='150' r='62' fill='#141414' stroke='#333' />
-        <text x='380' y='138' fill='#fff' fontSize='10' textAnchor='middle' letterSpacing='1.2'>HEDGEABLE</text>
-        <text x='380' y='154' fill='#808080' fontSize='9' textAnchor='middle'>oil · gas · rates</text>
-        <text x='380' y='168' fill='#808080' fontSize='9' textAnchor='middle'>FX · equities · ags</text>
+        <text x='380' y='130' fill='#fff' fontSize='10' textAnchor='middle' letterSpacing='1.2'>HEDGEABLE</text>
+        <text x='380' y='146' fill='#808080' fontSize='9' textAnchor='middle'>oil · gas · power</text>
+        <text x='380' y='160' fill='#808080' fontSize='9' textAnchor='middle'>rates · FX · equities</text>
+        <text x='380' y='174' fill='#808080' fontSize='9' textAnchor='middle'>ags · metals · GPUs</text>
         <g fontSize='9.5' fill='#A1A1A1'>
         <g><rect x='40' y='34' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='54' y='52'>Air travel demand</text></g>
         <g><rect x='40' y='96' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='54' y='114'>Consumer confidence</text></g>
         <g><rect x='40' y='158' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='54' y='176'>Disease surveillance</text></g>
         <g><rect x='40' y='220' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='54' y='238'>Port throughput</text></g>
-        <g><rect x='552' y='52' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='566' y='70'>GPU pricing</text></g>
+        <g><rect x='552' y='52' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='566' y='70'>Construction costs</text></g>
         <g><rect x='552' y='128' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='566' y='146'>Data center utilization</text></g>
-        <g><rect x='552' y='204' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='566' y='222'>Electricity, grid load</text></g>
+        <g><rect x='552' y='204' width='168' height='28' rx='6' fill='#0F0F0F' stroke='#222' /><text x='566' y='222'>Grid load</text></g>
         </g>
         <g stroke='#333'><path d='M208 48 C270 48 290 110 318 130' /><path d='M208 110 C260 110 290 138 318 146' /><path d='M208 172 C260 172 290 160 318 156' /><path d='M208 234 C270 234 290 190 320 172' /><path d='M552 66 C490 66 470 120 442 134' /><path d='M552 142 C500 142 470 148 442 150' /><path d='M552 218 C490 218 470 180 440 168' /></g>
         <g fill='#606060' fontSize='8.5' letterSpacing='1'><text x='40' y='22'>MEASURABLE, NO MARKET</text><text x='720' y='40' textAnchor='end'>MEASURABLE, NO MARKET</text></g>
@@ -201,12 +202,12 @@ export default function WhitepaperPage() {
         </div>
         <p>Today a business can readily hedge:</p>
         <ul className='list'>
-        <li>Oil and natural gas</li><li>Interest rates</li><li>Foreign exchange</li><li>Equity indices</li><li>A small set of agricultural and metals commodities</li>
+        <li>Oil and natural gas</li><li>Interest rates</li><li>Foreign exchange</li><li>Equity indices</li><li>Agricultural and metals commodities</li><li>Power at major grid hubs</li>
         </ul>
-        <p>A few specialized risks, such as weather derivatives, exist, but almost entirely inside illiquid OTC markets accessible only to large players.</p>
+        <p>A few newer or specialized risks also trade. Weather derivatives exist, but most of that market is private OTC deals between large players, with only a thin slice listed on exchanges. GPU rental futures only started trading on CME in October 2026. Both use contract sizes and account setups built for large firms.</p>
         <p>Beyond that thin frontier, thousands of economically significant variables remain untradeable, despite being objectively measurable and published by credible institutions:</p>
         <ul className='list'>
-        <li>National air travel demand</li><li>Consumer confidence</li><li>Public health and disease surveillance indicators</li><li>Freight congestion and port throughput</li><li>GPU availability and pricing</li><li>Data center utilization</li><li>Electricity and grid load</li>
+        <li>National air travel demand</li><li>Consumer confidence</li><li>Public health and disease surveillance indicators</li><li>Port congestion and throughput</li><li>Construction and development costs</li><li>Data center utilization</li><li>Grid load and local power demand</li>
         </ul>
         <p>These variables influence billions of dollars of business activity every year. Authoritative data on each is published regularly by trusted sources. And yet no standardized market exists to transfer the risk, because the cost of building, listing, and operating a conventional exchange traded product for each one is prohibitive.</p>
         <p>The reason is structural. Traditional markets standardize a risk only when the expected volume justifies the fixed cost of regulatory approval, clearing infrastructure, and market maker incentives. Everything below that threshold, which is to say almost everything, defaults to private negotiation or goes unhedged entirely.</p>
@@ -270,7 +271,7 @@ export default function WhitepaperPage() {
         <p>Anyone can deploy a new risk market. There is no listing committee and no exchange approval.</p>
         <ul className='list'>
         <li>Creation runs through a guided Market Creation Wizard (metric, then trading configuration, then settlement and oracle configuration, then review and deploy), with an AI assistant that validates the metric and suggests a fair starting price.</li>
-        <li>Each market is deployed as its own on-chain Diamond (EIP-2535) proxy with isolated per market storage, so a problem in one market can never affect another.</li>
+        <li>Each market is deployed as its own on-chain Diamond (EIP-2535) proxy with isolated per market storage, so one market's state and positions are kept separate from every other market's.</li>
         <li>All markets share a single global <code>FacetRegistry</code>, so trading and settlement logic can be improved atomically across every market at once, without touching any individual market's funds or positions.</li>
         <li>A creator defines the metric, its canonical public data source (URL), a settlement date (from one day to one year out), a starting price, and descriptive tags. A creation fee and a refundable creator bond keep spam out, and creators earn 20% of the trading fees their market generates, ongoing.</li>
         <li>Creation can be gasless. The creator signs an EIP-712 message and a relayer submits the transaction.</li>
@@ -319,10 +320,10 @@ export default function WhitepaperPage() {
         <li>At the settlement date, trading pauses and a challenge window opens.</li>
         <li>Anyone can propose the final settlement value, with on-chain evidence (for example a screenshot and a Wayback Machine archive of the source, hashed on-chain for immutability).</li>
         <li>Anyone can challenge the proposal by posting a bond.</li>
-        <li>Disputes escalate to UMA's Optimistic Oracle and DVM, where the correct answer is decided by tokenholder vote.</li>
+        <li>Disputes escalate to UMA's Data Verification Mechanism (DVM), where the correct answer is decided by tokenholder vote.</li>
         <li>Once resolved, positions close at the oracle verified settlement price (not the mark price), and the vault pays out PnL, with bad debt haircuts and batch settlement for very large markets.</li>
         </ol>
-        <p>Settlement is optimistic. A proposal is assumed correct unless it is economically worth challenging. Honest settlement therefore happens without constant oracle intervention, while the bond mechanics make dishonest settlement unprofitable. The evidence chain means that even months later, anyone can independently verify that a market resolved correctly.</p>
+        <p>Settlement is optimistic. A proposal stands unless someone challenges it during the window. A successful challenger collects the proposer's bond, so a wrong value is worth challenging and a dishonest proposal loses money. Honest settlement therefore happens without constant oracle intervention. The evidence chain means that even months later, anyone can independently verify that a market resolved correctly.</p>
         <h3 className='sub'><span>4.5</span>How the Pieces Fit Together</h3>
         <p>The lifecycle of a market runs end to end as follows:</p>
         <ol className='steps'>
@@ -377,10 +378,10 @@ export default function WhitepaperPage() {
         <p>Their objective is not profit from the market itself. It is to convert an uncertain future cost or revenue into a known one.</p>
         <h3 className='sub'><span>5.2</span>Natural Counterparties</h3>
         <p>Businesses whose economics move in the opposite direction to a given hedger. When the same move that hurts one company helps another, they are natural counterparties.</p>
-        <p>A data center fears <em>high</em> electricity prices, while a power producer fears <em>low</em> ones. An airline fears <em>high</em> jet fuel prices, while a refiner earns more when they rise. Each side hedges by taking the position the other one needs. Not every exposure has a mirror image. A festival and an airline both lose when travel demand falls, so they sit on the same side, and liquidity providers take the other. When natural counterparties trade against each other, they offset commercial risk <em>and</em> sharpen price discovery, turning what would otherwise be a zero sum speculation into genuine risk transfer between real economic actors.</p>
+        <p>A data center fears <em>high</em> electricity prices, while a power producer fears <em>low</em> ones. An airline fears <em>high</em> jet fuel prices, while a refiner earns more when they rise. Each side hedges by taking the position the other one needs. Not every exposure has a mirror image. A festival and an airline both lose when travel demand falls, so they sit on the same side, and liquidity providers take the other. When natural counterparties trade against each other, they offset commercial risk <em>and</em> sharpen price discovery, Every trade is still zero sum in dollars, but both sides end with less risk than they started with. That is genuine risk transfer between real economic actors, not speculation.</p>
         <h3 className='sub'><span>5.3</span>Liquidity Providers</h3>
         <p>Institutional and individual capital providers who earn returns by supplying liquidity to markets where natural buyers and sellers are temporarily imbalanced. They bridge the timing gaps between hedgers and their natural counterparties, tighten spreads, and are compensated for warehousing risk.</p>
-        <p>For liquidity providers, an on-chain marketplace for risk is a new asset class: a source of returns uncorrelated with traditional markets, accessible without the institutional infrastructure that gates OTC derivatives desks today.</p>
+        <p>For liquidity providers, an on-chain marketplace for risk is a new asset class: returns tied to real economic variables, many of which move independently of stocks and bonds, accessible without the institutional infrastructure that gates OTC derivatives desks today.</p>
         </section>
         <section className='ch' id='onchain'>
         <div className='num'>06 / Why On-Chain Markets Matter</div>
@@ -391,14 +392,14 @@ export default function WhitepaperPage() {
         <p>This lowers the barrier to entry for businesses while increasing transparency and competition in commercial risk transfer. A protocol level comparison makes the shift concrete:</p>
         <div className='tbl'>
         <table className='cmp'>
-        <thead><tr><th>Dimension</th><th>CEX Futures</th><th>Most Perp DEXs</th><th>OTC / Insurance</th><th className='dx'>Dexetera</th></tr></thead>
+        <thead><tr><th>Dimension</th><th>Traditional Futures Exchanges</th><th>Most Perp DEXs</th><th>OTC / Insurance</th><th className='dx'>Dexetera</th></tr></thead>
         <tbody>
         <tr><td>Who can list</td><td>Exchange only</td><td>Team / governance</td><td>Dealer / underwriter</td><td className='dx'>Anyone</td></tr>
         <tr><td>What you can hedge</td><td>A handful of products</td><td>Mostly crypto</td><td>Bespoke, negotiated</td><td className='dx'>Any measurable metric</td></tr>
-        <tr><td>Trading model</td><td>Orderbook</td><td>AMM / mark price</td><td>Private negotiation</td><td className='dx'>On-chain orderbook</td></tr>
-        <tr><td>Access</td><td>Institutional</td><td>Retail crypto</td><td>Relationship gated</td><td className='dx'>Open, global</td></tr>
+        <tr><td>Trading model</td><td>Orderbook</td><td>Orderbook or AMM</td><td>Private negotiation</td><td className='dx'>On-chain orderbook</td></tr>
+        <tr><td>Access</td><td>Through a broker</td><td>Retail crypto</td><td>Relationship gated</td><td className='dx'>Open, global</td></tr>
         <tr><td>Custody</td><td>Custodial</td><td>Non-custodial</td><td>Counterparty balance sheet</td><td className='dx'>Non-custodial (USDC in CoreVault)</td></tr>
-        <tr><td>Settlement</td><td>Centralized</td><td>Mark price / funding</td><td>Counterparty discretion</td><td className='dx'>Optimistic proposal plus UMA DVM</td></tr>
+        <tr><td>Settlement</td><td>Centralized</td><td>No expiry, funding payments</td><td>Counterparty discretion</td><td className='dx'>Optimistic proposal plus UMA DVM</td></tr>
         </tbody>
         </table>
         </div>
@@ -407,7 +408,7 @@ export default function WhitepaperPage() {
         <div className='num'>07 / Long Term Vision</div>
         <h2><span className='g'>If a risk can be measured,</span>it can be traded.</h2>
         <p className='intro'>The long term vision is a world where businesses no longer need bespoke financial products to manage ordinary commercial uncertainty.</p>
-        <p>Any objectively measurable economic variable, from air travel demand to GPU pricing to port throughput, can become a standardized, continuously traded financial market. Businesses gain access to transparent, on demand risk transfer. Liquidity providers gain access to a new asset class. And the economy as a whole becomes more efficient at distributing uncertainty to the participants best able to bear it.</p>
+        <p>Any objectively measurable economic variable, from air travel demand to construction costs to port throughput, can become a standardized, continuously traded financial market. Businesses gain access to transparent, on demand risk transfer. Liquidity providers gain access to a new asset class. And the economy as a whole becomes more efficient at distributing uncertainty to the participants best able to bear it.</p>
         <p>Commercial risk becomes as accessible to hedge as foreign exchange or commodities are today.</p>
         <div className='pull'>The question becomes not "who will let me hedge this?" but simply "what risk do I want to transfer?"</div>
         <div className='cta' style={{justifyContent: 'flex-start', marginTop: '28px'}}>
@@ -418,7 +419,7 @@ export default function WhitepaperPage() {
         <section className='ch' id='links'>
         <div className='num'>08 / Links</div>
         <div className='links'>
-        <a href='https://www.dexetera.xyz'>www.dexetera.xyz<span>Website</span></a>
+        <a href='https://www.dexetera.org'>www.dexetera.org<span>Website</span></a>
         <a href='https://dexetera.xyz'>dexetera.xyz<span>Application</span></a>
         <a href='https://doc.dexetera.org'>doc.dexetera.org<span>Documentation</span></a>
         <a href='https://x.com/dexeteralabs'>@dexeteralabs<span>Twitter</span></a>
