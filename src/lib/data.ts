@@ -45,15 +45,15 @@ export const TICKER: [string, string, number][] = tickerFromExamples();
 
 export const STATS = [
   { label: 'What you can list', value: 'Any', sub: 'PUBLIC NUMBER' },
-  { label: 'Fee per trade', value: '~0.10%', sub: 'VS ~2%' },
+  { label: 'Exit', value: 'Any time', sub: 'ORDER BOOK' },
   { label: 'Settlement', value: 'UMA', sub: 'OPTIMISTIC ORACLE' },
   { label: 'Custody', value: 'Your wallet', sub: 'USDC' },
   { label: 'Gas', value: '$0', sub: 'GASLESS' },
 ];
 
 export const GLASS_STATS = [
-  { v: '0.25 to 1%+', d: "Typical cost hidden in a bank's spread on a bespoke hedge.", x: '~0.10% FEE', tint: 'radial-gradient(circle,color-mix(in srgb,var(--green) 8%,transparent),transparent 70%)' },
-  { v: '~2%', d: 'Typical fee per trade on popular prediction markets.', x: '~0.10% FEE', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
+  { v: '0.25 to 1%+', d: "Typical cost hidden in a bank's spread on a bespoke hedge.", x: 'PRICE ON THE BOOK', tint: 'radial-gradient(circle,color-mix(in srgb,var(--green) 8%,transparent),transparent 70%)' },
+  { v: '~2%', d: 'Typical fee per trade on popular prediction markets.', x: 'SMALL FEE', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
   { v: 'Platform only', d: 'Who decides which new markets get listed on most venues.', x: 'ANYONE LISTS', tint: 'radial-gradient(circle,color-mix(in srgb,var(--green) 8%,transparent),transparent 70%)' },
   { v: 'Institutions', d: "Who gets access to a bank's hedging desk.", x: 'ANYONE TRADES', tint: 'radial-gradient(circle,color-mix(in srgb,var(--blue) 6%,transparent),transparent 70%)' },
 ];
@@ -92,7 +92,7 @@ export const NET_NODES = [
   { id: 'mine', n: 'Miner', d: 'Margin swings with power cost and BTC price.', x: 240, y: 500, wideOnly: true },
   { id: 'air', n: 'Airline', d: 'Fuel is its largest variable cost.', x: 840, y: 80, dtag: 'ONE SIGNATURE' },
   { id: 'fund', n: 'Fund', d: 'Has a credit line and a dealer. Gets a quote.', x: 1060, y: 160, nw: [250, 380], ok: true },
-  { id: 'ret', n: 'Retail trader', d: 'Wants a view on real prices. No access to a desk.', x: 1070, y: 370, nw: [320, 510], tag: 'GEOGRAPHY', dtag: '~0.10% FEE' },
+  { id: 'ret', n: 'Retail trader', d: 'Wants a view on real prices. No access to a desk.', x: 1070, y: 370, nw: [320, 510], tag: 'GEOGRAPHY', dtag: 'SMALL FEE' },
   { id: 'smb', n: 'Small business', d: 'Too small for a bank minimum ticket.', x: 980, y: 510, wideOnly: true, tag: '$ MINIMUMS' },
 ] as const;
 
@@ -146,18 +146,18 @@ export const COMPARE: { f: string; d: string; o: [string, 1 | 0 | -1][] }[] = [
   { f: 'Who can trade', d: 'Anyone', o: [['Some regions', -1], ['Anyone', 1], ['Institutions', -1]] },
   { f: 'Who settles', d: 'Public data + UMA', o: [['The platform', -1], ['Mark price', 0], ['The bank', -1]] },
   { f: 'Who holds funds', d: 'You do', o: [['The platform', -1], ['You do', 1], ['The bank', -1]] },
-  { f: 'Cost to trade', d: '~0.10%', o: [['~2%', -1], ['Varies', 0], ['0.25 to 1%+ spread', -1]] },
+  { f: 'Cost to trade', d: 'Small fee', o: [['~2%', -1], ['Varies', 0], ['0.25 to 1%+ spread', -1]] },
 ];
 
 export const COMPARE_COLS = ['FEATURE', 'DEXETERA', 'PREDICTION MKTS', 'CRYPTO PERPS', 'BANKS'];
 
 // FAQ
 export const FAQ: [string, string][] = [
-  ['How does creating a market work?', 'Describe the number in plain language. The AI wizard turns it into a market, suggests public sources to settle against, and lists it with one signature. The bond and any penalty are shown before you sign. Creators earn 20% of the trading fees their market generates.'],
+  ['How does creating a market work?', 'Describe the number in plain language. The AI wizard turns it into a market, suggests public sources to settle against, and lists it with one signature. The bond and any penalty are shown before you sign. Creators earn a share of the trading fees their market generates.'],
   ['How is a market settled?', 'At expiry the final value is captured from the named public source and a snapshot is saved to archive.org. Anyone can challenge it during the challenge window. Disputes escalate to UMA.'],
   ['What is UMA?', 'UMA runs an optimistic oracle. A proposed value is accepted unless someone disputes it within a set window. Disputed values are resolved by UMA token holders voting on the evidence.'],
   ['Who holds my funds?', "You do. Dexetera is non-custodial. Your USDC stays in your wallet and in the market's smart contracts. Dexetera never takes custody."],
-  ['What does it cost to trade?', 'About 0.10% per trade, with no gas thanks to gasless mode. 20% of that fee goes to the market\'s creator. For comparison, popular prediction markets charge around 2%, and bank hedges hide 0.25 to 1% or more in the spread.'],
+  ['What does it cost to trade?', 'A small fee on every trade, with no gas thanks to gasless mode. Part of that fee goes to the market\'s creator. For comparison, popular prediction markets charge around 2%, and bank hedges hide 0.25 to 1% or more in the spread.'],
   ['What makes a good market?', 'A number that a public source publishes on a regular schedule, that is hard to manipulate, and that has people on both sides who care where it goes.'],
   ['Can I exit before settlement?', 'Yes. Close all or part of a position at any time against the order book. Your P&L is realized at the price you exit.'],
   ['What happens if the data source is disputed?', "Anyone can challenge the proposed final value during the challenge window. The archived snapshot serves as the record, and UMA's oracle makes the final decision."],
