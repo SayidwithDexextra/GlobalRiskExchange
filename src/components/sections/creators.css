@@ -1,4 +1,4 @@
-/* Dexetera "Creators earn 20%" section. Scoped to .dx-cr. Uses the site theme tokens (theme.css). */
+/* Dexetera "Creators earn" section. Scoped to .dx-cr. Uses the site theme tokens (theme.css). */
 .dx-cr{max-width:1344px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 0;box-sizing:border-box;font-family:var(--font-manrope),'Manrope',sans-serif;line-height:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .dx-cr *,.dx-cr *::before,.dx-cr *::after{box-sizing:border-box}
 .dx-cr__card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr)}
