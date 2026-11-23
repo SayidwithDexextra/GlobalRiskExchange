@@ -28,6 +28,17 @@ export const TEAM: TeamMember[] = [
     ],
   },
   {
+    initials: "TC",
+    name: "Terry C.",
+    role: "CHIEF GROWTH OFFICER",
+    photo: "/team/terry.jpg",
+    bio: "Terry has spent more than twenty years selling weather data to the businesses that live and die by it. He was Vice President of Business Development at The Weather Company, then a business unit executive at IBM after it bought the company. He went on to lead North American sales at Meteomatics and catastrophe model sales to insurers and reinsurers at CoreLogic. He runs 3Cweather and 3Cclimate, which help companies in energy, agriculture and real estate manage weather risk. At Dexetera he leads growth, bringing the platform to the weather desks, insurers and businesses that carry this risk.",
+    tags: ["The Weather Company", "IBM", "CoreLogic", "3Cclimate"],
+    links: [
+      { kind: "linkedin", href: "https://www.linkedin.com/in/tcasey44/", label: "Terry Casey on LinkedIn" },
+    ],
+  },
+  {
     initials: "MB",
     name: "Marc B.",
     role: "ADVISOR",
