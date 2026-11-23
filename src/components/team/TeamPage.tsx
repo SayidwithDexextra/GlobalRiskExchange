@@ -8,7 +8,10 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { TEAM, type TeamLink } from "./teamData";
+import { TEAM, type TeamLink, type TeamMember } from "./teamData";
+
+const core = TEAM.filter((p) => p.role !== "INVESTOR");
+const backers = TEAM.filter((p) => p.role === "INVESTOR");
 import "./team.css";
 import "./route.css";
 
@@ -29,6 +32,43 @@ function SocialIcon({ kind }: { kind: TeamLink["kind"] }) {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z" />
     </svg>
+  );
+}
+
+function MemberCard({ p, wide = false }: { p: TeamMember; wide?: boolean }) {
+  return (
+    <article className={wide ? "pc pc-wide" : "pc"}>
+      <div className="pc-media">
+        {p.photo ? (
+          <img src={p.photo} alt={`Photo of ${p.name}`} loading="lazy" />
+        ) : (
+          <span className="pc-mono" aria-hidden="true">{p.initials}</span>
+        )}
+        <div className="pc-id">
+          <span className="role"><i aria-hidden="true" />{p.role}</span>
+          <h2>{p.name}</h2>
+        </div>
+      </div>
+      <div className="pc-body">
+        {p.bio ? <p className="bio">{p.bio}</p> : null}
+        {p.tags.length > 0 || p.links.length > 0 ? (
+          <div className="pc-foot">
+            <div className="tags">
+              {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+            </div>
+            {p.links.length > 0 ? (
+              <div className="soc">
+                {p.links.map((l) => (
+                  <a key={l.href} href={l.href} aria-label={l.label} target="_blank" rel="noopener noreferrer">
+                    <SocialIcon kind={l.kind} />
+                  </a>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    </article>
   );
 }
 
@@ -94,41 +134,16 @@ export default function TeamPage() {
       <div className="wrap">
         <section className="tsec">
           <div className="team">
-            {TEAM.map((p, i) => (
-              <article className={i === TEAM.length - 1 && TEAM.length % 2 === 1 ? "pc pc-solo" : "pc"} key={p.name}>
-                <div className="pc-media">
-                  {p.photo ? (
-                    <img src={p.photo} alt={`Photo of ${p.name}`} loading={i > 1 ? "lazy" : undefined} />
-                  ) : (
-                    <span className="pc-mono" aria-hidden="true">{p.initials}</span>
-                  )}
-                  <div className="pc-id">
-                    <span className="role"><i aria-hidden="true" />{p.role}</span>
-                    <h2>{p.name}</h2>
-                  </div>
-                </div>
-                <div className="pc-body">
-                  {p.bio ? <p className="bio">{p.bio}</p> : null}
-                  {p.tags.length > 0 || p.links.length > 0 ? (
-                    <div className="pc-foot">
-                      <div className="tags">
-                        {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
-                      </div>
-                      {p.links.length > 0 ? (
-                        <div className="soc">
-                          {p.links.map((l) => (
-                            <a key={l.href} href={l.href} aria-label={l.label} target="_blank" rel="noopener noreferrer">
-                              <SocialIcon kind={l.kind} />
-                            </a>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-              </article>
-            ))}
+            {core.map((p) => <MemberCard key={p.name} p={p} />)}
           </div>
+          {backers.length > 0 ? (
+            <>
+              <div className="grp"><span>Backed by</span></div>
+              <div className="team-inv">
+                {backers.map((p) => <MemberCard key={p.name} p={p} wide />)}
+              </div>
+            </>
+          ) : null}
 
           <div className="strip">
             <div>
