@@ -53,7 +53,7 @@ export const TEAM: TeamMember[] = [
     initials: "CH",
     name: "Cyril H.",
     role: "INVESTOR",
-    photo: "/team/cyril.jpg",
+    photo: "/team/cyril-wide.jpg",
     bio: "Cyril helped invent how the internet knows where you are. He founded InfoSplit in 1999, patented core IP geolocation technology still used across the web, and sold the company to Quova in 2004. He went on to build Navizon, one of the first systems to locate phones from Wi-Fi and cell signals rather than GPS, and led Dexetera's friends and family round.",
     tags: ["InfoSplit", "Navizon"],
     links: [
