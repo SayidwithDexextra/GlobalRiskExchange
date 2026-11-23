@@ -96,30 +96,36 @@ export default function TeamPage() {
           <div className="team">
             {TEAM.map((p, i) => (
               <article className={i === TEAM.length - 1 && TEAM.length % 2 === 1 ? "pc pc-solo" : "pc"} key={p.name}>
-                <div className="pc-top">
-                  <div className="ph" aria-hidden="true">
-                    {p.photo ? <img src={p.photo} alt={`Photo of ${p.name}`} /> : p.initials}
-                  </div>
-                  <div>
+                <div className="pc-media">
+                  {p.photo ? (
+                    <img src={p.photo} alt={`Photo of ${p.name}`} loading={i > 1 ? "lazy" : undefined} />
+                  ) : (
+                    <span className="pc-mono" aria-hidden="true">{p.initials}</span>
+                  )}
+                  <div className="pc-id">
+                    <span className="role"><i aria-hidden="true" />{p.role}</span>
                     <h2>{p.name}</h2>
-                    <span className="role">{p.role}</span>
                   </div>
                 </div>
-                {p.bio ? <p className="bio">{p.bio}</p> : null}
-                {p.tags.length > 0 ? (
-                  <div className="tags">
-                    {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
-                  </div>
-                ) : null}
-                {p.links.length > 0 ? (
-                  <div className="soc">
-                    {p.links.map((l) => (
-                      <a key={l.href} href={l.href} aria-label={l.label} target="_blank" rel="noopener noreferrer">
-                        <SocialIcon kind={l.kind} />
-                      </a>
-                    ))}
-                  </div>
-                ) : null}
+                <div className="pc-body">
+                  {p.bio ? <p className="bio">{p.bio}</p> : null}
+                  {p.tags.length > 0 || p.links.length > 0 ? (
+                    <div className="pc-foot">
+                      <div className="tags">
+                        {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+                      </div>
+                      {p.links.length > 0 ? (
+                        <div className="soc">
+                          {p.links.map((l) => (
+                            <a key={l.href} href={l.href} aria-label={l.label} target="_blank" rel="noopener noreferrer">
+                              <SocialIcon kind={l.kind} />
+                            </a>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
               </article>
             ))}
           </div>
